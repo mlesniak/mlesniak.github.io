@@ -6,13 +6,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Dr. Michael Lesniak&#39;s blog</title>
-  <meta name="description" content="This is the homepage of Dr. Michael Lesniak (34119 Kassel, Germany). I'm a software developer with heart and soul, working for [Micromata](http://www.micromata.de) in [Kassel](https://en.wikipedia.org/wiki/Kassel) on different automotive, logistics and health care projects. While I'm specialized on Big Data technologies and SAP HCP I also enjoy all other aspects of software development (architecture, clean code, code quality).
-">
+  <title>Akka-HTTP and SSL connections</title>
+  <meta name="description" content="For a rest-based project I wanted to create an akka-http server with SSL-support. Unfortunately I found only some scattered information, e.g. on Stackoverflo...">
 
   <link href="/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/main.css">
-  <link rel="canonical" href="http://mlesniak.com/">
+  <link rel="canonical" href="http://mlesniak.com/2016/03/06/akka-http-and-ssl.html">
   <link rel="alternate" type="application/rss+xml" title="Dr. Michael Lesniak's blog" href="http://mlesniak.com/feed.xml">
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">   
@@ -55,17 +54,15 @@
 
 
     <div class="container">
-          
-  
-    
-  <!-- <h1> -->
+        <article>
 
+  <!-- <header class="post-header"> -->
+    <h1 >Akka-HTTP and SSL connections</h1>
+    <p class="post-meta"><time datetime="2016-03-06T11:16:49+01:00" itemprop="datePublished">2016-03-06</time></p>
+  <!-- </header> -->
 
-
-    <h1><a class="link-title" href="/2016/03/06/akka-http-and-ssl.html">Akka-HTTP and SSL connections</a></h1>
-    <p class="post-meta"><time datetime="2016-03-06T11:16:49+01:00" itemprop="datePublished">2016-03-06</time>
-
-<div class="entry-content"><p>For a rest-based project I wanted to create an <a href="http://doc.akka.io/docs/akka-stream-and-http-experimental/2.0.3/scala/http/">akka-http</a> server with SSL-support. Unfortunately I found only some scattered information, e.g. on <a href="http://www.stackoverflow.com">Stackoverflow</a>. hence I present this very short but complete tutorial.</p>
+  <div class="post-content" itemprop="articleBody">
+    <p>For a rest-based project I wanted to create an <a href="http://doc.akka.io/docs/akka-stream-and-http-experimental/2.0.3/scala/http/">akka-http</a> server with SSL-support. Unfortunately I found only some scattered information, e.g. on <a href="http://www.stackoverflow.com">Stackoverflow</a>. hence I present this very short but complete tutorial.</p>
 
 <p>First, we generate a self-signed certificate with</p>
 
@@ -113,30 +110,20 @@ Server: akka-http/2.4.2
 </code></pre>
 </div>
 
-</div>
+
+  </div>
+
 
 <nav>
   <ul class="pager">
   	
     <li class="previous"><a  href="/2016/03/06/hello.html"><span class="glyphicon glyphicon-arrow-left"></span> Hello, world</a></li>
     
+    
   </ul>
 </nav>
 
-<!-- <div id="post-nav" class="clearfix">
-   
-   
-</div> -->
-
-<!-- 
-
-Test for GPG signing...
-
-<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Hi</span> <span class="k">extends</span> <span class="nc">App</span> <span class="o">{</span>
-  <span class="c1">// Comment
-</span>  <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world"</span><span class="o">)</span>
-<span class="o">}</span>
-<span class="o">#</span><span class="k">=&gt;</span> <span class="n">prints</span> <span class="ss">'Hi,</span> <span class="nc">Tom</span><span class="o">'</span> <span class="n">to</span> <span class="nc">STDOUT</span><span class="o">.</span></code></pre></figure> -->
+</article>
 
     </div>
 

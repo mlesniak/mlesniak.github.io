@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Dr. Michael Lesniak&#39;s blog</title>
+  <meta name="description" content="This is the homepage of Dr. Michael Lesniak (34119 Kassel, Germany). I'm a software developer with heart and soul, working for [Micromata](http://www.micromata.de) in [Kassel](https://en.wikipedia.org/wiki/Kassel) on different automotive, logistics and health care projects. While I'm specialized on Big Data technologies and SAP HCP I also enjoy all other aspects of software development (architecture, clean code, code quality).
+">
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/main.css">
+  <link rel="canonical" href="http://mlesniak.com/">
+  <link rel="alternate" type="application/rss+xml" title="Dr. Michael Lesniak's blog" href="http://mlesniak.com/feed.xml">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">   
+</head>
+
+
+  <body>
+
+    <nav class="navbar navbar-inverse">
+      <div class="container">
+          <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="/">Dr. Michael Lesniak's blog</a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+              <!--   
+                    <li>
+                      <a class="page-link" href="/about/">About</a>
+                    </li>
+                  
+                    <li>
+                      <a class="page-link" href="/archive/">Archive</a>
+                    </li>
+                   -->
+                  <li><a href="/archive">Archive</a></li>
+              </ul>
+              <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/about">About</a></li>
+              </ul>
+          </div>
+              
+      </div>
+  </nav>
+
+
+    <div class="container">
+          
+  
+    
+  <!-- <h1> -->
+
+
+
+    <h1><a class="link-title" href="/2016/03/06/akka-http-and-ssl.html">Akka-HTTP and SSL connections</a></h1>
+    <p class="post-meta"><time datetime="2016-03-06T11:16:49+01:00" itemprop="datePublished">2016-03-06</time>
+
+<div class="entry-content"><p>For a rest-based project I wanted to create an <a href="http://doc.akka.io/docs/akka-stream-and-http-experimental/2.0.3/scala/http/">akka-http</a> server with SSL-support. Unfortunately I found only some scattered information, e.g. on <a href="http://www.stackoverflow.com">Stackoverflow</a>. hence I present this very short but complete tutorial.</p>
+
+<p>First, we generate a self-signed certificate with</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>keytool -genkey -keyalg RSA -keystore ssl-test-keystore.jks -storepass abcdef -validity 360 -keysize 2048
+</code></pre>
+</div>
+
+<p>which creates a file <code class="highlighter-rouge">ssl-test-keystore.jks</code> which should be put on the classpath.</p>
+
+<p>We start akka-http with the following configuration</p>
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Boot</span> <span class="k">extends</span> <span class="nc">App</span> <span class="o">{</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="n">system</span> <span class="k">=</span> <span class="nc">ActorSystem</span><span class="o">()</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="n">timeout</span> <span class="k">=</span> <span class="nc">Timeout</span><span class="o">(</span><span class="mi">5</span> <span class="n">seconds</span><span class="o">)</span>
+  <span class="k">implicit</span> <span class="k">val</span> <span class="n">materializer</span> <span class="k">=</span> <span class="nc">ActorMaterializer</span><span class="o">()</span>
+
+  <span class="k">val</span> <span class="n">serverContext</span><span class="k">:</span> <span class="kt">HttpsContext</span> <span class="o">=</span> <span class="o">{</span>
+    <span class="k">val</span> <span class="n">password</span> <span class="k">=</span> <span class="s">"abcdef"</span><span class="o">.</span><span class="n">toCharArray</span>
+    <span class="k">val</span> <span class="n">context</span> <span class="k">=</span> <span class="nc">SSLContext</span><span class="o">.</span><span class="n">getInstance</span><span class="o">(</span><span class="s">"TLS"</span><span class="o">)</span>
+    <span class="k">val</span> <span class="n">ks</span> <span class="k">=</span> <span class="nc">KeyStore</span><span class="o">.</span><span class="n">getInstance</span><span class="o">(</span><span class="s">"jks"</span><span class="o">)</span>
+    <span class="n">ks</span><span class="o">.</span><span class="n">load</span><span class="o">(</span><span class="n">getClass</span><span class="o">.</span><span class="n">getClassLoader</span><span class="o">.</span><span class="n">getResourceAsStream</span><span class="o">(</span><span class="s">"ssl-test-keystore.jks"</span><span class="o">),</span> <span class="n">password</span><span class="o">)</span>
+    <span class="k">val</span> <span class="n">keyManagerFactory</span> <span class="k">=</span> <span class="nc">KeyManagerFactory</span><span class="o">.</span><span class="n">getInstance</span><span class="o">(</span><span class="s">"SunX509"</span><span class="o">)</span>
+    <span class="n">keyManagerFactory</span><span class="o">.</span><span class="n">init</span><span class="o">(</span><span class="n">ks</span><span class="o">,</span> <span class="n">password</span><span class="o">)</span>
+    <span class="n">context</span><span class="o">.</span><span class="n">init</span><span class="o">(</span><span class="n">keyManagerFactory</span><span class="o">.</span><span class="n">getKeyManagers</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">new</span> <span class="nc">SecureRandom</span><span class="o">)</span>
+    <span class="nc">HttpsContext</span><span class="o">(</span><span class="n">context</span><span class="o">)</span>
+  <span class="o">}</span>
+
+  <span class="c1">// Arbitrary route definition, not import for this example...
+</span>  <span class="k">val</span> <span class="n">routes</span> <span class="k">=</span> <span class="k">new</span> <span class="nc">RouteDefinition</span><span class="o">().</span><span class="n">route</span>
+  <span class="nc">Http</span><span class="o">().</span><span class="n">bindAndHandle</span><span class="o">(</span><span class="n">routes</span><span class="o">,</span> <span class="n">interface</span> <span class="k">=</span> <span class="s">"0.0.0.0"</span><span class="o">,</span> <span class="n">port</span> <span class="k">=</span> <span class="mi">8443</span><span class="o">,</span> <span class="n">httpsContext</span> <span class="k">=</span> <span class="nc">Some</span><span class="o">(</span><span class="n">serverContext</span><span class="o">))</span></code></pre></figure>
+
+<p>We can test our server with the awesome CLI utility <a href="https://github.com/jkbrzt/httpie">httpie</a> with</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>$ http --verify no https://localhost:8443/api/version
+
+HTTP/1.1 200 OK
+Content-Length: 62
+Content-Type: application/json
+Date: Sun, 06 Mar 2016 11:11:27 GMT
+Server: akka-http/2.4.2
+
+{
+    "version": "1.0-SNAPSHOT (Sun Mar 06 12:11:27 CET 2016)"
+}	
+</code></pre>
+</div>
+
+</div>
+
+<nav>
+  <ul class="pager">
+  	
+    <li class="previous"><a  href="/2016/03/06/hello.html"><span class="glyphicon glyphicon-arrow-left"></span> Hello, world</a></li>
+    
+  </ul>
+</nav>
+
+<!-- <div id="post-nav" class="clearfix">
+   
+   
+</div> -->
+
+<!-- 
+
+Test for GPG signing...
+
+<figure class="highlight"><pre><code class="language-scala" data-lang="scala"><span class="k">object</span> <span class="nc">Hi</span> <span class="k">extends</span> <span class="nc">App</span> <span class="o">{</span>
+  <span class="c1">// Comment
+</span>  <span class="n">println</span><span class="o">(</span><span class="s">"Hello, world"</span><span class="o">)</span>
+<span class="o">}</span>
+<span class="o">#</span><span class="k">=&gt;</span> <span class="n">prints</span> <span class="ss">'Hi,</span> <span class="nc">Tom</span><span class="o">'</span> <span class="n">to</span> <span class="nc">STDOUT</span><span class="o">.</span></code></pre></figure> -->
+
+    </div>
+
+    <footer class="footer">
+  <div class="container">
+    <span class="text-muted">
+        <a href="mailto:mail@mlesniak.com"><i class="fa fa-envelope"></i></a>
+        <a href="https://github.com/mlesniak/"><i class="fa fa-github"></i></a>
+        <a href="https://twitter.com/mlesniak/"><i class="fa fa-twitter"></i></a>
+        <a href="https://www.xing.com/profile/Michael_Lesniak"><i class="fa fa-xing"></i></a>
+        <a href="https://www.facebook.com/michael.lesniak.161"><i class="fa fa-facebook"></i></a>
+        <a href="https://www.reddit.com/user/mlesniak"><i class="fa fa-reddit"></i></a>
+        <a href="https://github.com/mlesniak/mlesniak.com"><i class="fa fa-code"></i></a>
+    </span>
+  </div> 
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" ></script>
+
+  </body>
+
+</html>
+
+
+<!-- github test -->

@@ -1,15 +1,15 @@
 {{ partial "header.html" . }}
 <div class="article-meta">
-<h1><span class="title">{{ .Title }}</span></h1>
-{{ with .Params.author }}<h2 class="author">{{ . }}</h2>{{ end }}
-{{ if .Params.date }}<h2 class="date">{{ .Date.Format "2006/01/02" }}</h2>{{ end }}
-<p class="terms">
-  {{ range $i := (slice "categories" "tags") }}
-  {{ with ($.Param $i) }}
-  {{ $i | title }}: {{ range $k := . }}<a href="{{ relURL (print "/" $i "/" $k | urlize) }}">{{$k}}</a> {{ end }}
-  {{ end }}
-  {{ end }}
-</p>
+  <h1><span class="title">{{ .Title }}</span></h1>
+  {{ with .Params.author }}<h2 class="author">{{ . }}</h2>{{ end }}
+  {{ if .Params.date }}<h2 class="date">{{ .Date.Format "2006/01/02" }}</h2>{{ end }}
+  <p class="terms">
+    {{ range $i := (slice "categories" "tags") }}
+    {{ with ($.Param $i) }}
+    {{ $i | title }}: {{ range $k := . }}<a href="{{ relURL (print "/" $i "/" $k | urlize) }}">{{$k}}</a> {{ end }}
+    {{ end }}
+    {{ end }}
+  </p>
 </div>
 
 {{ if .Params.toc }}
@@ -17,7 +17,21 @@
 {{ end }}
 
 <div class="content">
-{{ .Content }}
+  {{ .Content }}
 </div>
+
+<div id="disqus_thread"></div>
+<script>
+  var disqus_config = function () {
+    this.page.url = 'http://mlesniak.com';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = 'TBD'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+  };
+  (function () { // DON'T EDIT BELOW THIS LINE
+  var d = document, s = d.createElement('script');
+  s.src = 'https://mlesniaks-blog.disqus.com/embed.js';
+  s.setAttribute('data-timestamp', +new Date());
+  (d.head || d.body).appendChild(s);
+})();
+</script>
 
 {{ partial "footer.html" . }}

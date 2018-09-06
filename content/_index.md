@@ -8,7 +8,6 @@ This homepage -- blog -- thingy  is about my adventures in life, thoughts and mu
 
 Things to do:
 
-- Correct menu bar
-- Add my topics of interest
-- Add disqus feature
+- Add my topics of interest and/or motivation
 - Add project list from my GitHub page
+- Clean demo posts

@@ -8,7 +8,6 @@ This homepage (or blog?) is about my adventures in life, thoughts and musing in 
 
 Things to do:
 
+- Add my topics of interest
 - Add disqus feature
 - Add project list from my GitHub page
-
-### Blog posts

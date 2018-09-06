@@ -1,0 +1,144 @@
+body {
+  max-width: 800px;
+  margin: auto;
+  line-height: 1.5em;
+}
+
+/* Table of Contents, if wanted
+
+Add to yaml:
+
+output:
+  blogdown::html_page:
+    toc: true
+
+    */
+
+#TableOfContents, #TOC {
+  border: 1px solid #eee;
+  border-radius: 5px;
+}
+
+/* Header and Footer */
+.menu li { display: inline-block; }
+.article-meta, .menu a {
+  text-decoration: none;
+  background: #D2D6EF;
+  color: #FFF;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.terms { font-size: .9em; }
+.menu, .article-meta, footer { text-align: center; }
+.title { font-size: 1.1em; }
+footer a { text-decoration: none; }
+
+.pull-left {
+    float: left
+}
+.pull-right {
+    float: right
+}
+
+a {
+  color: #613DC1;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Code Boxes */
+pre {
+  border: 1px solid #ddd;
+  box-shadow: 5px 5px 5px #eee;
+  background: #f8f8f8;
+  padding: 1em;
+  overflow-x: auto;
+}
+code { background: #f9f9f9; }
+pre code { background: none; }
+
+/* Images, tables, misc. */
+img, iframe, video { max-width: 100%; }
+main { hyphens: auto; }
+blockquote {
+  background: #f9f9f9;
+  border-left: 5px solid #ccc;
+  padding: 3px 1em 3px;
+}
+
+table {
+  margin: auto;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+table thead th { border-bottom: 1px solid #ddd; }
+th, td { padding: 5px; }
+tr:nth-child(even) { background: #eee }
+
+
+body {
+    max-width: 100%;
+    /* TODO Gray instead of black */
+    color: #1a1a1a;
+}
+
+header ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+header li {
+    float: left;
+}
+
+header li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+header li a:hover  {
+    /* background-color: #111; */
+    text-decoration: none;
+}
+
+header .current  {
+    background-color: #4CAF50;
+}
+
+
+
+.content {
+    max-width: 800px;
+    margin: auto; 
+    padding: .5em;
+}
+
+.content *> li {
+ list-style-type: square;   
+}
+
+.articles {
+  padding: 0;
+}
+
+.articles > li  {
+    list-style-type: none;   
+    padding: 0;
+    margin: 0;
+}
+
+
+#disqus_thread {
+  max-width: 800px;
+  margin: auto;
+}

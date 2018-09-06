@@ -11,3 +11,4 @@ Things to do:
 - Add my topics of interest and/or motivation
 - Add project list from my GitHub page
 - Clean demo posts
+- Deploy on GitHub

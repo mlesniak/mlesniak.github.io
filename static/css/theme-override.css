@@ -1,0 +1,29 @@
+footer { font-size: 90%; font-family: monospace; }
+
+header {
+    background: #2b2b2b;
+    max-width: 100% !important;
+}
+
+header a {
+    color: #fff;
+}
+
+header {
+    
+}
+
+.content {
+    max-width: 800px;
+    margin: auto; 
+    padding: .2em;
+    line-height: 1.5em;
+}
+
+body {
+    max-width: 100%;
+}
+
+html {
+    /* display: inline; */
+}

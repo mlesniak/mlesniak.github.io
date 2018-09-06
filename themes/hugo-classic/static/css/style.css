@@ -51,11 +51,11 @@ a:hover {
 }
 
 /* Adjust background at your leisure! */
-header {
+/* header {
     position: relative;
     width: 100%;
     height: 1.75rem;
-    /* font-family: "Lucida Console" , "Liberation Mono"; */
+    font-family: "Lucida Console" , "Liberation Mono";
     font-size: .875rem;
     background: #613DC1;
     border-bottom: 1px solid #000;
@@ -79,7 +79,7 @@ header a {
 header a:hover,
 header .current a {
     color: #fff
-}
+} */
 
 /* Code Boxes */
 pre {
@@ -117,36 +117,36 @@ body {
     color: #1a1a1a;
 }
 
-header {
-    position: inherit;
-    width: 100%;
-    font-size: .875rem;
-
-    background: #2b2b2b;
-    max-width: 100% !important;
-    height: 60px;
-}
-
-header ul,
-header ol {
+header ul {
+    list-style-type: none;
     margin: 0;
     padding: 0;
-    list-style: none
+    overflow: hidden;
+    background-color: #333;
 }
 
-header nav {
-    padding-top: 15px;
+header li {
+    float: left;
 }
 
-header a {
-    color: #fff;
-    line-height: 1.75rem;
-    padding: 0 1rem
+header li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
-header a:hover,
-header .current a {
-    color: #fff
+
+header li a:hover  {
+    /* background-color: #111; */
+    text-decoration: none;
 }
+
+header .current  {
+    background-color: #4CAF50;
+}
+
+
 
 .content {
     max-width: 800px;

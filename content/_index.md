@@ -12,5 +12,4 @@ Things to do:
 - Add project list from my GitHub page
 - Clean demo posts
 - Not only content creation but active debate
-- Add contact page (with all links / see https://yssource.ddq.space/#projects)
-
+- Gray number (in tags)

@@ -63,7 +63,8 @@ def with_value_from_database(value) self.class.from_database(name, value, type) 
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/post/1/01/01/contact/</guid>
-      <description>Mail Xing LinkedIn Twitter Facebook</description>
+      <description>Interested in discussions? Curious about my other projects? You can contact me on
+ GitHub Email Xing LinkedIn Twitter  </description>
     </item>
     
   </channel>

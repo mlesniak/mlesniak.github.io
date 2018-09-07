@@ -30,4 +30,4 @@ footnotereturnlinkcontents = "↩"
 [params]
     description = "My blog about my life."
     footer = "Open-Source | [Github](https://github.com/goodroot/hugo-classic) | [Twitter](https://twitter.com/thegoodroot)"
-    custom_css = ["css/theme-override.css"]
+    #custom_css = ["css/theme-override.css"]

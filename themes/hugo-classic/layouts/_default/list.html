@@ -1,10 +1,10 @@
 {{ partial "header.html" . }}
 
-{{if not .IsHome }}
-<h1>{{ .Title }}</h1>
-{{ end }}
-
 <div class="content">
+  {{if not .IsHome }}
+  <h1>{{ .Title }}</h1>
+  {{ end }}
+  
   {{ .Content }}
   <h3>Posts</h3>
   <ul class="articles">

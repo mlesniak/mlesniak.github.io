@@ -12,4 +12,3 @@ Things to do:
 - Add project list from my GitHub page
 - Clean demo posts
 - Deploy on GitHub
-- Tags correct width page

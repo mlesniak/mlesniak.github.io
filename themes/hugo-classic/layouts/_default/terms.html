@@ -1,16 +1,18 @@
 {{ partial "header.html" . }}
 
-<h1>{{ .Title }}</h1>
-
-<ul class="terms">
-  {{ range $key, $value := .Data.Terms }}
-  <li>
-    <a href="{{ (print "/" $.Data.Plural "/" (lower $key)) | relURL }}">
-      {{ $key }}
-    </a>
-    ({{ len $value }})
-  </li>
-  {{ end }}
-</ul>
+<div class="content">
+  <h1>{{ .Title }}</h1>
+  
+  <ul class="terms">
+    {{ range $key, $value := .Data.Terms }}
+    <li>
+      <a href="{{ (print "/" $.Data.Plural "/" (lower $key)) | relURL }}">
+        {{ $key }}
+      </a>
+      ({{ len $value }})
+    </li>
+    {{ end }}
+  </ul>
+</div>
 
 {{ partial "footer.html" . }}

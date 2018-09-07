@@ -9,7 +9,7 @@
       <a href="{{ (print "/" $.Data.Plural "/" (lower $key)) | relURL }}">
         {{ $key }}
       </a>
-      ({{ len $value }})
+      <span class="number">({{ len $value }})</span>
     </li>
     {{ end }}
   </ul>

@@ -142,6 +142,7 @@ header .current  {
   margin: auto;
 }
 
+.number,
 .date {
   color: gray;
 }

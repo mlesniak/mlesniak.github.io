@@ -13,3 +13,4 @@ Things to do:
 - Clean demo posts
 - Fix domain name
 - Disqus site id
+- Add demo pre-commit hook

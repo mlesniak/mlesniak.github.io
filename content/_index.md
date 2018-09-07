@@ -10,7 +10,6 @@ Things to do:
 
 - Add my topics of interest and/or motivation
 - Add project list from my GitHub page
-- Style single page (header)
 - Clean demo posts
-- CSS for pre/code?
+- Add syntax highlighting for code
 - Fix domain name

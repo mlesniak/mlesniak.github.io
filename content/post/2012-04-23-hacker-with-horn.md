@@ -1,6 +1,6 @@
 ---
 title: Hacker with Bullhorn
-author: Open-Source
+# author: Open-Source
 date: '2012-04-23'
 categories:
   - Bullhorn

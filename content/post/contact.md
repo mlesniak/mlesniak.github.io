@@ -2,7 +2,7 @@
 title: Contact
 ---
 
-Interested in discussions? Curious about my other projects? You can contact me on
+Interested in discussions? Curious about my other projects? Simply use one of the following channels to get in touch with me...
 
 - [GitHub](https://github.com/mlesniak)</li>
 - [Email](mailto:mail@mlesniak.com)</li>

@@ -11,5 +11,6 @@ Things to do:
 - Add my topics of interest and/or motivation
 - Add project list from my GitHub page
 - Clean demo posts
-- Add syntax highlighting for code
-- Fix domain name
+- Not only content creation but active debate
+- Add contact page (with all links / see https://yssource.ddq.space/#projects)
+

@@ -12,7 +12,7 @@ footnotereturnlinkcontents = "↩"
     post = "/post/:year/:month/:day/:slug/"
 
 [[menu.main]]
-    name = "Home"
+    name = "mlesniak.com"
     url = "/"
     weight = 1
 #[[menu.main]]

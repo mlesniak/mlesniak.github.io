@@ -57,5 +57,14 @@ Buyer: &amp;ldquo;But this dealership has mechanics on staff.</description>
 def with_value_from_database(value) self.class.from_database(name, value, type) end def with_cast_value(value) self.class.with_cast_value(name, value, type) end def with_type(type) if changed_in_place? with_value_from_user(value).with_type(type) else self.class.new(name, value_before_type_cast, type, original_attribute) end end  </description>
     </item>
     
+    <item>
+      <title>Contact</title>
+      <link>/post/1/01/01/contact/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/post/1/01/01/contact/</guid>
+      <description>Mail Xing LinkedIn Twitter Facebook</description>
+    </item>
+    
   </channel>
 </rss>

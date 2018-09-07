@@ -24,8 +24,13 @@ footnotereturnlinkcontents = "↩"
     url = "/tags/"
     weight = 3
 [[menu.feed]]
+    name = "Contact"
+    url = "/post/1/01/01/contact/index.html"
+    weight = 4
+[[menu.feed]]
     name = "Feed"
     url = "/index.xml"
+    weight = 5
 
 [params]
     description = "My blog about my life."

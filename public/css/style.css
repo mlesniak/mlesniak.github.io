@@ -1,7 +1,16 @@
 body {
-  max-width: 800px;
+  /* max-width: 800px; */
+  max-width: 100%;
   margin: auto;
   line-height: 1.5em;
+
+  color: #555;
+}
+
+h1,
+h2,
+strong {
+  color: #333;
 }
 
 /* Table of Contents, if wanted
@@ -42,7 +51,8 @@ footer a { text-decoration: none; }
 }
 
 a {
-  color: #613DC1;
+  /* color: #e81c4f; */
+  color: #4CAF50;
   text-decoration: none;
 }
 
@@ -80,11 +90,11 @@ th, td { padding: 5px; }
 tr:nth-child(even) { background: #eee }
 
 
-body {
+/* body {
     max-width: 100%;
     /* TODO Gray instead of black */
-    color: #1a1a1a;
-}
+    /* color: #1a1a1a; */
+/* } */ 
 
 header ul {
     list-style-type: none;

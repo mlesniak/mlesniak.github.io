@@ -8,8 +8,8 @@ This homepage -- blog -- thingy  is about my adventures in life, thoughts and mu
 
 Things to do:
 
+- Title in menu bar???
 - Add my topics of interest and/or motivation
-- Add project list from my GitHub page
+    - Not only content creation but active debate
 - Clean demo posts
-- Not only content creation but active debate
-- 4 Minute website for improvements?
+- Add project list from my GitHub page

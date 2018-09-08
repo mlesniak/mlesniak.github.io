@@ -8,8 +8,7 @@ This homepage -- blog -- thingy  is about my adventures in life, thoughts and mu
 
 Things to do:
 
-- correct alignment of articles with dates
-- Title in menu bar???
+- remove contact from contact list
 - Add my topics of interest and/or motivation
     - Not only content creation but active debate
 - Clean demo posts

@@ -8,10 +8,10 @@
   {{ .Content }}
   <h3>Articles</h3>
   <ul class="articles">
-    {{ range (where .Data.Pages "Section" "!=" "") }}
+    {{ range (where .Data.Pages "Section" "!=" "")}}
     <li>
-      <span class="date">{{ .Date.Format "2006-01-02" }}</span>
       <a href="{{ .URL }}">{{ .Title }}</a>
+      (<span class="date">{{ .Date.Format "2006-01-02" }}</span>)
     </li>
     {{ end }}
   </ul>

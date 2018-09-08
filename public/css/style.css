@@ -33,10 +33,6 @@ toc: true
 .menu li { display: inline-block; }
 .article-meta, .menu a {
   text-decoration: none;
-  /* background: #D2D6EF; */
-  /* color: #FFF; */
-  /* padding: 5px; */
-  /* border-radius: 5px; */
 }
 
 .terms { font-size: .9em; }
@@ -100,7 +96,6 @@ header ul {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  /* background-color: #333; */
 }
 
 header li {
@@ -111,16 +106,7 @@ header li a {
   display: block;
   color: #333;
   text-align: center;
-  /* padding: 14px 16px 0px 0px; */
-  /* color: #4CAF50; */
   color: #009900;
-  /* text-decoration: none; */
-}
-
-.content {
-  /* max-width: 800px; */
-  /* margin: auto;  */
-  /* padding: .5em; */
 }
 
 .content *> li {
@@ -129,16 +115,14 @@ header li a {
 
 .articles {
   padding: 0;
+  margin-top: -10px;
 }
 
 .articles > li  {
   list-style-type: none;   
-  padding: 0;
-  margin: 0;
 }
 
 #disqus_thread {
-  /* max-width: 800px; */
   margin: auto;
 }
 

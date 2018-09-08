@@ -1,5 +1,6 @@
 ---
 title: Contact
+listed: "false"
 ---
 
 Interested in discussions? Curious about my other projects? Simply use one of the following channels to get in touch with me...

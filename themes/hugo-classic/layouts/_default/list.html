@@ -9,10 +9,12 @@
   <h3>Articles</h3>
   <ul class="articles">
     {{ range (where .Data.Pages "Section" "!=" "")}}
+    {{ if not (eq .Params.Listed "false") }}
     <li>
       <a href="{{ .URL }}">{{ .Title }}</a>
       (<span class="date">{{ .Date.Format "2006-01-02" }}</span>)
     </li>
+    {{ end }}
     {{ end }}
   </ul>
 </div>

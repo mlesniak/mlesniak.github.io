@@ -17,7 +17,8 @@
       <pubDate>Sat, 01 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/2018/09/01/a-curated-list-of-my-github-projects/</guid>
-      <description>One of my philosophies is release early, make a fool of yourself quickly, improve and iterate. Hence I put many of my smaller and larger projects on GitHub. To be honest, most of them are left in an unfinished state: after I&amp;rsquo;ve solved the challenging problem, the project is mostly left for future reference. Some projects which are particularly interesting are listed below:</description>
+      <description>One of my philosophies is release early, make a fool of yourself quickly, improve and iterate. Hence I put many of my smaller and larger projects on GitHub. To be honest, most of them are left in an unfinished state: after I&amp;rsquo;ve solved the challenging problem, the project is mostly left for future reference. Some projects which are particularly interesting are listed below:
+ port-scanner is a port-scanner written in Go and one of the first non-toy Go projects I&amp;rsquo;ve written.</description>
     </item>
     
     <item>

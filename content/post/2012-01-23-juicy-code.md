@@ -1,6 +1,5 @@
 ---
 title: Juicy Code
-author: Open Source
 date: '2012-01-23'
 categories:
   - Code

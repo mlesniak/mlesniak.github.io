@@ -8,7 +8,7 @@ This homepage -- blog -- thingy  is about my adventures in life, thoughts and mu
 
 Things to do:
 
-- Redesign -- why not
+- correct alignment of articles with dates
 - Title in menu bar???
 - Add my topics of interest and/or motivation
     - Not only content creation but active debate

@@ -6,7 +6,7 @@
   {{ end }}
   
   {{ .Content }}
-  <h3>Posts</h3>
+  <h3>Articles</h3>
   <ul class="articles">
     {{ range (where .Data.Pages "Section" "!=" "") }}
     <li>

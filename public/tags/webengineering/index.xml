@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>mlesniak.com</title>
-    <link>/</link>
-    <description>Recent content on mlesniak.com</description>
+    <title>Webengineering on mlesniak.com</title>
+    <link>/tags/webengineering/</link>
+    <description>Recent content in Webengineering on mlesniak.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 01 Sep 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/webengineering/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,16 +19,6 @@
       <guid>/post/2018/09/01/a-curated-list-of-my-github-projects/</guid>
       <description>One of my philosophies is release early, make a fool of yourself quickly, improve and iterate. Hence I put many of my smaller and larger projects on GitHub. To be honest, most of them are left in an unfinished state: after I&amp;rsquo;ve solved the challenging problem, the project is mostly left for future reference. Some projects which are particularly interesting are listed below:
  port-scanner is a port-scanner written in Go and one of the first non-toy Go projects I&amp;rsquo;ve written.</description>
-    </item>
-    
-    <item>
-      <title>Contact</title>
-      <link>/post/1/01/01/contact/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/post/1/01/01/contact/</guid>
-      <description>Interested in discussions? Curious about my other projects? Simply use one of the following channels to get in touch with me&amp;hellip;
- GitHub Email Xing LinkedIn Twitter  </description>
     </item>
     
   </channel>

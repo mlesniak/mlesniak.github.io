@@ -1,6 +1,7 @@
 ---
 title: Contact
 listed: "false"
+disqus: "false"
 ---
 
 Interested in discussions? Curious about my other projects? Simply use one of the following channels to get in touch with me...

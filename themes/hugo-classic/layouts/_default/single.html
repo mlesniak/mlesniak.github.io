@@ -20,7 +20,7 @@
     {{ .Content }}
   </div>
   
-  {{ if not (eq .Params.Disqus "false") }}
+  {{ if and (not (eq .Params.Disqus "false")) (not .Draft) }}
   <div id="disqus_thread"></div>
   <script>
     var disqus_config = function () {

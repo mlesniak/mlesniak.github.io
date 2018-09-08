@@ -1,13 +1,3 @@
----
-title: mlesniak.com
----
-
 # Welcome
 
-This homepage -- blog -- thingy  is about my adventures in life, thoughts and musing in software development and all things which interest me.
-
-Things to do:
-
-- Add my topics of interest and/or motivation
-    - Not only content creation but active debate
-- Add project list from my GitHub page
+This site is about my different hobbies and interests. While it is mostly focused on interesting aspects of software engineering and development I might also cover my random thoughts on life philosophy, books etc. I primary write these articles for me, to reflect on ideas, thoughts and approaches: by forcing me to structure my ideas in a written form I can more easily reflect upon them and let them be challenged by the developer community.

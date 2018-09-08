@@ -10,5 +10,4 @@ Things to do:
 
 - Add my topics of interest and/or motivation
     - Not only content creation but active debate
-- Clean demo posts
 - Add project list from my GitHub page

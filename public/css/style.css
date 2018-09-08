@@ -134,7 +134,8 @@ header li a {
 }
 
 .number,
-.date {
+.date,
+.terms  {
   color: gray;
 }
 

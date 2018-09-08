@@ -6,20 +6,20 @@
   {{ end }}
   
   {{ .Content }}
-
-  <!-- {{ if gt (len .Data.Pages) 1 }} -->
+  
+  {{if  .IsHome }}
   <h3>Articles</h3>
+  {{ end }}
   <ul class="articles">
-    <!-- {{ range (where .Data.Pages "Section" "!=" "")}} -->
-    <!-- {{ if not (eq .Params.Listed "false") }} -->
+    {{ range (where .Data.Pages "Section" "!=" "")}}
+    {{ if not (eq .Params.Listed "false") }}
     <li>
       <a href="{{ .URL }}">{{ .Title }}</a>
       (<span class="date">{{ .Date.Format "2006-01-02" }}</span>)
     </li>
-    <!-- {{ end }} -->
-    <!-- {{ end }} -->
+    {{ end }}
+    {{ end }}
   </ul>
-  <!-- {{ end }} -->
 </div>
 
 {{ partial "footer.html" . }}

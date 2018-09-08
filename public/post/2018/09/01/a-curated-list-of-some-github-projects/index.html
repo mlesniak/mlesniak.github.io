@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>A curated list of some GitHub projects | mlesniak.com</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      
+      
+      
+      <li class="pull-left ">
+        <a href="/">mlesniak.com</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">tags</a>
+      </li>
+      
+
+      
+      
+        <li class="pull-right ">
+        <a href="/index.xml">feed</a>
+      </li>
+      
+      
+        <li class="pull-right ">
+        <a href="/post/1/01/01/contact/index.html">contact</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+  <h1><span class="title">A curated list of some GitHub projects</span></h1>
+  
+  
+    
+    </p>
+  </div>
+  
+  
+  
+  <div class="content">
+    <p>One of my philosophies is <em>release early, make a fool of yourself quickly, improve and iterate</em>. Hence I put many of my smaller and larger projects on <a href="https://github.com/mlesniak?tab=repositories">GitHub</a>. To be honest, most of them are left in an unfinished state: after I&rsquo;ve solved the challenging problem, the project is mostly left for future reference. Some projects which are particularly interesting are listed below:</p>
+
+<ul>
+<li><p><a href="https://github.com/mlesniak/port-scanner">port-scanner</a> is a port-scanner written in Go and one of the first non-toy Go projects I&rsquo;ve written. In particular, it has a decent documentation, travis integration and GitHub&rsquo;s code of conduct. I use it nearly daily since having a single static binary which can easily be copied into a running docker container for debugging and port examination is quite handy.</p>
+
+<pre><code class="language-shell"># port-scanner -hostname mlesniak.com -parallel 20 -port 75-85 -timeout 1
+PORT      STATUS  SERVICE
+75/tcp    closed
+76/tcp    closed  deos
+77/tcp    closed
+78/tcp    closed  vettcp
+79/tcp    closed  finger
+80/tcp    open    www-http
+81/tcp    closed
+82/tcp    closed  xfer
+83/tcp    closed  mit-ml-dev
+84/tcp    closed  ctf
+85/tcp    closed  mit-ml-dev
+</code></pre></li>
+
+<li><p>I really like to play around with visual algorithms. They provide instantaneous feedback which is often lost in today&rsquo;s software development. The JavaScript implementation of <a href="https://processing.org/">processing</a>, <a href="https://p5js.org/">p5.js</a> serves as a great basis for these experiments which are partially extended from miscellaneous <a href="https://www.youtube.com/channel/UCvjgXvBlbQiydffZU7m1_aw">demos</a>. You can find <a href="https://github.com/mlesniak/starfield">starfields</a>, <a href="https://github.com/mlesniak/conway">conway&rsquo;s game of life</a>, or a <a href="https://github.com/mlesniak/matrix">matrix</a> titlescreen simulation.</p></li>
+
+<li><p><a href="https://github.com/mlesniak/raytracer">Java raytracer</a> is a simple raytracer written in Java, supporting a simple animation system, a realtime view, shadows and gouraud shading. This project can serve as the fundament for your own raytracer experiments.</p></li>
+
+<li><p><a href="https://github.com/mlesniak/game">Haskell OpenGL demo</a> was developed as part of my PhD studies and served as an example for my students that real world applications were possible with Haskell. It shows how to use Haskell with an OpenGL wrapper and integrate a simple 2D physics engine.</p></li>
+
+<li><p>From time to time I conduct lectures about web-engineering at the University of Kassel which can be taken as part of a Master&rsquo;s degree in computer science. The code to all examples can be found <a href="https://github.com/micromata/webengineering-2015-ss">here</a> for summer semester 2015 and <a href="https://github.com/micromata/webengineering-2017">here</a> for summer semester 2017.</p></li>
+</ul>
+
+  </div>
+  
+  
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://mlesniak.com/\/post\/2018\/09\/01\/a-curated-list-of-some-github-projects\/";  
+      
+    };
+    (function () { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://mlesniaks-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      
+      
+      
+    </footer>
+  </body>
+</html>
+

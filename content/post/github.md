@@ -1,5 +1,5 @@
 ---
-title: 'A curated list of my GitHub projects'
+title: 'A curated list of some GitHub projects'
 date: '2018-09-01'
 draft: false
 tags: 

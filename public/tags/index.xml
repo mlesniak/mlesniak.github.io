@@ -66,11 +66,29 @@
     </item>
     
     <item>
+      <title>Shell</title>
+      <link>/tags/shell/</link>
+      <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/shell/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Webengineering</title>
       <link>/tags/webengineering/</link>
       <pubDate>Sat, 01 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/webengineering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Zsh</title>
+      <link>/tags/zsh/</link>
+      <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/zsh/</guid>
       <description></description>
     </item>
     

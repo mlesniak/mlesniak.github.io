@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shortcut Links in zsh | mlesniak.com</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      
+      
+      
+      <li class="pull-left ">
+        <a href="/">mlesniak.com</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">tags</a>
+      </li>
+      
+
+      
+      
+        <li class="pull-right ">
+        <a href="/index.xml">feed</a>
+      </li>
+      
+      
+        <li class="pull-right ">
+        <a href="/post/1/01/01/contact/index.html">contact</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+  <h1><span class="title">Shortcut Links in zsh</span></h1>
+  
+  
+    
+    </p>
+  </div>
+  
+  
+  
+  <div class="content">
+    <p>ZSH is my favourite shell, and while it comes with a lot of features out of the box and is even more powerful with <a href="https://github.com/robbyrussell/oh-my-zsh">oh-my-zsh</a> that does not mean that my daily workflow can not be improved even more. A situation I&rsquo;m facing often is to switch between multiple directories. While the autojump plugin exists I have to admit that I dislike to type the necessary prefix. Hence, the shell function <code>link</code> was created:</p>
+
+<pre><code class="language-sh">function link() {
+  if [ -z &quot;$1&quot; ]
+  then
+    target=$(basename `pwd|tr &quot;[A-Z]&quot; &quot;[a-z]&quot;`)
+  else
+    target=$1
+  fi
+  echo &quot;alias $target='cd $(pwd)'&quot; &gt;&gt;~/.zshrc
+}
+</code></pre>
+
+<p>Append it in your <code>~/.zshrc</code> and use it as follows:</p>
+
+<p><img src="/images/link.gif" alt="animation" /></p>
+
+<p>If you do not provide a command line argument, the directory&rsquo;s name will be used. Otherwise the given argument is chosen for the alias. Do not forget to reload your shell configuration if you want to try this in your current session.</p>
+
+  </div>
+  
+  
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://mlesniak.com/\/post\/2018\/09\/03\/shortcut-links-in-zsh\/";  
+      
+    };
+    (function () { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://mlesniaks-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      
+      
+      
+    </footer>
+  </body>
+</html>
+

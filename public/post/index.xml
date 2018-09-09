@@ -6,10 +6,19 @@
     <description>Recent content in Posts on mlesniak.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 01 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 03 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Shortcut Links in zsh</title>
+      <link>/post/2018/09/03/shortcut-links-in-zsh/</link>
+      <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/03/shortcut-links-in-zsh/</guid>
+      <description>ZSH is my favourite shell, and while it comes with a lot of features out of the box and is even more powerful with oh-my-zsh that does not mean that my daily workflow can not be improved even more. A situation I&amp;rsquo;m facing often is to switch between multiple directories. While the autojump plugin exists I have to admit that I dislike to type the necessary prefix. Hence, the shell function link was created:</description>
+    </item>
     
     <item>
       <title>A curated list of some GitHub projects</title>

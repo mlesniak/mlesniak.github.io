@@ -26,3 +26,9 @@ Append it in your `~/.zshrc` and use it as follows:
 ![animation](/images/link.gif)
 
 If you do not provide a command line argument, the directory's name will be used. Otherwise the given argument is chosen for the alias. Do not forget to reload your shell configuration if you want to try this in your current session.
+
+**Update 2018-09-10** Reddit user [wjv](https://www.reddit.com/user/wjv) stated that a better approach might be to use zsh's directory hash ([link](https://www.reddit.com/r/zsh/comments/9eklqu/shortcut_links_in_zsh/e5pq0vn/****)), i. e. 
+
+    hash -d beautiful="~/very/long/name/for/something/Beautiful”
+
+While this approach uses zsh internals, it does not work as well for me since I have to type the ~ character which is not easily reachable on my keyboard layout. 

@@ -9,7 +9,7 @@ tags:
     - sound
 ---
 
-As part of my ongoing project to write a Go program to recognize different guitar chords and get a better understanding of sound processing, a first milestone has been reached: recording a raw sound sample in Go. In this article I'll walk through the source code to record sounds using a wrapper for [PortAudio](TODO) and visualize the recorded sample in gnuplot. The whole source code for this blog post can be found in the corresponding [GitHub repository](TODO-with-tag).
+As part of my ongoing project to write a Go program to recognize different guitar chords and get a better understanding of sound processing, a first milestone has been reached: recording a raw sound sample in Go. In this article I'll walk through the source code to record sounds using a wrapper for [PortAudio](http://www.portaudio.com/) and visualize the recorded sample in gnuplot. The whole source code for this blog post can be found in the corresponding [GitHub repository](https://github.com/mlesniak/go-guitar/tree/record-sound).
 
 We start with some boilterplate initialization, in particular we import the Go port of the PortAudio library.
 

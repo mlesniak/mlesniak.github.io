@@ -102,7 +102,7 @@ import (
     defer f.Close()
 </code></pre>
 
-<p>For my readers not familiar in Go: Note the idiomatic use of <code>defer</code> which is a kind of <code>finally</code>-construct in languages like Java.</p>
+<p>For my readers not familiar with Go: Note the idiomatic use of <code>defer</code> which is a kind of <code>finally</code>-construct in languages like Java.</p>
 
 <p>After these initializations we can finally process audio data. Given our buffer size of 1024 and a <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)#Sampling_rate">sampling rate</a> of 8192 samples per second, our buffer will be filled 8192 / 1024 = 8 times per second:</p>
 

@@ -49,7 +49,7 @@ Before we actually start processing sampling data, we have to initialize the lib
     f, _ := os.Create("out.csv")
     defer f.Close()
 ~~~
-For my readers not familiar in Go: Note the idiomatic use of `defer` which is a kind of `finally`-construct in languages like Java.
+For my readers not familiar with Go: Note the idiomatic use of `defer` which is a kind of `finally`-construct in languages like Java.
 
 After these initializations we can finally process audio data. Given our buffer size of 1024 and a [sampling rate](https://en.wikipedia.org/wiki/Sampling_(signal_processing)#Sampling_rate) of 8192 samples per second, our buffer will be filled 8192 / 1024 = 8 times per second:
 

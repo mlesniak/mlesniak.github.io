@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Go Guitar // Record Sound | mlesniak.com</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      
+      
+      
+      <li class="pull-left ">
+        <a href="/">mlesniak.com</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">tags</a>
+      </li>
+      
+
+      
+      
+        <li class="pull-right ">
+        <a href="/index.xml">feed</a>
+      </li>
+      
+      
+        <li class="pull-right ">
+        <a href="/post/1/01/01/contact/index.html">contact</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+  <h1><span class="title">Go Guitar // Record Sound</span></h1>
+  
+  
+    
+    </p>
+  </div>
+  
+  
+  
+  <div class="content">
+    <p>As part of my ongoing project to write a Go program to recognize different guitar chords and get a better understanding of sound processing, a first milestone has been reached: recording a raw sound sample in Go. In this article I&rsquo;ll walk through the source code to record sounds using a wrapper for <a href="TODO">PortAudio</a> and visualize the recorded sample in gnuplot. The whole source code for this blog post can be found in the corresponding <a href="TODO-with-tag">GitHub repository</a>.</p>
+
+<p>We start with some boilterplate initialization, in particular we import the Go port of the PortAudio library.</p>
+
+<pre><code class="language-golang">package main
+
+import (
+    &quot;bytes&quot;
+    &quot;fmt&quot;
+    &quot;github.com/gordonklaus/portaudio&quot;
+    &quot;os&quot;
+    &quot;os/signal&quot;
+)
+</code></pre>
+
+<p>In a Go example (which source I unfortunately can&rsquo;t remember) I saw this pattern to handle  CTRL+C in a running program using channels: We create a signal handler which is notified if SIGHUP or SIGKILL is received and stores a value in the newly created channel:</p>
+
+<pre><code class="language-golang">func main() {
+    sig := make(chan os.Signal, 1)
+    signal.Notify(sig, os.Interrupt, os.Kill)
+    fmt.Println(&quot;Starting recording, press CTRL+C to abort.&quot;)
+</code></pre>
+
+<p>Before we actually start processing sampling data, we have to initialize the library, prepare the data buffer and create the output file:</p>
+
+<pre><code class="language-golang">    // Initialize library.
+    portaudio.Initialize()
+    defer portaudio.Terminate()
+
+    // Create buffer for sampling data and open the stream.
+    in := make([]int32, 1024)
+    stream, err := portaudio.OpenDefaultStream(1, 0, 8192, len(in), in)
+    check(err)
+    defer stream.Close()
+
+    // Create file to store data.
+    f, _ := os.Create(&quot;out.csv&quot;)
+    defer f.Close()
+</code></pre>
+
+<p>For my readers not familiar in Go: Note the idiomatic use of <code>defer</code> which is a kind of <code>finally</code>-construct in languages like Java.</p>
+
+<p>After these initializations we can finally process audio data. Given our buffer size of 1024 and a <a href="https://en.wikipedia.org/wiki/Sampling_(signal_processing)#Sampling_rate">sampling rate</a> of 8192 samples per second, our buffer will be filled 8192 / 1024 = 8 times per second:</p>
+
+<pre><code class="language-golang">    // Read sampleRate/len(in) samples per second.
+    sampleN := 0
+    check(stream.Start())
+    for {
+        check(stream.Read())
+
+        // Create the CSV values for this sample and store them in file.
+        buffer := new(bytes.Buffer)
+        for i, v := range in {
+            pos := sampleN*len(in) + i
+            buffer.WriteString(fmt.Sprintf(&quot;%d,%d\n&quot;, pos, v))
+        }
+        f.WriteString(buffer.String())
+        fmt.Println(&quot;#samples&quot;, sampleN)
+
+        // Check if we should exit?
+        select {
+        case &lt;-sig:
+            return
+        default:
+        }
+
+        sampleN += 1
+    }
+    check(stream.Stop())
+</code></pre>
+
+<p>The function <code>check</code> is a simple helper function to panic on any error, i.e.</p>
+
+<pre><code class="language-golang">func check(err error) {
+    if err != nil {
+        panic(err)
+    }
+}
+</code></pre>
+
+<p>If we build and execute our code with</p>
+
+<pre><code class="language-shell">$ go get
+$ go run main.go
+Starting recording, press CTRL+C to abort.
+#samples 0
+#samples 1
+#samples 2
+#samples 3
+#samples 4
+#samples 5
+#samples 6
+#samples 7
+#samples 8
+#samples 9
+#samples 10
+#samples 11
+#samples 12
+#samples 13
+#samples 14
+#samples 15
+#samples 16
+#samples 17
+#samples 18
+#samples 19
+#samples 20
+#samples 21
+#samples 22
+#samples 23
+^C
+</code></pre>
+
+<p>a CSV file <code>out.csv</code> will be generated. Each line contains a single sample of a 8192 chunk of recorded audio data, e.g.</p>
+
+<pre><code class="language-shell">$  head -n 1000 out.csv|tail -n 10
+990,-12791
+991,-29494
+992,-105842
+993,-104340
+994,28916
+995,-119700
+996,-62232
+997,-75329
+998,-25189
+999,-176888
+</code></pre>
+
+<p>We can visualize the recording of me saying <em>Hello, Hello</em> with gnuplot by executing</p>
+
+<pre><code>$ gnuplot
+set datafile separator &quot;,&quot;
+set grid
+set yrange [-1e+9:1e+9]
+plot 'out.csv'
+</code></pre>
+
+<p><img src="/images/hello-sample.png" alt="hello audio sampling" /></p>
+
+<p><strong>Next steps:</strong> To gain a deeper understanding of sound I&rsquo;d like to understand the physical nature of sound waves better. Afterwards I&rsquo;ll tackle real-time visualization of recorded sound data in Go before I finally try the recognition of guitar chords.</p>
+
+  </div>
+  
+  
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://mlesniak.com/\/post\/2018\/09\/11\/go-guitar-\/-record-sound\/";  
+      
+    };
+    (function () { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://mlesniaks-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      
+      
+      
+    </footer>
+  </body>
+</html>
+

@@ -6,10 +6,19 @@
     <description>Recent content in Posts on mlesniak.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 11 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go Guitar // Record Sound</title>
+      <link>/post/2018/09/11/go-guitar-/-record-sound/</link>
+      <pubDate>Tue, 11 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/11/go-guitar-/-record-sound/</guid>
+      <description>As part of my ongoing project to write a Go program to recognize different guitar chords and get a better understanding of sound processing, a first milestone has been reached: recording a raw sound sample in Go. In this article I&amp;rsquo;ll walk through the source code to record sounds using a wrapper for PortAudio and visualize the recorded sample in gnuplot. The whole source code for this blog post can be found in the corresponding GitHub repository.</description>
+    </item>
     
     <item>
       <title>Shortcut Links in zsh</title>

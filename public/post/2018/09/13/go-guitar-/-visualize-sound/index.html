@@ -135,7 +135,31 @@ const heightFactor = height / float32(maxAmplitude)
 
 <p>While we are somehow wasteful since we draw multiple samples into one pixel due to rounding in the assingment of <code>x := ...</code>, this approach is rather fast and sufficient for a first step.</p>
 
-<p>The function <code>checkexit</code> polls for events from SDL as well as listening for CTRL+C from the commandline. Note that if you simple omit the check for events in SDL, your window title and the corresponding controls are not shown &ndash; this took me a long time to debug, since it&rsquo;s rather unintuitive.</p>
+<p>The function <code>checkexit</code> polls for events from SDL as well as listening for CTRL+C from the commandline. Note that if you simple omit the check for events in SDL, your window title and the corresponding controls are not shown &ndash; this took me a long time to debug, since it&rsquo;s rather unintuitive:</p>
+
+<pre><code class="language-golang">func checkForExit(sig chan os.Signal) bool {
+    // See https://stackoverflow.com/questions/39637824/border-titlebar-not-properly-displaying-in-sdl-osx
+    var event sdl.Event
+    for event = sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+        switch t := event.(type) {
+        case *sdl.QuitEvent:
+            return true
+        case *sdl.KeyboardEvent:
+            if t.Keysym.Sym == 27 {
+                // Quit on Escape key.
+                return true
+            }
+        }
+    }
+    // Check if we should exit?
+    select {
+    case &lt;-sig:
+        return true
+    default:
+    }
+    return false
+}
+</code></pre>
 
 <p>Combining all functions leads to a visualization shown below, recording some singing and non-sense spoken into the microphone:</p>
 

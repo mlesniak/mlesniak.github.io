@@ -88,7 +88,32 @@ func drawVoice(renderer *sdl.Renderer, in []int32) {
 
 While we are somehow wasteful since we draw multiple samples into one pixel due to rounding in the assingment of `x := ...`, this approach is rather fast and sufficient for a first step.
 
-The function `checkexit` polls for events from SDL as well as listening for CTRL+C from the commandline. Note that if you simple omit the check for events in SDL, your window title and the corresponding controls are not shown -- this took me a long time to debug, since it's rather unintuitive.
+The function `checkexit` polls for events from SDL as well as listening for CTRL+C from the commandline. Note that if you simple omit the check for events in SDL, your window title and the corresponding controls are not shown -- this took me a long time to debug, since it's rather unintuitive:
+
+~~~golang
+func checkForExit(sig chan os.Signal) bool {
+    // See https://stackoverflow.com/questions/39637824/border-titlebar-not-properly-displaying-in-sdl-osx
+    var event sdl.Event
+    for event = sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
+        switch t := event.(type) {
+        case *sdl.QuitEvent:
+            return true
+        case *sdl.KeyboardEvent:
+            if t.Keysym.Sym == 27 {
+                // Quit on Escape key.
+                return true
+            }
+        }
+    }
+    // Check if we should exit?
+    select {
+    case <-sig:
+        return true
+    default:
+    }
+    return false
+}
+~~~
 
 Combining all functions leads to a visualization shown below, recording some singing and non-sense spoken into the microphone:
 

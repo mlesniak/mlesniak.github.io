@@ -6,10 +6,19 @@
     <description>Recent content on mlesniak.com</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 11 Sep 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 13 Sep 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Go Guitar // Visualize Sound</title>
+      <link>/post/2018/09/13/go-guitar-/-visualize-sound/</link>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2018/09/13/go-guitar-/-visualize-sound/</guid>
+      <description>After understanding how to record sound in Go I wanted to visualize the recorded data in realtime instead of having solely a static image. The graphics library SDL is available on all major platforms, well documented, and in particular has (at least) one go binding with good examples. The full code for this example can be found here. In this article I&amp;rsquo;ll focus on setting up and using SDL in Go and describe a pitfall I ran into.</description>
+    </item>
     
     <item>
       <title>Go Guitar // Record Sound</title>

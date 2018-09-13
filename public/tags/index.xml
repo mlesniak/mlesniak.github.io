@@ -23,16 +23,25 @@
     <item>
       <title>Go</title>
       <link>/tags/go/</link>
-      <pubDate>Tue, 11 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/go/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>Graphics</title>
+      <link>/tags/graphics/</link>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/graphics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Guitar</title>
       <link>/tags/guitar/</link>
-      <pubDate>Tue, 11 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/guitar/</guid>
       <description></description>
@@ -59,7 +68,7 @@
     <item>
       <title>Music</title>
       <link>/tags/music/</link>
-      <pubDate>Tue, 11 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/music/</guid>
       <description></description>
@@ -84,6 +93,15 @@
     </item>
     
     <item>
+      <title>Sdl</title>
+      <link>/tags/sdl/</link>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/sdl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Shell</title>
       <link>/tags/shell/</link>
       <pubDate>Mon, 03 Sep 2018 00:00:00 +0000</pubDate>
@@ -95,7 +113,7 @@
     <item>
       <title>Sound</title>
       <link>/tags/sound/</link>
-      <pubDate>Tue, 11 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 13 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/sound/</guid>
       <description></description>

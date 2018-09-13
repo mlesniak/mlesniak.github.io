@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Go Guitar // Visualize Sound | mlesniak.com</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    
+    <header>
+
+  
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <nav>
+    <ul>
+      
+      
+      
+      
+      
+      <li class="pull-left ">
+        <a href="/">mlesniak.com</a>
+      </li>
+      
+      
+      <li class="pull-left ">
+        <a href="/tags/">tags</a>
+      </li>
+      
+
+      
+      
+        <li class="pull-right ">
+        <a href="/index.xml">feed</a>
+      </li>
+      
+      
+        <li class="pull-right ">
+        <a href="/post/1/01/01/contact/index.html">contact</a>
+      </li>
+      
+
+    </ul>
+  </nav>
+</header>
+
+  </head>
+
+  <body>
+    <br/>
+
+<div class="article-meta">
+  <h1><span class="title">Go Guitar // Visualize Sound</span></h1>
+  
+  
+    
+    </p>
+  </div>
+  
+  
+  
+  <div class="content">
+    <!-- 
+intro
+code
+gif -->
+
+<p>After understanding how to <a href="https://mlesniak.com/post/2018/09/11/go-guitar-/-record-sound/">record sound in Go</a> I wanted to visualize the recorded data in realtime instead of having solely a static image. The graphics library <a href="https://www.libsdl.org/">SDL</a> is available on all major platforms, well documented, and in particular has (at least) one <a href="https://github.com/veandco/go-sdl2">go binding</a> with <a href="https://github.com/veandco/go-sdl2-examples">good examples</a>. The full code for this example can be found <a href="https://github.com/mlesniak/go-guitar/blob/visualize-sound/main.go">here</a>. In this article I&rsquo;ll focus on setting up and using SDL in Go and describe a pitfall I ran into.</p>
+
+<p>Firstly, we are going to define constants for window width and height, but more important, constants for fitting all 1024 values of our sound sample into the window width as well as fitting the <code>int32</code> values into our window height:</p>
+
+<pre><code class="language-golang">// Global constants for visualization
+const width = 800
+const height = 800
+
+// Factors to shrink the measured data with large integers into the window.
+const widthFactor = width / float32(bufferSize)
+const maxAmplitude = 500000000
+const heightFactor = height / float32(maxAmplitude)
+</code></pre>
+
+<p>Afterwards, we create an SDL context solely for rendering, the window to display data and the renderer (surface) which is used to control the drawing operations:</p>
+
+<pre><code class="language-golang">    // ...
+
+    // Initialize graphics part.
+    check(sdl.Init(sdl.INIT_VIDEO))
+    defer sdl.Quit()
+    window, err := sdl.CreateWindow(&quot;Go guitar&quot;, 
+        sdl.WINDOWPOS_UNDEFINED, sdl.WINDOWPOS_UNDEFINED,
+        width, height, sdl.WINDOW_SHOWN)
+    check(err)
+    defer window.Destroy()
+    renderer, err := sdl.CreateRenderer(window, -1, sdl.RENDERER_ACCELERATED)
+    defer renderer.Destroy()
+    
+    // ...
+</code></pre>
+
+<p>We will use our continously running loop in which audio data is recorded to update the rendered data:</p>
+
+<pre><code class="language-golang">    // ...
+    for {
+        check(stream.Read())
+        drawVoice(renderer, in)
+
+        if checkForExit(sig) {
+            return
+        }
+    }
+    // ...
+</code></pre>
+
+<p>Of particular interest are the functions <code>drawVoice</code> and <code>checkForExit</code>.  The former is used to actually render the recorded values using</p>
+
+<pre><code class="language-golang">func drawVoice(renderer *sdl.Renderer, in []int32) {
+    // Clear screen.
+    renderer.SetDrawColor(0, 0, 0, 255)
+    renderer.Clear()
+    
+    // Draw a single point for each sample in the input.
+    renderer.SetDrawColor(255, 0, 0, 255)
+    for i := range in {
+        x := int(float32(i) * widthFactor)
+        y := int32(float32(in[x])*heightFactor + height/2)
+        renderer.DrawPoint(int32(x), y)
+    }
+    
+    // Refresh display output.
+    renderer.Present()
+}
+</code></pre>
+
+<p>While we are somehow wasteful since we draw multiple samples into one pixel due to rounding in the assingment of <code>x := ...</code>, this approach is rather fast and sufficient for a first step.</p>
+
+<p>The function <code>checkexit</code> polls for events from SDL as well as listening for CTRL+C from the commandline. Note that if you simple omit the check for events in SDL, your window title and the corresponding controls are not shown &ndash; this took me a long time to debug, since it&rsquo;s rather unintuitive.</p>
+
+<p>Combining all functions leads to a visualization shown below, recording some singing and non-sense spoken into the microphone:</p>
+
+<p><img src="/images/voice-recording.gif" alt="voice-recording" /></p>
+
+<p><strong>Next steps:</strong> Before I reach to the stars, i. e. think about guitar chords and what they mean physically I still want to understand the physical nature of sound better; while this is probably not necessary to recognize guitar chords, it&rsquo;s just fascinating.</p>
+
+  </div>
+  
+  
+  <div id="disqus_thread"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://mlesniak.com/\/post\/2018\/09\/13\/go-guitar-\/-visualize-sound\/";  
+      
+    };
+    (function () { 
+    var d = document, s = d.createElement('script');
+    s.src = 'https://mlesniaks-blog.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
+
+
+    <footer>
+      
+<script>
+(function() {
+  function center_el(tagName) {
+    var tags = document.getElementsByTagName(tagName), i, tag;
+    for (i = 0; i < tags.length; i++) {
+      tag = tags[i];
+      var parent = tag.parentElement;
+      
+      if (parent.childNodes.length === 1) {
+        
+        if (parent.nodeName === 'A') {
+          parent = parent.parentElement;
+          if (parent.childNodes.length != 1) continue;
+        }
+        if (parent.nodeName === 'P') parent.style.textAlign = 'center';
+      }
+    }
+  }
+  var tagNames = ['img', 'embed', 'object'];
+  for (var i = 0; i < tagNames.length; i++) {
+    center_el(tagNames[i]);
+  }
+})();
+</script>
+
+      
+      
+      
+      
+    </footer>
+  </body>
+</html>
+

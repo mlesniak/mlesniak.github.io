@@ -14,5 +14,8 @@ According to Wikipedia's base definition, boredom is ...
 ## TODO
 
 - Usefulness of being bored?
+    - Book indistractable
+    - Being comfortable to being uncomfortable
+- Training
 - Negative side effects of too much boredom?
 - Dopamin rush / nudges / infinite scrolling

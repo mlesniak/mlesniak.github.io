@@ -17,5 +17,7 @@ According to Wikipedia's base definition, boredom is ...
     - Book indistractable
     - Being comfortable to being uncomfortable
 - Training
+    - Focus on single-tasking
+    - Disable internet
 - Negative side effects of too much boredom?
 - Dopamin rush / nudges / infinite scrolling

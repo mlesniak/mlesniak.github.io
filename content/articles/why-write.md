@@ -13,3 +13,4 @@ draft: false
 ## References
 
 - [Why write? by Martin Tournoij](https://www.arp242.net/why-write.html)
+- [Building a personal website in 2021](https://news.ycombinator.com/item?id=27173728) 

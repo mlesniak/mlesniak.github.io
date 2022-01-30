@@ -1,5 +1,5 @@
 ---
-title: "Remote Company"
+title: "Signs of a Good Remote Company"
 date: 2022-01-30T11:24:23+01:00
 draft: false
 ---

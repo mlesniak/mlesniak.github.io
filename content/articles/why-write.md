@@ -11,6 +11,7 @@ draft: false
 - Improve your writing skills
     - How do you receive feedback if noone reads it?
 - For reference
+- Can this become a habit?
 
 Forces you to clarify your thinking; reading group at work for technical books and just knowing that I'll discuss the content I'm reading with other people forces me to really think about what I've read and ask questions that might come up.
 

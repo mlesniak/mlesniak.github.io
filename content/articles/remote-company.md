@@ -6,6 +6,18 @@ draft: false
 
 # Signs of a good remote company (UNFINISHED)
 
+## Benefits
+
+- Work freely 
+- Focus on your best working time
+
+## When it doesn't work
+
+- Support rotations
+- Rest of company is in a different mode
+
+## Signs
+
 - The number and duration of synchronous meetings is low.
 - Corollary: How many discussions are based on written, asynchronous communication?
 - Chat messages are not expected to be answered immediately.

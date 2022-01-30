@@ -12,6 +12,9 @@ draft: false
     - How do you receive feedback if noone reads it?
 - For reference
 
+Forces you to clarify your thinking; reading group at work for technical books and just knowing that I'll discuss the content I'm reading with other people forces me to really think about what I've read and ask questions that might come up.
+
+
 ## References
 
 - [Why write? by Martin Tournoij](https://www.arp242.net/why-write.html)

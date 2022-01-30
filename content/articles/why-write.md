@@ -6,6 +6,7 @@ draft: false
 
 # Why write articles (noone will read)?
 
+- Is using text instead of graphics sometimes beneficial, i.e. forces linarization of thoughts?
 - Collect thoughts
 - Structure reasoning
 - Improve your writing skills

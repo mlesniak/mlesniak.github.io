@@ -16,5 +16,5 @@ By writing about topics publicly I'm also motivated to deeply think about what I
 
 ## References
 
-- [Why write? by Martin Tournoij](https://www.arp242.net/why-write.html)
+- [Why write?](https://www.arp242.net/why-write.html) by Martin Tournoij
 - [Building a personal website in 2021](https://news.ycombinator.com/item?id=27173728) via Hackernews

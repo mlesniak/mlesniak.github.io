@@ -10,6 +10,7 @@ draft: false
 - Collect thoughts
 - Structure reasoning
 - Improve your writing skills
+    - More and more relevant in a remote and asynchronous world
     - How do you receive feedback if noone reads it?
 - For reference
 - Can this become a habit?

@@ -1,6 +1,6 @@
 ---
 title: "Why Write?"
-date: 2022-01-31T22:40
+date: 2022-01-31T22:40:00+01:00
 draft: false
 ---
 

@@ -8,6 +8,9 @@ draft: false
 
 ## Motivation
 - Why do I have to wait at all when applications start?
+- Moore's law
+- Raw numbers of my machine
+- positive examples: fzf, ack, ...
 - Probably due to all the layers upon layers...
 - Perform some experiments how fast we can get a naive file scanning app in Java
 

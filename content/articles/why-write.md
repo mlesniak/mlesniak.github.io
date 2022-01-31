@@ -12,7 +12,7 @@ The act of writing is the act of linearizing my thoughts, to create structure in
 
 > If you cannot explain something in simple terms, you don't understand it.
 
-By writing about topics publicly I'm also motivated to deeply think about what I've written, relect on questions a potential read might have and decide if I have already answered them.
+By writing about topics publicly I'm also motivated to deeply think about what I've written, reflect on questions a potential read might have and decide if I have already answered them.
 
 ## References
 

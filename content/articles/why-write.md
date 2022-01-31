@@ -12,8 +12,9 @@ draft: false
 - Improve your writing skills
     - More and more relevant in a remote and asynchronous world
     - How do you receive feedback if noone reads it?
-- For reference
+- For reference (for your own, and to link for others)
 - Can this become a habit?
+- 
 
 Forces you to clarify your thinking; reading group at work for technical books and just knowing that I'll discuss the content I'm reading with other people forces me to really think about what I've read and ask questions that might come up.
 

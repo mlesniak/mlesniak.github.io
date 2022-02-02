@@ -18,6 +18,14 @@ draft: false
 
 ## Measurements
 
+Reference is unix shell
+
+    ❯ pwd
+    /Users/m/Dropbox
+    ❯ time (find .|wc -l)
+       48488
+    ( find . | wc -l; )  0.03s user 0.20s system 101% cpu 0.230 total
+
 ## Potential Improvements
 
 ## Questions

@@ -1,7 +1,7 @@
 ---
 title: "What is boredom?"
 date: 2022-01-30T00:03:26+01:00
-draft: false
+draft: true
 ---
 
 # What is boredom?

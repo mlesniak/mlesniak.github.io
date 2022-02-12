@@ -1,7 +1,7 @@
 ---
 title: "Living a Deep Live"
 date: 2022-02-04T06:35:41+01:00
-draft: false
+draft: true
 ---
 
 - What is a deep live?

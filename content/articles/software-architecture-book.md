@@ -38,6 +38,28 @@ This is challenging, if architecture is independent of design ("unidirectional d
 
 ### Technical Breadth
 
+Expectations
+- Developers must have a significant amount of technical *depth*
+- Architects must have a significant amount of technical *breadth*
+
+Knowlegde pyramid
+- (A) Stuff you know
+- (B) Stuff you know you don't know
+- (C) Stuff you don't know you don't know
+
+In beginning of career, focus on (A). Be aware, that one must maintain knowledge of (A), otherwise it becomes obsolete.
+
+Value of an architect: broad understanding of technology and when to use a particular set of technologies to solve a particular problem. Hence, as an architect,
+- breadth is more important than depth
+- sacrifice some technical depth in favour of technical breadth (to broaden one's portfolio)
+
+Transitioning into an architect role means to accept a shift in perspective. Difficultiers arise:
+- trying to maintain expertise in a wide variety of areas -> not possible
+- stale expertise -> information gets outdated (see above, maintaining knowledge)
+
+**Frozen Caveman Anti-Pattern.** An architect, who always reverts back to their irrational concern in every acrchitectural discussion based on a single bad experience in the past => Risk assessment should be realistic.
+
+
 ### Analyzing Trade-Offs
 
 ### Understanding Business Drivers

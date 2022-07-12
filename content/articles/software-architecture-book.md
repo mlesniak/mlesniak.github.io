@@ -6,10 +6,7 @@ draft: false
 
 # Overview
 
-This page contains my notes, thoughts and remarks of the
-book [Fundamentals of Software Architecture: An Engineering Approach. A Comprehensive Guide to Patterns, Characteristics, and Best Practices](https://www.amazon.de/Fundamentals-Software-Architecture-Comprehensive-Characteristics/dp/1492043451/ref=sr_1_1)
-. I've taken these notes as part of [Scalable Capitals](https://scalable.capital) weekly reading group where we read
-technical books and discuss chapters on a weekly basis.
+This page contains my notes, thoughts and remarks of the book [Fundamentals of Software Architecture: An Engineering Approach. A Comprehensive Guide to Patterns, Characteristics, and Best Practices](https://www.amazon.de/Fundamentals-Software-Architecture-Comprehensive-Characteristics/dp/1492043451/ref=sr_1_1). I've taken these notes as part of [Scalable Capitals](https://scalable.capital) weekly reading group where we read technical books and discuss chapters on a weekly basis.
 
 ## (1) Introduction
 
@@ -59,9 +56,26 @@ Transitioning into an architect role means to accept a shift in perspective. Dif
 
 **Frozen Caveman Anti-Pattern.** An architect, who always reverts back to their irrational concern in every acrchitectural discussion based on a single bad experience in the past => Risk assessment should be realistic.
 
-
 ### Analyzing Trade-Offs
+
+Thinking like an architect is
+- seeing trade-offs in every solution
+- analyzing those trade-offs to find the best solution for a particular context (environment).
+
+While anaylzing trade-offs, it's important to look at both the benefits but also negatives of a solution.
+
+(Omitting extensive example of topics vs. queues for a bidding system)
 
 ### Understanding Business Drivers
 
+An architect has to understand the business drivers and need to translate them into "-ilities" such as scalability and availablity.
+
+Two important aspects
+- business domain knowledge
+- collaborative relationsships with business stakeholders
+
 ### Balancing architecture and coding
+
+Ideally, every architect should still code (to maintain technical depth, understand developer concerns, ...). Tips to achieve this:
+
+- 

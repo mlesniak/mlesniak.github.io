@@ -10,7 +10,52 @@ This page contains my notes, thoughts and remarks of the book [Fundamentals of S
 
 ## (1) Introduction
 
-TODO
+There's no clear path to become a software architect. 
+
+- Industry does not have a good definition
+- Role embodies a lot of different skills
+- Software architecture (and engineering in general) is a moving target -- definitions would need constant updates
+
+### Definition of Software Architecture
+
+Software architecture consists of 
+
+- structure of the system
+    - type of system (microservice, monolith with layers, ...)
+- architectural characteristics
+    - next the functional criteria
+    - define success criteria of the system
+    - "-ilities", e.g. availability, elasticity, performance, ...
+- architecture decisions
+    - rules for how the system should be constructed
+    - _variance_: explicit exception from the rule(s)
+- design principles
+    - guidelines (not rules)
+
+### Eight core expectations
+
+- Make architecture decisions
+    - guide instead of specify
+- (Continoually) analyze the architecture
+- Keep current with latest trends
+- Ensure compliance with made decisions
+- Diverse experience
+- Business domain knowledge
+- Interpersonal skills
+- Able to handle politics
+
+### Architecture and Engineering
+
+- _Unknown unknowns_ lead to iterative architectures.
+- Build architectures that survive implementation and change
+- -> _evolutionary architecture_ uses fitness functions to protect architectural characteristics
+
+## Laws of Software Architecture
+
+- Everything in software architecture is a trade-off.
+- Why is more important than how.
+    - -> documenting decisions (ADRs)
+
 
 ## (2) Architectural Thinking
 

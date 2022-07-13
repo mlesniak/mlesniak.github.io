@@ -76,6 +76,16 @@ Two important aspects
 
 ### Balancing architecture and coding
 
-Ideally, every architect should still code (to maintain technical depth, understand developer concerns, ...). Tips to achieve this:
+Ideally, every architect should still code (to maintain technical depth, understand developer concerns, ...). 
 
-- 
+Danger: Becoming the bottleneck, hence don't take ownership of code of a critical path in a project. Instead, delegate critical functionality to full time development teams and work on some non-critical business functionality.
+
+In addition or as an alternative, to remain hands-on at work, architect can
+
+- do frequent PoCs with a focus on high-quality (production-grade) code
+- tackle technica debt stories (also helping the development team)
+- work on bug fixes
+- leverage automation, i.e. create simple command line tools
+- do frequent code reviews
+
+

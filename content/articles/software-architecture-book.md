@@ -1,5 +1,5 @@
 ---
-title: "Software Architecture Book"
+title: "Notes on 'Fundamentals of Software Architecture'"
 date: 2022-07-09T07:12:31+02:00
 draft: false
 ---
@@ -134,3 +134,39 @@ In addition or as an alternative, to remain hands-on at work, architect can
 - do frequent code reviews
 
 
+## (3) Modularity
+
+Modularity is an organizing principle; goood Modularity is an implicit architecture characteristic.
+
+Definition: **Modularity** describes a logical grouping of related code.
+
+### Measuring Modularity
+
+### Cohesion 
+(a measure of how related the parts are to one another)
+
+- Functional (best)
+- Sequential
+- Communicational
+- Procedural
+- Temporal
+- Logical
+- Coincidental (worst)
+
+Larry Constantine: _"Attempting to divide a cohesive module would only result in increased coupling and decreased readability."_
+
+Definition: **LCOM**: The sum of sets of methods not shared via sharing fields.
+
+Disadvantage: only able to find structural lack of cohesion; not possible to determine if parts fit together logically.
+
+### Coupling
+
+Definition: **afferent coupling**: number of incoming connections; **efferent coupling**: number of outgoing connections.
+
+Definition: **Abstractness** is the ratio of abstract artifacts to concrete ones.
+
+Definition: **Instability** is the ratio of efferent (outgoing) coupling to the sum of efferent and afferent coupling (outgoing and incoming).
+
+Instability measures the volatility of a codebase; a high value implies ...
+
+...TBC...

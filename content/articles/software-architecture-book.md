@@ -136,7 +136,7 @@ In addition or as an alternative, to remain hands-on at work, architect can
 
 ## (3) Modularity
 
-Modularity is an organizing principle; goood Modularity is an implicit architecture characteristic.
+Modularity is an organizing principle; good Modularity is an implicit architecture characteristic.
 
 Definition: **Modularity** describes a logical grouping of related code.
 
@@ -167,6 +167,48 @@ Definition: **Abstractness** is the ratio of abstract artifacts to concrete ones
 
 Definition: **Instability** is the ratio of efferent (outgoing) coupling to the sum of efferent and afferent coupling (outgoing and incoming).
 
-Instability measures the volatility of a codebase; a high value implies ...
+Instability measures the volatility of a codebase; a high value means that the system breaks more easily; high values occur when you have more outgoing than incoming connections.
 
-...TBC...
+Combining abstractness and instability leads to **Distance from the main sequence** (`D=|A+I-1|`). Ideally, classes are near the ideal main sequence line, i.e. have a healty mix of abstract and concrete classes as well as outgoing and incoming connections.
+
+**Zone of uselessness** are classes with high instability and abstractness -- too abstract to be useful; classes with few abstractions and few outgoing connections are in the **zone of pain**: too much implementation, therefore brittle and hard to maintain.
+
+### Limitations of metrics
+
+Metrics can't distinguish between _essential_ and _accidental_ complexity; nevertheless it's helpful to have metrics to establish baselines, create awareness, etc.
+
+### Connascene
+
+Two components are **connascent** if a change in one would require the other to be modified in order to maintain the overall correctness of the system.
+
+- Static (source-code level coupling)
+    - of Name (weakest)
+    - of Type
+    - of Meaning / of Convention
+    - of Position
+    - of Algorithm
+- Dynamic (calls at runtime)
+    - of Execution
+    - of Timing
+    - of Values
+    - of Identity (strongest)
+
+Static connascene is preferred, since source code analysis (tooling) allows to improve way easier.
+
+**Strength of connascene**: how easy can a developer refactor a particual type of coupling? **Locality of connascene**: how proximal are the modules to each other in the code base. When refactoring, one has to evaluate strength and locality together.
+
+**Degree of connascene**: size of its impact.
+
+Connascene and coupling are related, see Figure 3-6 on p. 79.
+
+#### Guideline 1
+... to use connascene to improve code base:
+- Minimize overall connascene -> encapsulate elements
+- Minimize remaining connascene which break encapsulation
+- Maximize connascene inside encapsulation boundaries
+
+### Guideline 2
+- Convert strong forms of connascene into weaker ones
+- The greater the distance, the weaker the used forms should be
+
+

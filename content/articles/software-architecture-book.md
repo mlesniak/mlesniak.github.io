@@ -212,3 +212,82 @@ Connascene and coupling are related, see Figure 3-6 on p. 79.
 - The greater the distance, the weaker the used forms should be
 
 
+## (4) Architecture Characteristics Defined
+
+Architecture Characteristic (abbreviated AC from now on) meets three criteria:
+- specifies nondomain design consideration
+    - specify a) operational and b) design criteria
+    - are concerned about implementation and reasons 
+- influences structural aspect of design
+- critical for application success
+    - choose fewest AC as possible to reduce overcall complexity
+
+AC
+- implicit: don't appear in requirements, nonetheless are necessary for success
+- explicit
+
+### Operational AC
+
+Overlaps with Operations and DevOps
+
+- Availability
+- Continuity
+- Performance
+- Recoverability
+- Reliability / Safety
+- Robustness
+- Scalability
+
+### Structural AC
+
+Concern about code structure (modularity, controlled coupling, readable code, ...)
+
+- Configurability
+- Extensibilty
+- Installability
+- Leveragability
+- Localization
+- Maintainabilty
+- Portability
+- Supportabiity
+- Upgradeability
+
+### Cross-Cutting AC
+
+- Accessiblity
+- Archivabilty
+- Authentication
+- Authorization
+- Legal
+- Privacy
+- Security
+- Supportability
+- Usability
+
+### ISO definitions
+
+Note that there is no commonly agreed definition of ACs.
+
+ISO defined some
+
+- Performance efficiency
+- Compatibilty
+- Usability
+- Reliability
+- Security
+- Maintainability
+- Portability
+- Functional suitability (does not really belong in this list?)
+
+ **Fun fact:** (from [Wikipedia](https://en.wikipedia.org/wiki/International_Organization_for_Standardization#Name_and_abbreviations)): The letters ISO do not represent an acronym or initialism. The organization provides this explanation of the name: Because 'International Organization for Standardization' would have different acronyms in different languages (IOS in English, OIN in French), our founders decided to give it the short form ISO. ISO is derived from the Greek word isos (ίσος, meaning "equal"). Whatever the country, whatever the language, the short form of our name is always ISO.
+
+### Trade-Offs
+
+Applications can (and should) only support a few ACs:
+- every AC implies more design, structural changes and additional implementation
+- ACs influence each other and increase complexity
+
+Quote: "Never shoot for the best architecture, but rather the least worst architecture."
+
+Again: Architecture should be as iterative as possible.
+

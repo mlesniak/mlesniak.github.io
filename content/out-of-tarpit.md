@@ -1,7 +1,7 @@
 ---
 title: "Out of Tarpit"
 date: 2022-09-17T11:17:51+02:00
-draft: true
+draft: false
 ---
 
 [Source](https://news.ycombinator.com/item?id=22876005)

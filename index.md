@@ -1,5 +1,5 @@
 ---
-title: Hello, world
+title: Articles and Random Thoughts
 ---
 
 ## The Motivation Behind Article Writing

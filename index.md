@@ -12,6 +12,8 @@ The act of writing serves as a mechanism for organizing thoughts into a coherent
 
 By publicly addressing subjects through writing, I'm compelled to delve deeply into my own thoughts, anticipate potential inquiries from readers, and verify if I've adequately addressed them.
 
+Referring to some `bold` text.
+
 ## References
 
 - [Why write?](https://www.arp242.net/why-write.html) by Martin Tournoij

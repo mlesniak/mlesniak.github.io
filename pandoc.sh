@@ -7,6 +7,7 @@ git checkout main
 git add . && git commit -m"$(date)" && git push
 
 git checkout gh-pages
+git merge main -m"$(date)"
 for md in $(find . -name \*md)
 do
     echo "Parsing $md"

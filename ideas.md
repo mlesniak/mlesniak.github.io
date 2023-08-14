@@ -1,6 +1,8 @@
 ---
-title: Ideas
+title: Collection of interesting topics
 ---
+
+(We need a header here to allow jumping back to the home page).
 
 This is a probably ever growing list of ideas for concepts I would love to explore.
 

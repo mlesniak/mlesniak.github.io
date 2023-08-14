@@ -4,7 +4,7 @@ title: Articles and Random Thoughts
 
 ## Articles
 
-- [] Ideas for new articles
+- [Ideas for new articles](ideas.html)
 
 ## The Motivation Behind Article Writing
 

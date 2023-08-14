@@ -6,6 +6,5 @@ do
     pandoc --quiet $md --css pandoc.css -s -o $(echo $md|rev|cut -d. -f2|rev|cut -b2-).html
 done
 
-git add .
-git commit -m"$(date)"
-git push
+echo "Pushing to GitHub"
+(git add . && git commit -m"$(date)" && git push) >/dev/null 2>&1

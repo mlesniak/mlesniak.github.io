@@ -8,4 +8,4 @@ done
 
 echo "Pushing to GitHub"
 (git add . && git commit -m"$(date)" && git push) >/dev/null 2>&1
-(git checkout gh-pages && git merge main && git push && git checkout main)
+(git checkout gh-pages && git merge main && git push && git checkout main) >/dev/null 2>&1

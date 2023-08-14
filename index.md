@@ -2,15 +2,15 @@
 title: Hello, world
 ---
 
-## Why write articles? 
+## The Motivation Behind Article Writing
 
-... which are probably not read by anyone.  What is the motivation for writing articles, snippets and explanations which I don't even actively advertise? 
+... even when readership might appear limited. What drives the creation of articles, snippets, and explanations that I may not actively promote?
 
-The act of writing is the act of linearizing thoughts, to create structure in arguments, and discuss advantages and disadvantages. It also allows me to explain complex topics to my current self. If I can write clearly about a topic I assume I've also understood it. To quote [Feynman](https://en.wikipedia.org/wiki/Richard_Feynman)
+The act of writing serves as a mechanism for organizing thoughts into a coherent structure, constructing persuasive arguments, and examining pros and cons. It also provides an avenue to simplify complex concepts for my own benefit. The ability to articulate a topic clearly implies a comprehensive understanding, echoing the words of [Richard Feynman](https://en.wikipedia.org/wiki/Richard_Feynman):
 
 > If you cannot explain something in simple terms, you don't understand it.
 
-By writing about topics publicly I'm also motivated to deeply think about what I've written and reflect on questions a potential reader might have and check if I have already answered them.
+By publicly addressing subjects through writing, I'm compelled to delve deeply into my own thoughts, anticipate potential inquiries from readers, and verify if I've adequately addressed them.
 
 ## References
 

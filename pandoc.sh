@@ -8,5 +8,5 @@ do
     echo "Parsing $md"
     pandoc --quiet $md --css pandoc.css -s -o docs/$(echo $md|rev|cut -d. -f2|rev|cut -b2-).html
 done
-cp pandoc.css CNAME docs
+cp pandoc.css CNAME .nojekyll docs
 git add . && git commit -m"$(date)" && git push

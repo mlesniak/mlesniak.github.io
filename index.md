@@ -2,6 +2,10 @@
 title: Articles and Random Thoughts
 ---
 
+## Articles
+
+- [] Ideas for new articles
+
 ## The Motivation Behind Article Writing
 
 ... even when readership might appear limited. What drives the creation of articles, snippets, and explanations that I may not actively promote?

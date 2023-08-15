@@ -9,4 +9,10 @@ do
     pandoc --quiet $md --css pandoc.css -B header.html -s -o docs/$(echo $md|rev|cut -d. -f2|rev|cut -b2-).html
 done
 cp pandoc.css CNAME .nojekyll docs
+
+if [ "$1" -eq "dry" ]
+then
+    exit
+fi
+
 git add . && git commit -m"$(date)" && git push

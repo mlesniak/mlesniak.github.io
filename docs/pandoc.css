@@ -329,14 +329,21 @@ table td {
 }
 
 .header {
-  background-color: rgb(41, 133, 255);
-  color: #ffffff;
+  /* background-color: rgb(41, 133, 255); */
+  color: #444;
   font-size: 1.7em;
-  font-family: Menlo, 'Courier New', Courier, monospace;
   padding: 10px;
-  margin-bottom: -40px;
+  margin-bottom: -80px;
 }
 
 .header * {
-  color: #ffffff !important;
+  color: #444 !important;
+}
+
+.header hr {
+  border: 0;
+  height: 1px;
+  background: #aaa;
+  /* background-image: linear-gradient(to right, #ccc, #333, #ccc); */
+  margin-top: -5px;
 }

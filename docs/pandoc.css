@@ -329,11 +329,8 @@ table td {
 }
 
 .header {
-  /* background-color: rgb(41, 133, 255); */
   color: #444;
   font-size: 1.7em;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 .header * {

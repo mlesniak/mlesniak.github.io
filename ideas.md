@@ -2,7 +2,7 @@
 title: Collection of topics 
 ---
 
-This is a probably ever growing list of ideas for concepts I would love to explore.
+This is a probably a neverending and continously growing list of ideas and concepts I would love to explore.
 
 - **Advent of Code Analysis:** Examine one of the puzzles in-depth.
 - **B-Tree Implementation:** Delve into the elegant realm of B-trees, unraveling their structural efficiency and ingenuity.

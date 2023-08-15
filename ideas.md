@@ -1,9 +1,6 @@
 ---
 title: Collection of topics 
-subtitle: ...I'd love to explore in-depth.
 ---
-
-(We need a header here to allow jumping back to the home page).
 
 This is a probably ever growing list of ideas for concepts I would love to explore.
 

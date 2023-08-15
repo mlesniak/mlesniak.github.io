@@ -1,11 +1,12 @@
 ---
-title: Collection of interesting topics
+title: Collection of topics I would like to explore
 ---
 
 (We need a header here to allow jumping back to the home page).
 
 This is a probably ever growing list of ideas for concepts I would love to explore.
 
+- **Advent of Code Analysis:** Examine one of the puzzles in-depth.
 - **B-Tree Implementation:** Delve into the elegant realm of B-trees, unraveling their structural efficiency and ingenuity.
 - **Creating an SQLLite Clone:** Embark on a journey to replicate the prowess of SQLLite, unraveling the intricacies of database management systems.
 - **Redis Protocol Parsing:** Demystify the art of parsing the Redis protocol, shedding light on the inner workings of this robust data structure server.

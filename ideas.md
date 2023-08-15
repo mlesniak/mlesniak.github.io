@@ -1,5 +1,6 @@
 ---
-title: Collection of topics I would like to explore
+title: Collection of topics 
+subtitle: ...I'd love to explore in-depth.
 ---
 
 (We need a header here to allow jumping back to the home page).

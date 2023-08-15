@@ -1,5 +1,5 @@
 ---
-title = The Motivation Behind Writing
+title: The Motivation Behind Writing
 ---
 
 ... even when readership might appear limited. What drives the creation of articles, snippets, and explanations that I may not actively promote?

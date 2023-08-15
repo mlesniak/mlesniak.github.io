@@ -10,9 +10,7 @@ do
 done
 cp pandoc.css CNAME .nojekyll docs
 
-if [ "$1" -eq "dry" ]
+if [ -z "$1" ]
 then
-    exit
+    git add . && git commit -m"$(date)" && git push
 fi
-
-git add . && git commit -m"$(date)" && git push

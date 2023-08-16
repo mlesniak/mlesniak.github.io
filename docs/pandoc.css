@@ -330,7 +330,7 @@ table td {
 
 .header {
   color: #444;
-  font-size: 1.7em;
+  font-size: 1.4em;
 }
 
 .header * {
@@ -342,5 +342,10 @@ table td {
   height: 1px;
   background: #aaa;
   /* background-image: linear-gradient(to right, #ccc, #333, #ccc); */
-  margin-top: -5px;
+  margin-top: -2px;
+  float: center;
+}
+
+.right {
+    float: right;
 }

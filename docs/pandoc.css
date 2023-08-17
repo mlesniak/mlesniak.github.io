@@ -16,10 +16,14 @@ body {
   list-style-type: square !important;
 }
 
+.header-content {
+  margin: auto;
+  max-width: 42em;  
+}
+
 .content {
   margin: auto;
   max-width: 42em;
-  /* padding: 1em; */
 }
 
 code {

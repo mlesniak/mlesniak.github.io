@@ -15,10 +15,7 @@ body {
   list-style-type: square !important;
 }
 
-.header-content {
-  margin: auto;
-  max-width: 28em;  
-}
+
 
 .content {
   margin: auto;
@@ -359,9 +356,13 @@ table td {
   }
 }
 
+.header-content {
+  margin: auto;
+  max-width: 42em;  
+}
+
 .header {
   color: #444;
-  /* background-color: #000; */
   font-size: 1.7em;
   border-bottom-color: rgb(229, 231, 235);
   border-bottom-style: solid;

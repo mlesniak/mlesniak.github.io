@@ -1,7 +1,6 @@
 html {
   font-size: 100%;
   width: 100%;
-  /* overflow-y: scroll; */
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
 }
@@ -17,7 +16,7 @@ body {
 }
 
 .header-content {
-  margin: auto;
+  /* margin: auto; */
   max-width: 42em;  
 }
 
@@ -395,3 +394,6 @@ table td {
   font-size: 0.7em;
   padding-right: 20px;
 }
+
+/* links in blue, underline on hover, including header */
+/* github icon + link */

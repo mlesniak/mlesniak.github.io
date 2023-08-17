@@ -359,14 +359,14 @@ table td {
 .header-content {
   margin: auto;
   max-width: 42em;  
+  border-bottom-color: rgb(229, 231, 235);
+  border-bottom-style: solid;
+  border-bottom-width: 1;
 }
 
 .header {
   color: #444;
   font-size: 1.7em;
-  border-bottom-color: rgb(229, 231, 235);
-  border-bottom-style: solid;
-  border-bottom-width: 1;
 }
 
 .header * {

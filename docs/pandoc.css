@@ -6,12 +6,12 @@ html {
 }
 
 body {
-  margin-left: 0px;
+  margin: 0px;
   color: #444;
   font-family: Georgia, Palatino, 'Palatino Linotype', Times, 'Times New Roman', serif;
   font-size: 12px;
   line-height: 1.7;
-  width: 100%;
+  /* width: 100%; */
   list-style-type: square !important;
 }
 
@@ -20,6 +20,7 @@ body {
 .content {
   margin: auto;
   max-width: 42em;
+  margin-top: -60px;
 }
 
 code {
@@ -27,18 +28,14 @@ code {
 }
 
 a {
-  color: rgb(37, 99, 235);
+  color: #2563eb;
   text-decoration: none;
 }
 
 a:visited {}
 
 a:hover {
-  text-decoration: thin underline;
-}
-
-a:active {
-  /* color: #faa700; */
+  text-decoration: dashed underline;
 }
 
 a:focus {
@@ -357,20 +354,24 @@ table td {
 }
 
 .header-content {
-  margin: auto;
-  max-width: 42em;  
   border-bottom-color: rgb(229, 231, 235);
   border-bottom-style: solid;
   border-bottom-width: 1;
+  vertical-align: middle;
 }
 
 .header {
-  color: #444;
-  font-size: 1.7em;
+  color: rgb(142, 142, 142);
+  font-size: 24px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 672px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.header * {
-  color: #444 !important;
+.header img {
+  margin-bottom: 5px;
 }
 
 .header * a {
@@ -378,24 +379,17 @@ table td {
 }
 
 .name {
+  color: rgb(142, 142, 142) !important;
   font-weight: bold;
-  color: rgb(108, 114, 127);
-  padding-left: 20px;
-}
-
-.header hr {
-  border: 0;
-  height: 2px;
-  background: #aaa;
-  margin-top: -2px;
 }
 
 .right {
   float: right;
-  font-size: 0.7em;
-  padding-right: 20px;
+  /* font-size: 20px; */
+  /* padding-top: 5px; */
+  /* vertical-align: middle; */
 }
 
-/* links in blue, underline on hover, including header */
-/* github icon + link */
+
 /* date incl rendering */
+/* square list elements */

@@ -1,5 +1,5 @@
 ---
-title: About
+title: About me
 ---
 
 I've got a ton of experience as a software architect and engineer, specializing in designing and crafting software systems that can handle anything you throw at them. I'm your go-to person for languages like C#, Kotlin, Java, and Go – I've wrapped up successful projects across a bunch of industries. I'm all about creating software setups that can take on the challenges of distributed systems and still keep ticking. Complex problems? They're my jam. I thrive when things get tough, and I've got the track record to prove it.

@@ -1,5 +1,6 @@
 ---
 title: Collection of topics 
+date: (continously updated)
 ---
 
 This is a probably a neverending and continously growing list of ideas and concepts I would love to explore.

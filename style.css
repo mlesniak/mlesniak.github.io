@@ -56,15 +56,11 @@ p {
 }
 
 a {
-    color: #007bff;
+    color: #004fa3;
     text-decoration: none;
 }
 a:hover {
     text-decoration: underline;
-}
-
-a:visited {
-    /* color: #1a1a1a; */
 }
 
 img {

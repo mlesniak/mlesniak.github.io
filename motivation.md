@@ -1,5 +1,6 @@
 ---
 title: The Motivation Behind Writing
+date: 2023-08-01
 ---
 
 ... even when readership might appear limited. What drives the creation of articles, snippets, and explanations that I may not actively promote?

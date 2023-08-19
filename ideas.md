@@ -13,3 +13,4 @@ This is a probably a neverending and continously growing list of ideas and conce
 - **1k Lines of Code Creations:** Take a plunge into the world of concise brilliance, crafting impactful implementations within the confines of a mere 1024 lines of code.
 - **From Source Code to Assembly: The Fibonacci Odyssey:** Trace the captivating journey of a high level Fibonacci implementation, from its inception in C# source code to its manifestation in the intricate realm of assembly language.
 - **Public Key Cryptography:** Show how public key cryptography works using concrete, but understandable numbers, i.e. primes not in the range of hundreds of digits.
+- **Implement a simple GC:** Implement a simple garbage collector (to be refined).

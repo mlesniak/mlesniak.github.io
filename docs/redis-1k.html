@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Redis in 1024 lines of code</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+	<header>
+		<div class="header-content">
+			<a href="/"><img src="profile.png" alt="profile picture" height="32"></a>
+			<a href="/" class="name">Michael Lesniak</a>
+			<span class="right">
+				<a href="/about.html">About me</a>
+				<a href="mailto:mail@mlesniak.com">Email</a>
+				<a href="https://github.com/mlesniak"> GitHub </a>
+			</span>
+		</div>
+	</header>
+
+	<article>
+				<h1 class="title">Redis in 1024 lines of code</h1>
+						<p>This article describes my approach to write a Redis clone in C#,
+limiting myself to 1024 lines of code (as stated by the code analysis
+tool <a href="https://github.com/AlDanial/cloc">cloc</a>).</p>
+<h2 id="the-goal">The goal</h2>
+<p>Allow the official redis CLI tool to connect to our server and
+perform as many operations as standard conform as possible. As an
+experiment, I will use</p>
+<h2 id="the-beginning">The beginning</h2>
+<p>Of course, I could start by looking at the protocol specification and
+start implementing the server based on the this, but this would be a bit
+boring. Instead, let’s fire up a plain TCP server which listens on port
+6379 (redis’ standard port) and check what the client sends us:</p>
+<p>After setting up a project with
+<code>dotnet new console -o src</code>, let’s spawn up a simple TCP
+server which simply output what it has received</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"></code></pre></div>
+<p>and start <code>redis-cli</code> using the default docker image:</p>
+<pre><code></code></pre>
+<p>The output of the TCP server shows what data has been received.
+Coming back to the specification, the client seemingly sends an array
+with two elements. Each element is a bulk string.</p>
+	</article>
+</body>
+
+</html>

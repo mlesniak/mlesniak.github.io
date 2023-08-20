@@ -8,7 +8,7 @@ This article describes my approach to write a Redis clone in C#, limiting myself
 
 ## The goal
 
-The aim is to allow the official Redis CLI tool to interface with our server and execute as many standard-compliant operations as possible. As a twist in this experiment, I will be using a test-driven approach as much as possible.
+The aim is to allow the official Redis CLI tool to interface with our server and execute as many standard-compliant operations as possible. As a twist in this experiment, I will be using a test-driven approach as much as possible and will write the code in parallel to the blog post -- expect refactoring and questioning of design decisions in later stages of the post...
 
 ## The beginning
 
@@ -121,34 +121,108 @@ Currently, only (nested) arrays and bulk strings will be supported by our parsin
 Ignoring parsing arrays for now -- overall, we focus on a somewhat test-driven approach and our tests focus on bulk strings for now -- we can parse bulk strings as follows:
 
 ```c#
-    static (RedisData, int) Parse(byte[] data, int offset)
+static (RedisData, int) Parse(byte[] data, int offset)
+{
+    RedisData result = new();
+    int end = 0;
+    
+    if (data[offset] == '*')
     {
-        RedisData result = new();
-        int end = 0;
-        
-        if (data[offset] == '*')
-        {
-            throw new NotImplementedException();
-        }
-        else if (data[offset] == '$')
-        {
-            result.Type = DataType.BulkString;
-            var lengthEnd = Array.IndexOf(data, (byte)'\r');
-            var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - 1));
-            int stringStart = offset + lengthEnd + 2;
-            result.BulkString = Encoding.ASCII.GetString(data, stringStart, length);
-            nextOffset = stringStart + length + 2;
-        }
-        else
-        {
-            throw new ArgumentException($"Invalid byte {data[offset]} to parse");
-        }
-
-        return (result, end);
+        throw new NotImplementedException();
     }
+    else if (data[offset] == '$')
+    {
+        result.Type = DataType.BulkString;
+        var lengthEnd = Array.IndexOf(data, (byte)'\r', offset);
+        var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - offset - 1));
+        int stringStart = lengthEnd + 2;
+        result.BulkString = Encoding.ASCII.GetString(data, stringStart, length);
+        nextOffset = stringStart + length + 2;
+    }
+    else
+    {
+        throw new ArgumentException($"Invalid byte {data[offset]} to parse");
+    }
+
+    return (result, end);
+}
 ```
 
 Note that the internal implementation will be refactored once our basic test cases are working.
 
 ## Parsing arrays
 
+We can use a similar approach to parse arrays, though arrayc are recursive data structures in the redis protocol and can contain both plain values, e.g. bulk strings, as nested arrays. Hence, let's define two different test cases: The first one mirrors the data we receive from the client and will allow to parse sent commands, the second checks that the implementation handles nested arrays correctly:
+
+```c#
+[Fact]
+public void ToRedisMessage_SimpleArray_ReturnsCorrectResult()
+{
+    var message = """
+                    *2
+                    $5
+                    HELLO
+                    $3
+                    FOO
+                    """.ToRedisMessage();
+    
+    var data = RedisData.Parse(message);
+    
+    Equal(RedisData.DataType.Array, data.Type);
+    
+    Equal(RedisData.DataType.BulkString, data.ArrayValues![0].Type);
+    Equal("HELLO", data.ArrayValues![0].BulkString);
+    
+    Equal(RedisData.DataType.BulkString, data.ArrayValues![1].Type);
+    Equal("FOO", data.ArrayValues![1].BulkString);
+}
+
+[Fact]
+public void ToRedisMessage_NestedArray_ReturnsCorrectResult()
+{
+    var message = """
+                    *2
+                    *2
+                    $3
+                    BAR
+                    $5
+                    HELLO
+                    $3
+                    FOO
+                    """.ToRedisMessage();
+    
+    var data = RedisData.Parse(message);
+    
+    Equal(RedisData.DataType.Array, data.Type);
+    
+    Equal(RedisData.DataType.Array, data.ArrayValues![0].Type);
+    var array = data.ArrayValues![0];
+    Equal("BAR", array.ArrayValues?[0].BulkString);
+    Equal("HELLO", array.ArrayValues?[1].BulkString);
+    
+    Equal(RedisData.DataType.BulkString, data.ArrayValues![1].Type);
+    Equal("FOO", data.ArrayValues?[1].BulkString);
+}
+```
+
+This can be implemented via the following snippet inside `Parse()`
+
+```c#
+    if (data[offset] == '*')
+    {
+        result.Type = DataType.Array;
+        result.ArrayValues = new();
+        var numElementsIndexEnd = Array.IndexOf(data, (byte)'\r', offset);
+        var numElements = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, numElementsIndexEnd - offset - 1));
+        offset = numElementsIndexEnd + 2;
+        for (var i = 0; i < numElements; i++)
+        {
+            (RedisData elem, int nextArrayOffset) = Parse(data, offset);
+            result.ArrayValues.Add(elem);
+            offset = nextArrayOffset;
+        }
+        nextOffset = offset;
+    }
+```
+
+Since we now have a basic test setup, let's refactor the code a bit by moving away from this ìf-else` cascade and introduce a switch statement and move the type-defining character to the enum:

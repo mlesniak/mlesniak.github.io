@@ -32,7 +32,9 @@ href="https://amzn.eu/d/b4iJBIa">500 Lines or Less</a>.</p>
 <p>The aim is to allow the official Redis CLI tool to interface with our
 server and execute as many standard-compliant operations as possible. As
 a twist in this experiment, I will be using a test-driven approach as
-much as possible.</p>
+much as possible and will write the code in parallel to the blog post –
+expect refactoring and questioning of design decisions in later stages
+of the post…</p>
 <h2 id="the-beginning">The beginning</h2>
 <p>While I could have commenced by diving into the protocol
 specification and building the server accordingly, I felt that might be
@@ -143,34 +145,108 @@ is necessary for sequential structures such as arrays.</p>
 <p>Ignoring parsing arrays for now – overall, we focus on a somewhat
 test-driven approach and our tests focus on bulk strings for now – we
 can parse bulk strings as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static</span> <span class="op">(</span>RedisData<span class="op">,</span> <span class="dt">int</span><span class="op">)</span> <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">,</span> <span class="dt">int</span> offset<span class="op">)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        RedisData result <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> end <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;*&#39;</span><span class="op">)</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">NotImplementedException</span><span class="op">();</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;$&#39;</span><span class="op">)</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            result<span class="op">.</span><span class="fu">Type</span> <span class="op">=</span> DataType<span class="op">.</span><span class="fu">BulkString</span><span class="op">;</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            <span class="dt">var</span> lengthEnd <span class="op">=</span> Array<span class="op">.</span><span class="fu">IndexOf</span><span class="op">(</span>data<span class="op">,</span> <span class="op">(</span><span class="dt">byte</span><span class="op">)</span><span class="ch">&#39;\r&#39;</span><span class="op">);</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">var</span> length <span class="op">=</span> Int32<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> offset <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> lengthEnd <span class="op">-</span> <span class="dv">1</span><span class="op">));</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> stringStart <span class="op">=</span> offset <span class="op">+</span> lengthEnd <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>            result<span class="op">.</span><span class="fu">BulkString</span> <span class="op">=</span> Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> stringStart<span class="op">,</span> length<span class="op">);</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            nextOffset <span class="op">=</span> stringStart <span class="op">+</span> length <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArgumentException</span><span class="op">(</span>$<span class="st">&quot;Invalid byte {data[offset]} to parse&quot;</span><span class="op">);</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">static</span> <span class="op">(</span>RedisData<span class="op">,</span> <span class="dt">int</span><span class="op">)</span> <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">,</span> <span class="dt">int</span> offset<span class="op">)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    RedisData result <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> end <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;*&#39;</span><span class="op">)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">NotImplementedException</span><span class="op">();</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;$&#39;</span><span class="op">)</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">Type</span> <span class="op">=</span> DataType<span class="op">.</span><span class="fu">BulkString</span><span class="op">;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> lengthEnd <span class="op">=</span> Array<span class="op">.</span><span class="fu">IndexOf</span><span class="op">(</span>data<span class="op">,</span> <span class="op">(</span><span class="dt">byte</span><span class="op">)</span><span class="ch">&#39;\r&#39;</span><span class="op">,</span> offset<span class="op">);</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> length <span class="op">=</span> Int32<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> offset <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> lengthEnd <span class="op">-</span> offset <span class="op">-</span> <span class="dv">1</span><span class="op">));</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> stringStart <span class="op">=</span> lengthEnd <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">BulkString</span> <span class="op">=</span> Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> stringStart<span class="op">,</span> length<span class="op">);</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        nextOffset <span class="op">=</span> stringStart <span class="op">+</span> length <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArgumentException</span><span class="op">(</span>$<span class="st">&quot;Invalid byte {data[offset]} to parse&quot;</span><span class="op">);</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="op">(</span>result<span class="op">,</span> end<span class="op">);</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="op">(</span>result<span class="op">,</span> end<span class="op">);</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Note that the internal implementation will be refactored once our
 basic test cases are working.</p>
 <h2 id="parsing-arrays">Parsing arrays</h2>
+<p>We can use a similar approach to parse arrays, though arrayc are
+recursive data structures in the redis protocol and can contain both
+plain values, e.g. bulk strings, as nested arrays. Hence, let’s define
+two different test cases: The first one mirrors the data we receive from
+the client and will allow to parse sent commands, the second checks that
+the implementation handles nested arrays correctly:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ToRedisMessage_SimpleArray_ReturnsCorrectResult</span><span class="op">()</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> message <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                    <span class="op">*</span><span class="dv">2</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">5</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                    HELLO</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">3</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                    FOO</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;&quot;&quot;.ToRedisMessage();</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> data <span class="op">=</span> RedisData<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>message<span class="op">);</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">DataType</span><span class="op">.</span><span class="fu">Array</span><span class="op">,</span> data<span class="op">.</span><span class="fu">Type</span><span class="op">);</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">DataType</span><span class="op">.</span><span class="fu">BulkString</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">0</span><span class="op">].</span><span class="fu">Type</span><span class="op">);</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;HELLO&quot;</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">0</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">DataType</span><span class="op">.</span><span class="fu">BulkString</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">1</span><span class="op">].</span><span class="fu">Type</span><span class="op">);</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;FOO&quot;</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">1</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ToRedisMessage_NestedArray_ReturnsCorrectResult</span><span class="op">()</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> message <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>                    <span class="op">*</span><span class="dv">2</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>                    <span class="op">*</span><span class="dv">2</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">3</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>                    BAR</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">5</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>                    HELLO</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">3</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>                    FOO</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;&quot;&quot;.ToRedisMessage();</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> data <span class="op">=</span> RedisData<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>message<span class="op">);</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">DataType</span><span class="op">.</span><span class="fu">Array</span><span class="op">,</span> data<span class="op">.</span><span class="fu">Type</span><span class="op">);</span></span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">DataType</span><span class="op">.</span><span class="fu">Array</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">0</span><span class="op">].</span><span class="fu">Type</span><span class="op">);</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> array <span class="op">=</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">0</span><span class="op">];</span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;BAR&quot;</span><span class="op">,</span> array<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">?[</span><span class="dv">0</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;HELLO&quot;</span><span class="op">,</span> array<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">?[</span><span class="dv">1</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">DataType</span><span class="op">.</span><span class="fu">BulkString</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">1</span><span class="op">].</span><span class="fu">Type</span><span class="op">);</span></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;FOO&quot;</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">?[</span><span class="dv">1</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>This can be implemented via the following snippet inside
+<code>Parse()</code></p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;*&#39;</span><span class="op">)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">Type</span> <span class="op">=</span> DataType<span class="op">.</span><span class="fu">Array</span><span class="op">;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">ArrayValues</span> <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> numElementsIndexEnd <span class="op">=</span> Array<span class="op">.</span><span class="fu">IndexOf</span><span class="op">(</span>data<span class="op">,</span> <span class="op">(</span><span class="dt">byte</span><span class="op">)</span><span class="ch">&#39;\r&#39;</span><span class="op">,</span> offset<span class="op">);</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> numElements <span class="op">=</span> Int32<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> offset <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> numElementsIndexEnd <span class="op">-</span> offset <span class="op">-</span> <span class="dv">1</span><span class="op">));</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        offset <span class="op">=</span> numElementsIndexEnd <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> <span class="op">(</span><span class="dt">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> numElements<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span>RedisData elem<span class="op">,</span> <span class="dt">int</span> nextArrayOffset<span class="op">)</span> <span class="op">=</span> <span class="fu">Parse</span><span class="op">(</span>data<span class="op">,</span> offset<span class="op">);</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            result<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">.</span><span class="fu">Add</span><span class="op">(</span>elem<span class="op">);</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>            offset <span class="op">=</span> nextArrayOffset<span class="op">;</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        nextOffset <span class="op">=</span> offset<span class="op">;</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Since we now have a basic test setup, let’s refactor the code a bit
+by moving away from this ìf-else` cascade and introduce a switch
+statement and move the type-defining character to the enum:</p>
 	</article>
 </body>
 

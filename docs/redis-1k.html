@@ -25,25 +25,65 @@
 				<h1 class="title">Redis in 1024 lines of code</h1>
 						<p>This article describes my approach to write a Redis clone in C#,
 limiting myself to 1024 lines of code (as stated by the code analysis
-tool <a href="https://github.com/AlDanial/cloc">cloc</a>).</p>
+tool <a href="https://github.com/AlDanial/cloc">cloc</a>). A similar
+approach for various topics has been discussed in books such as <a
+href="https://aosabook.org/en/">The Architecture of Open Source
+Applications</a>.</p>
 <h2 id="the-goal">The goal</h2>
-<p>Allow the official redis CLI tool to connect to our server and
-perform as many operations as standard conform as possible. As an
-experiment, I will use</p>
+<p>The aim is to allow the official Redis CLI tool to interface with our
+server and execute as many standard-compliant operations as possible. As
+a twist in this experiment, I will be using a test-driven approach as
+much as possible.</p>
 <h2 id="the-beginning">The beginning</h2>
-<p>Of course, I could start by looking at the protocol specification and
-start implementing the server based on the this, but this would be a bit
-boring. Instead, let’s fire up a plain TCP server which listens on port
-6379 (redis’ standard port) and check what the client sends us:</p>
+<p>While I could have commenced by diving into the protocol
+specification and building the server accordingly, I felt that might be
+somewhat mundane. Instead, I opted to initiate a basic TCP server, set
+it to listen on port 6379 (the standard port for Redis), and observe the
+commands the client transmits.</p>
 <p>After setting up a project with
 <code>dotnet new console -o src</code>, let’s spawn up a simple TCP
 server which simply output what it has received</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"></code></pre></div>
-<p>and start <code>redis-cli</code> using the default docker image:</p>
-<pre><code></code></pre>
-<p>The output of the TCP server shows what data has been received.
-Coming back to the specification, the client seemingly sends an array
-with two elements. Each element is a bulk string.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Program.cs</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Net</span><span class="op">.</span><span class="fu">Sockets</span><span class="op">;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>TcpListener server <span class="op">=</span> <span class="kw">new</span><span class="op">(</span><span class="dv">6379</span><span class="op">);</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>server<span class="op">.</span><span class="fu">Start</span><span class="op">();</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">&quot;Server started&quot;</span><span class="op">);</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> <span class="op">(</span><span class="kw">true</span><span class="op">)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    TcpClient client <span class="op">=</span> server<span class="op">.</span><span class="fu">AcceptTcpClient</span><span class="op">();</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">&quot;Client connected&quot;</span><span class="op">);</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> stream <span class="op">=</span> client<span class="op">.</span><span class="fu">GetStream</span><span class="op">();</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">byte</span><span class="op">[]</span> buffer <span class="op">=</span> <span class="kw">new</span> <span class="dt">byte</span><span class="op">[</span><span class="dv">1024</span><span class="op">];</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> read <span class="op">=</span> stream<span class="op">.</span><span class="fu">Read</span><span class="op">(</span>buffer<span class="op">);</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">foreach</span> <span class="op">(</span><span class="dt">byte</span> b <span class="kw">in</span> buffer<span class="op">.</span><span class="fu">Take</span><span class="op">(</span>read<span class="op">))</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        Console<span class="op">.</span><span class="fu">Write</span><span class="op">((</span><span class="dt">char</span><span class="op">)</span>b<span class="op">);</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">();</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    client<span class="op">.</span><span class="fu">Close</span><span class="op">();</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Subsequently, we’ll start the redis-cli through the default Docker
+image:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span> redis redis-cli <span class="at">-h</span> docker.for.mac.localhost</span></code></pre></div>
+<p>The printout from the TCP server reveals the incoming data:</p>
+<pre><code>Server started
+Client connected
+*2
+$7
+COMMAND
+$4
+DOCS</code></pre>
+<p>Revisiting the protocol specification, it becomes evident that the
+client dispatches an array containing two components. Each of these is a
+bulk string. Essentially, the client is requesting the server to furnish
+a list of supported commands along with their respective
+documentation.</p>
+<h2 id="parsing-bulk-strings-and-arrays">Parsing bulk strings and
+arrays</h2>
+<p>TD</p>
 	</article>
 </body>
 

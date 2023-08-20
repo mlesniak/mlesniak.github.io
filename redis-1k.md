@@ -148,7 +148,7 @@ Ignoring parsing arrays for now -- overall, we focus on a somewhat test-driven a
     }
 ```
 
-Note that the code will be refactored once our basic test cases are working.
+Note that the internal implementation will be refactored once our basic test cases are working.
 
 ## Parsing arrays
 

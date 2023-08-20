@@ -63,10 +63,90 @@ Revisiting the protocol specification, it becomes evident that the client dispat
 
 ## Parsing bulk strings
 
-setting up a test project
-test for bulk string
-initial data structure -- will probably change
-implementation -- leave out arrays for now
+<!-- setting up a test project -->
+I intentionally want to completely separate the actual implementation for its corresponding tests. Therefore let's setup a test project using [xUnit](https://xunit.net/) via `dotnet new xunit -o test` in the parent directory of the source code.
+
+<!-- test for bulk string -->
+The first test to verify correct parsing of bulk strings looks like
+```c#
+[Fact]
+public void ToRedisMessage_SimpleBulkString_ReturnsCorrectResult()
+{
+    var message = """
+                  $5
+                  HELLO
+                  """.ToRedisMessage();
+    
+    var data = RedisData.Parse(message);
+
+    Equal(RedisData.DataType.BulkString, data.Type);
+    Equal("HELLO", data.BulkString);
+}
+```
+As you can see by the test, a bulk string consists of a `$` and a number stating the number of bytes to follow which will build up the string. Implicitly stated, but hidden in the string representation is the delimiter between elements, i.e. `\r\n`.
+
+<!-- initial data structure -- will probably change -->
+To represent the received input, and generate corresponding output later on, let's start with a basic data structure which will probably be changed a lot once we gain more insights.
+
+```c#
+public class RedisData
+{
+    public enum DataType
+    {
+        Array,
+        BulkString,
+    }
+
+    public DataType Type { get; set; }
+    public string? BulkString { get; set; } = null;
+    public List<RedisData>? ArrayValues { get; set; } = null;
+
+    public static RedisData Parse(byte[] data)
+    {
+        var (result, _) = Parse(data, 0);
+        return result;
+    }
+
+    // return (parsed data, beginning of next element)
+    static (RedisData, int) Parse(byte[] data, int offset)
+    {
+        // TODO
+    }
+```
+
+Currently, only (nested) arrays and bulk strings will be supported by our parsing routine `Parse()`. Internally, it calls its counterpart which allows to specify the starting point for parsing which is necessary for sequential structures such as arrays.
+
+<!-- implementation -- leave out arrays for now -->
+
+Ignoring parsing arrays for now -- overall, we focus on a somewhat test-driven approach and our tests focus on bulk strings for now -- we can parse bulk strings as follows:
+
+```c#
+    static (RedisData, int) Parse(byte[] data, int offset)
+    {
+        RedisData result = new();
+        int end = 0;
+        
+        if (data[offset] == '*')
+        {
+            throw new NotImplementedException();
+        }
+        else if (data[offset] == '$')
+        {
+            result.Type = DataType.BulkString;
+            var lengthEnd = Array.IndexOf(data, (byte)'\r');
+            var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - 1));
+            int stringStart = offset + lengthEnd + 2;
+            result.BulkString = Encoding.ASCII.GetString(data, stringStart, length);
+            nextOffset = stringStart + length + 2;
+        }
+        else
+        {
+            throw new ArgumentException($"Invalid byte {data[offset]} to parse");
+        }
+
+        return (result, end);
+    }
+```
 
 ## Parsing arrays
 

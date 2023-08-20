@@ -81,8 +81,93 @@ bulk string. Essentially, the client is requesting the server to furnish
 a list of supported commands along with their respective
 documentation.</p>
 <h2 id="parsing-bulk-strings">Parsing bulk strings</h2>
-<p>setting up a test project test for bulk string initial data structure
-– will probably change implementation – leave out arrays for now</p>
+<!-- setting up a test project -->
+<p>I intentionally want to completely separate the actual implementation
+for its corresponding tests. Therefore let’s setup a test project using
+<a href="https://xunit.net/">xUnit</a> via
+<code>dotnet new xunit -o test</code> in the parent directory of the
+source code.</p>
+<!-- test for bulk string -->
+<p>The first test to verify correct parsing of bulk strings looks
+like</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ToRedisMessage_SimpleBulkString_ReturnsCorrectResult</span><span class="op">()</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> message <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                  $<span class="dv">5</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                  HELLO</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;&quot;&quot;.ToRedisMessage();</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> data <span class="op">=</span> RedisData<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>message<span class="op">);</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">DataType</span><span class="op">.</span><span class="fu">BulkString</span><span class="op">,</span> data<span class="op">.</span><span class="fu">Type</span><span class="op">);</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;HELLO&quot;</span><span class="op">,</span> data<span class="op">.</span><span class="fu">BulkString</span><span class="op">);</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>As you can see by the test, a bulk string consists of a
+<code>$</code> and a number stating the number of bytes to follow which
+will build up the string. Implicitly stated, but hidden in the string
+representation is the delimiter between elements,
+i.e. <code>\r\n</code>.</p>
+<!-- initial data structure -- will probably change -->
+<p>To represent the received input, and generate corresponding output
+later on, let’s start with a basic data structure which will probably be
+changed a lot once we gain more insights.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> RedisData</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">enum</span> DataType</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        Array<span class="op">,</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        BulkString<span class="op">,</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> DataType Type <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">string</span><span class="op">?</span> BulkString <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> List<span class="op">&lt;</span>RedisData<span class="op">&gt;?</span> ArrayValues <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">static</span> RedisData <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">var</span> <span class="op">(</span>result<span class="op">,</span> _<span class="op">)</span> <span class="op">=</span> <span class="fu">Parse</span><span class="op">(</span>data<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> result<span class="op">;</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// return (parsed data, beginning of next element)</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static</span> <span class="op">(</span>RedisData<span class="op">,</span> <span class="dt">int</span><span class="op">)</span> <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">,</span> <span class="dt">int</span> offset<span class="op">)</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">// </span><span class="al">TODO</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Currently, only (nested) arrays and bulk strings will be supported by
+our parsing routine <code>Parse()</code>. Internally, it calls its
+counterpart which allows to specify the starting point for parsing which
+is necessary for sequential structures such as arrays.</p>
+<!-- implementation -- leave out arrays for now -->
+<p>Ignoring parsing arrays for now – overall, we focus on a somewhat
+test-driven approach and our tests focus on bulk strings for now – we
+can parse bulk strings as follows:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static</span> <span class="op">(</span>RedisData<span class="op">,</span> <span class="dt">int</span><span class="op">)</span> <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">,</span> <span class="dt">int</span> offset<span class="op">)</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        RedisData result <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> end <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;*&#39;</span><span class="op">)</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">NotImplementedException</span><span class="op">();</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;$&#39;</span><span class="op">)</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            result<span class="op">.</span><span class="fu">Type</span> <span class="op">=</span> DataType<span class="op">.</span><span class="fu">BulkString</span><span class="op">;</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>            <span class="dt">var</span> lengthEnd <span class="op">=</span> Array<span class="op">.</span><span class="fu">IndexOf</span><span class="op">(</span>data<span class="op">,</span> <span class="op">(</span><span class="dt">byte</span><span class="op">)</span><span class="ch">&#39;\r&#39;</span><span class="op">);</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>            <span class="dt">var</span> length <span class="op">=</span> Int32<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> offset <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> lengthEnd <span class="op">-</span> <span class="dv">1</span><span class="op">));</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>            <span class="dt">int</span> stringStart <span class="op">=</span> offset <span class="op">+</span> lengthEnd <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>            result<span class="op">.</span><span class="fu">BulkString</span> <span class="op">=</span> Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> stringStart<span class="op">,</span> length<span class="op">);</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>            nextOffset <span class="op">=</span> stringStart <span class="op">+</span> length <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">else</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>            <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArgumentException</span><span class="op">(</span>$<span class="st">&quot;Invalid byte {data[offset]} to parse&quot;</span><span class="op">);</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="op">(</span>result<span class="op">,</span> end<span class="op">);</span></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <h2 id="parsing-arrays">Parsing arrays</h2>
 	</article>
 </body>

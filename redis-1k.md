@@ -3,8 +3,8 @@ title: Redis in 1024 lines of code
 data: 2023-08-20
 ---
 
-This article describes my approach to write a Redis clone in C#, limiting myself to 1024 lines of code (as stated by the code analysis tool [cloc](https://github.com/AlDanial/cloc)). A similar approach for various topics has been discussed in books such as [The Architecture of Open Source Applications](https://aosabook.org/en/).
-
+This article describes my approach to write a Redis clone in C#, limiting myself to 1024 lines of code (as stated by the code analysis tool [cloc](https://github.com/AlDanial/cloc)). A similar approach for various topics has been discussed in books such as 
+[500 Lines or Less](https://amzn.eu/d/b4iJBIa).
 
 ## The goal
 
@@ -61,6 +61,12 @@ DOCS
 
 Revisiting the protocol specification, it becomes evident that the client dispatches an array containing two components. Each of these is a bulk string. Essentially, the client is requesting the server to furnish a list of supported commands along with their respective documentation.
 
-## Parsing bulk strings and arrays
+## Parsing bulk strings
 
-TD
+setting up a test project
+test for bulk string
+initial data structure -- will probably change
+implementation -- leave out arrays for now
+
+## Parsing arrays
+

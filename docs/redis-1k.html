@@ -27,8 +27,7 @@
 limiting myself to 1024 lines of code (as stated by the code analysis
 tool <a href="https://github.com/AlDanial/cloc">cloc</a>). A similar
 approach for various topics has been discussed in books such as <a
-href="https://aosabook.org/en/">The Architecture of Open Source
-Applications</a>.</p>
+href="https://amzn.eu/d/b4iJBIa">500 Lines or Less</a>.</p>
 <h2 id="the-goal">The goal</h2>
 <p>The aim is to allow the official Redis CLI tool to interface with our
 server and execute as many standard-compliant operations as possible. As
@@ -81,9 +80,10 @@ client dispatches an array containing two components. Each of these is a
 bulk string. Essentially, the client is requesting the server to furnish
 a list of supported commands along with their respective
 documentation.</p>
-<h2 id="parsing-bulk-strings-and-arrays">Parsing bulk strings and
-arrays</h2>
-<p>TD</p>
+<h2 id="parsing-bulk-strings">Parsing bulk strings</h2>
+<p>setting up a test project test for bulk string initial data structure
+– will probably change implementation – leave out arrays for now</p>
+<h2 id="parsing-arrays">Parsing arrays</h2>
 	</article>
 </body>
 

@@ -15,3 +15,4 @@ By publicly addressing subjects through writing, I'm compelled to delve deeply i
 
 - [Why write?](https://www.arp242.net/why-write.html) by Martin Tournoij
 - [Building a personal website in 2021](https://news.ycombinator.com/item?id=27173728) via Hackernews
+- [Write about what you learn. It pushes you to understand topics better.](https://addyosmani.com/blog/write-learn/)

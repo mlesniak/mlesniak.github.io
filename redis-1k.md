@@ -103,7 +103,7 @@ public class RedisData
 
     public static RedisData Parse(byte[] data)
     {
-        var (result, _) = Parse(data, 0);
+        (RedisData result, _) = Parse(data, 0);
         return result;
     }
 
@@ -225,4 +225,8 @@ This can be implemented via the following snippet inside `Parse()`
     }
 ```
 
-Since we now have a basic test setup, let's refactor the code a bit by moving away from this ìf-else` cascade and introduce a switch statement and move the type-defining character to the enum:
+Since we now have a basic test setup, let's refactor the code a bit by moving away from this `if-else` cascade and introduce a switch statement and move the type-defining character to the enum.
+
+### A short excursion into over-engineering
+
+We want to implement a more general approach the if-else-cascade, though one can argue that this is not the worst code to maintain. Nonetheless, a switch statement would be possible as well.

@@ -16,7 +16,7 @@ While I could have commenced by diving into the protocol specification and build
 
 After setting up a project with `dotnet new console -o src`, let's spawn up a simple TCP server which simply output what it has received
 
-```c#
+```cs
 // Program.cs
 using System.Net.Sockets;
 
@@ -42,7 +42,7 @@ while (true)
 
 Subsequently, we'll start the redis-cli through the default Docker image:
 
-```bash
+```
 docker run --rm -it redis redis-cli -h docker.for.mac.localhost
 ```
 
@@ -68,7 +68,7 @@ I intentionally want to completely separate the actual implementation for its co
 
 <!-- test for bulk string -->
 The first test to verify correct parsing of bulk strings looks like
-```c#
+```cs
 [Fact]
 public void ToRedisMessage_SimpleBulkString_ReturnsCorrectResult()
 {
@@ -88,7 +88,7 @@ As you can see by the test, a bulk string consists of a `$` and a number stating
 <!-- initial data structure -- will probably change -->
 To represent the received input, and generate corresponding output later on, let's start with a basic data structure which will probably be changed a lot once we gain more insights.
 
-```c#
+```cs
 public class RedisData
 {
     public enum DataType
@@ -120,7 +120,7 @@ Currently, only (nested) arrays and bulk strings will be supported by our parsin
 
 Ignoring parsing arrays for now -- overall, we focus on a somewhat test-driven approach and our tests focus on bulk strings for now -- we can parse bulk strings as follows:
 
-```c#
+```cs
 static (RedisData, int) Parse(byte[] data, int offset)
 {
     RedisData result = new();
@@ -154,7 +154,7 @@ Note that the internal implementation will be refactored once our basic test cas
 
 We can use a similar approach to parse arrays, though arrayc are recursive data structures in the redis protocol and can contain both plain values, e.g. bulk strings, as nested arrays. Hence, let's define two different test cases: The first one mirrors the data we receive from the client and will allow to parse sent commands, the second checks that the implementation handles nested arrays correctly:
 
-```c#
+```cs
 [Fact]
 public void ToRedisMessage_SimpleArray_ReturnsCorrectResult()
 {
@@ -207,7 +207,7 @@ public void ToRedisMessage_NestedArray_ReturnsCorrectResult()
 
 This can be implemented via the following snippet inside `Parse()`
 
-```c#
+```cs
     if (data[offset] == '*')
     {
         result.Type = DataType.Array;

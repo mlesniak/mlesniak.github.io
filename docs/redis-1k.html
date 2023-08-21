@@ -44,7 +44,7 @@ commands the client transmits.</p>
 <p>After setting up a project with
 <code>dotnet new console -o src</code>, let’s spawn up a simple TCP
 server which simply output what it has received</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Program.cs</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Program.cs</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Net</span><span class="op">.</span><span class="fu">Sockets</span><span class="op">;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>TcpListener server <span class="op">=</span> <span class="kw">new</span><span class="op">(</span><span class="dv">6379</span><span class="op">);</span></span>
@@ -67,8 +67,7 @@ server which simply output what it has received</p>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Subsequently, we’ll start the redis-cli through the default Docker
 image:</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">--rm</span> <span class="at">-it</span> redis redis-cli <span class="at">-h</span> docker.for.mac.localhost</span></code></pre></div>
+<pre><code>docker run --rm -it redis redis-cli -h docker.for.mac.localhost</code></pre>
 <p>The printout from the TCP server reveals the incoming data:</p>
 <pre><code>Server started
 Client connected
@@ -92,7 +91,7 @@ source code.</p>
 <!-- test for bulk string -->
 <p>The first test to verify correct parsing of bulk strings looks
 like</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ToRedisMessage_SimpleBulkString_ReturnsCorrectResult</span><span class="op">()</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> message <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
@@ -114,7 +113,7 @@ i.e. <code>\r\n</code>.</p>
 <p>To represent the received input, and generate corresponding output
 later on, let’s start with a basic data structure which will probably be
 changed a lot once we gain more insights.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> RedisData</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> RedisData</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">enum</span> DataType</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
@@ -145,7 +144,7 @@ is necessary for sequential structures such as arrays.</p>
 <p>Ignoring parsing arrays for now – overall, we focus on a somewhat
 test-driven approach and our tests focus on bulk strings for now – we
 can parse bulk strings as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">static</span> <span class="op">(</span>RedisData<span class="op">,</span> <span class="dt">int</span><span class="op">)</span> <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">,</span> <span class="dt">int</span> offset<span class="op">)</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">static</span> <span class="op">(</span>RedisData<span class="op">,</span> <span class="dt">int</span><span class="op">)</span> <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">,</span> <span class="dt">int</span> offset<span class="op">)</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    RedisData result <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> end <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
@@ -179,7 +178,7 @@ plain values, e.g. bulk strings, as nested arrays. Hence, let’s define
 two different test cases: The first one mirrors the data we receive from
 the client and will allow to parse sent commands, the second checks that
 the implementation handles nested arrays correctly:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ToRedisMessage_SimpleArray_ReturnsCorrectResult</span><span class="op">()</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> message <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
@@ -229,7 +228,7 @@ the implementation handles nested arrays correctly:</p>
 <span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>This can be implemented via the following snippet inside
 <code>Parse()</code></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode c#"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;*&#39;</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;*&#39;</span><span class="op">)</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">Type</span> <span class="op">=</span> DataType<span class="op">.</span><span class="fu">Array</span><span class="op">;</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">ArrayValues</span> <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>

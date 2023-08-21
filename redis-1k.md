@@ -79,7 +79,7 @@ public void ToRedisMessage_SimpleBulkString_ReturnsCorrectResult()
     
     var data = RedisData.Parse(message);
 
-    Equal(RedisData.DataType.BulkString, data.Type);
+    Equal(RedisData.RedisDataType.BulkString, data.Type);
     Equal("HELLO", data.BulkString);
 }
 ```
@@ -91,13 +91,13 @@ To represent the received input, and generate corresponding output later on, let
 ```cs
 public class RedisData
 {
-    public enum DataType
+    public enum RedisDataType
     {
         Array,
         BulkString,
     }
 
-    public DataType Type { get; set; }
+    public RedisDataType Type { get; set; }
     public string? BulkString { get; set; } = null;
     public List<RedisData>? ArrayValues { get; set; } = null;
 
@@ -132,7 +132,7 @@ static (RedisData, int) Parse(byte[] data, int offset)
     }
     else if (data[offset] == '$')
     {
-        result.Type = DataType.BulkString;
+        result.Type = RedisDataType.BulkString;
         var lengthEnd = Array.IndexOf(data, (byte)'\r', offset);
         var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - offset - 1));
         int stringStart = lengthEnd + 2;
@@ -168,12 +168,12 @@ public void ToRedisMessage_SimpleArray_ReturnsCorrectResult()
     
     var data = RedisData.Parse(message);
     
-    Equal(RedisData.DataType.Array, data.Type);
+    Equal(RedisData.RedisDataType.Array, data.Type);
     
-    Equal(RedisData.DataType.BulkString, data.ArrayValues![0].Type);
+    Equal(RedisData.RedisDataType.BulkString, data.ArrayValues![0].Type);
     Equal("HELLO", data.ArrayValues![0].BulkString);
     
-    Equal(RedisData.DataType.BulkString, data.ArrayValues![1].Type);
+    Equal(RedisData.RedisDataType.BulkString, data.ArrayValues![1].Type);
     Equal("FOO", data.ArrayValues![1].BulkString);
 }
 
@@ -193,14 +193,14 @@ public void ToRedisMessage_NestedArray_ReturnsCorrectResult()
     
     var data = RedisData.Parse(message);
     
-    Equal(RedisData.DataType.Array, data.Type);
+    Equal(RedisData.RedisDataType.Array, data.Type);
     
-    Equal(RedisData.DataType.Array, data.ArrayValues![0].Type);
+    Equal(RedisData.RedisDataType.Array, data.ArrayValues![0].Type);
     var array = data.ArrayValues![0];
     Equal("BAR", array.ArrayValues?[0].BulkString);
     Equal("HELLO", array.ArrayValues?[1].BulkString);
     
-    Equal(RedisData.DataType.BulkString, data.ArrayValues![1].Type);
+    Equal(RedisData.RedisDataType.BulkString, data.ArrayValues![1].Type);
     Equal("FOO", data.ArrayValues?[1].BulkString);
 }
 ```
@@ -210,7 +210,7 @@ This can be implemented via the following snippet inside `Parse()`
 ```cs
     if (data[offset] == '*')
     {
-        result.Type = DataType.Array;
+        result.Type = RedisDataType.Array;
         result.ArrayValues = new();
         var numElementsIndexEnd = Array.IndexOf(data, (byte)'\r', offset);
         var numElements = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, numElementsIndexEnd - offset - 1));
@@ -243,5 +243,41 @@ sealed class ByteRepresentationAttribute : Attribute
 }
 ```
 
-<!-- we can then annotate our data type -->
-<!-- and retrieve the attribute for every type -->
+This allows to annotate the data type definition via
+```cs
+public enum RedisDataType
+{
+    [ByteRepresentation('*')]
+    Array,
+    [ByteRepresentation('$')]
+    BulkString,
+}
+```
+and retrieve the corresponding field from the type via an extension function
+```cs
+public static class DataTypeIdentifier
+{
+    public static byte Identifier(this RedisDataType type)
+    {
+        var fieldInfo = type.GetType().GetField(type.ToString())!;
+        var attribute =
+            ((ByteRepresentationAttribute)fieldInfo.GetCustomAttribute(typeof(ByteRepresentationAttribute))!);
+        return attribute.Byte;
+    }
+}
+```
+This looks -- on the first look -- like a nice solution and we can refactor the `if`s into a switch statement
+```cs
+switch (data[offset])
+{
+    case var b when b == RedisDataType.BulkString.Identifier():
+        // ...
+        break;
+    case var b when b == RedisDataType.Array.Identifier():
+        // ...
+        break;
+    default:
+        throw new ArgumentException($"Invalid byte {data[offset]} to parse");
+}
+```
+where the problem becomes (in my humble view) obvious: while the switch looks syntactically simpler, the necessary `var b when b == ...` construct does not look very nice. 

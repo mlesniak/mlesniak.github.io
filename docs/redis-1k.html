@@ -249,10 +249,10 @@ switch statement and move the type-defining character to the enum.</p>
 <h3 id="a-short-excursion-into-over-engineering">A short excursion into
 over-engineering</h3>
 <p>We want to implement a more general approach the if-else-cascade,
-though one can argue that this is not the worst code to maintain.
-Nonetheless, a switch statement would be possible as well. For that, we
-have to add a custom attribute which stores the corresponding encoding
-character for each data type:</p>
+though one can rightfully argue that this is not the worst code to
+maintain. Nonetheless, a <code>switch</code> statement would be possible
+as well. For that, we have to add a custom attribute which stores the
+corresponding encoding character for each data type:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span><span class="fu">AttributeUsage</span><span class="op">(</span>AttributeTargets<span class="op">.</span><span class="fu">Field</span><span class="op">)]</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">sealed</span> <span class="kw">class</span> ByteRepresentationAttribute <span class="op">:</span> Attribute</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>

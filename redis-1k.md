@@ -280,4 +280,4 @@ switch (data[offset])
         throw new ArgumentException($"Invalid byte {data[offset]} to parse");
 }
 ```
-where the problem becomes (in my humble view) obvious: while the switch looks syntactically simpler, the necessary `var b when b == ...` construct does not look very nice. 
+where the problem becomes (in my humble view) obvious: while the switch looks syntactically simpler, the necessary `var b when b == ...` construct does not look very nice and quite a bit convoluted. 

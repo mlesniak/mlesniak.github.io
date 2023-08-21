@@ -229,4 +229,19 @@ Since we now have a basic test setup, let's refactor the code a bit by moving aw
 
 ### A short excursion into over-engineering
 
-We want to implement a more general approach the if-else-cascade, though one can argue that this is not the worst code to maintain. Nonetheless, a switch statement would be possible as well.
+We want to implement a more general approach the if-else-cascade, though one can argue that this is not the worst code to maintain. Nonetheless, a switch statement would be possible as well. For that, we have to add a custom attribute which stores the corresponding encoding character for each data type:
+```cs
+[AttributeUsage(AttributeTargets.Field)]
+sealed class ByteRepresentationAttribute : Attribute
+{
+    public byte Byte { get; }
+
+    public ByteRepresentationAttribute(char b)
+    {
+        Byte = (byte)b;
+    }
+}
+```
+
+<!-- we can then annotate our data type -->
+<!-- and retrieve the attribute for every type -->

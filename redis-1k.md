@@ -42,14 +42,14 @@ while (true)
 
 Subsequently, we'll start the redis-cli through the default Docker image:
 
-```
+```bash
 docker run --rm -it redis redis-cli -h docker.for.mac.localhost
 ```
 
 The printout from the TCP server reveals the incoming data:
 
 
-```
+```bash
 Server started
 Client connected
 *2
@@ -280,4 +280,10 @@ switch (data[offset])
         throw new ArgumentException($"Invalid byte {data[offset]} to parse");
 }
 ```
-where the problem becomes (in my humble view) obvious: while the switch looks syntactically simpler, the necessary `var b when b == ...` construct does not look very nice and quite a bit convoluted. 
+where the problem becomes (in my humble view) obvious: while the switch looks syntactically simpler, the necessary `var b when b == ...` construct does not look very nice and quite a bit convoluted. Note that we can not remove the section before the `when`, since the `Identifier()` call is dynamic and the case expression needs static values.
+
+
+<!-- new section back to good code -->
+
+A slightly better approach, which allows for more extensibility in the future, is to use a dictionary in combination with a proper delegate definition. One can argue that we do not follow [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it#:~:text=%22You%20aren't%20gonna%20need,add%20functionality%20until%20deemed%20necessary.), but bear with me for a minute.
+

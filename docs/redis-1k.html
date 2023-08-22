@@ -5,8 +5,10 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Redis in 1024 lines of code</title>
+	<link rel="stylesheet" href="prism.css">
 	<link rel="stylesheet" href="style.css">
 </head>
+<script src="prism.js"></script>
 
 <body>
 	<header>
@@ -44,32 +46,32 @@ commands the client transmits.</p>
 <p>After setting up a project with
 <code>dotnet new console -o src</code>, let’s spawn up a simple TCP
 server which simply output what it has received</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">// Program.cs</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="kw">using</span> System<span class="op">.</span><span class="fu">Net</span><span class="op">.</span><span class="fu">Sockets</span><span class="op">;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>TcpListener server <span class="op">=</span> <span class="kw">new</span><span class="op">(</span><span class="dv">6379</span><span class="op">);</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>server<span class="op">.</span><span class="fu">Start</span><span class="op">();</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">&quot;Server started&quot;</span><span class="op">);</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="kw">while</span> <span class="op">(</span><span class="kw">true</span><span class="op">)</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    TcpClient client <span class="op">=</span> server<span class="op">.</span><span class="fu">AcceptTcpClient</span><span class="op">();</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">(</span><span class="st">&quot;Client connected&quot;</span><span class="op">);</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> stream <span class="op">=</span> client<span class="op">.</span><span class="fu">GetStream</span><span class="op">();</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">byte</span><span class="op">[]</span> buffer <span class="op">=</span> <span class="kw">new</span> <span class="dt">byte</span><span class="op">[</span><span class="dv">1024</span><span class="op">];</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> read <span class="op">=</span> stream<span class="op">.</span><span class="fu">Read</span><span class="op">(</span>buffer<span class="op">);</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">foreach</span> <span class="op">(</span><span class="dt">byte</span> b <span class="kw">in</span> buffer<span class="op">.</span><span class="fu">Take</span><span class="op">(</span>read<span class="op">))</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        Console<span class="op">.</span><span class="fu">Write</span><span class="op">((</span><span class="dt">char</span><span class="op">)</span>b<span class="op">);</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    Console<span class="op">.</span><span class="fu">WriteLine</span><span class="op">();</span></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    client<span class="op">.</span><span class="fu">Close</span><span class="op">();</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">// Program.cs
+using System.Net.Sockets;
+
+TcpListener server = new(6379);
+server.Start();
+Console.WriteLine(&quot;Server started&quot;);
+while (true)
+{
+    TcpClient client = server.AcceptTcpClient();
+    Console.WriteLine(&quot;Client connected&quot;);
+    var stream = client.GetStream();
+
+    byte[] buffer = new byte[1024];
+    int read = stream.Read(buffer);
+    foreach (byte b in buffer.Take(read))
+    {
+        Console.Write((char)b);
+    }
+    Console.WriteLine();
+    client.Close();
+}</code></pre>
 <p>Subsequently, we’ll start the redis-cli through the default Docker
 image:</p>
-<pre><code>docker run --rm -it redis redis-cli -h docker.for.mac.localhost</code></pre>
+<pre><code class="language-bash">docker run --rm -it redis redis-cli -h docker.for.mac.localhost</code></pre>
 <p>The printout from the TCP server reveals the incoming data:</p>
-<pre><code>Server started
+<pre><code class="language-bash">Server started
 Client connected
 *2
 $7
@@ -91,19 +93,19 @@ source code.</p>
 <!-- test for bulk string -->
 <p>The first test to verify correct parsing of bulk strings looks
 like</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ToRedisMessage_SimpleBulkString_ReturnsCorrectResult</span><span class="op">()</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> message <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                  $<span class="dv">5</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                  HELLO</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                  <span class="st">&quot;&quot;&quot;.ToRedisMessage();</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> data <span class="op">=</span> RedisData<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>message<span class="op">);</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">RedisDataType</span><span class="op">.</span><span class="fu">BulkString</span><span class="op">,</span> data<span class="op">.</span><span class="fu">Type</span><span class="op">);</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;HELLO&quot;</span><span class="op">,</span> data<span class="op">.</span><span class="fu">BulkString</span><span class="op">);</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">[Fact]
+public void ToRedisMessage_SimpleBulkString_ReturnsCorrectResult()
+{
+    var message = &quot;&quot;&quot;
+                  $5
+                  HELLO
+                  &quot;&quot;&quot;.ToRedisMessage();
+    
+    var data = RedisData.Parse(message);
+
+    Equal(RedisData.RedisDataType.BulkString, data.Type);
+    Equal(&quot;HELLO&quot;, data.BulkString);
+}</code></pre>
 <p>As you can see by the test, a bulk string consists of a
 <code>$</code> and a number stating the number of bytes to follow which
 will build up the string. Implicitly stated, but hidden in the string
@@ -113,29 +115,29 @@ i.e. <code>\r\n</code>.</p>
 <p>To represent the received input, and generate corresponding output
 later on, let’s start with a basic data structure which will probably be
 changed a lot once we gain more insights.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">class</span> RedisData</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">enum</span> RedisDataType</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        Array<span class="op">,</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        BulkString<span class="op">,</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> RedisDataType Type <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">string</span><span class="op">?</span> BulkString <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> List<span class="op">&lt;</span>RedisData<span class="op">&gt;?</span> ArrayValues <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="kw">set</span><span class="op">;</span> <span class="op">}</span> <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">static</span> RedisData <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">)</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">(</span>RedisData result<span class="op">,</span> _<span class="op">)</span> <span class="op">=</span> <span class="fu">Parse</span><span class="op">(</span>data<span class="op">,</span> <span class="dv">0</span><span class="op">);</span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> result<span class="op">;</span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">// return (parsed data, beginning of next element)</span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">static</span> <span class="op">(</span>RedisData<span class="op">,</span> <span class="dt">int</span><span class="op">)</span> <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">,</span> <span class="dt">int</span> offset<span class="op">)</span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        <span class="co">// </span><span class="al">TODO</span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">public class RedisData
+{
+    public enum RedisDataType
+    {
+        Array,
+        BulkString,
+    }
+
+    public RedisDataType Type { get; set; }
+    public string? BulkString { get; set; } = null;
+    public List&lt;RedisData&gt;? ArrayValues { get; set; } = null;
+
+    public static RedisData Parse(byte[] data)
+    {
+        (RedisData result, _) = Parse(data, 0);
+        return result;
+    }
+
+    // return (parsed data, beginning of next element)
+    static (RedisData, int) Parse(byte[] data, int offset)
+    {
+        // TODO
+    }</code></pre>
 <p>Currently, only (nested) arrays and bulk strings will be supported by
 our parsing routine <code>Parse()</code>. Internally, it calls its
 counterpart which allows to specify the starting point for parsing which
@@ -144,31 +146,31 @@ is necessary for sequential structures such as arrays.</p>
 <p>Ignoring parsing arrays for now – overall, we focus on a somewhat
 test-driven approach and our tests focus on bulk strings for now – we
 can parse bulk strings as follows:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">static</span> <span class="op">(</span>RedisData<span class="op">,</span> <span class="dt">int</span><span class="op">)</span> <span class="fu">Parse</span><span class="op">(</span><span class="dt">byte</span><span class="op">[]</span> data<span class="op">,</span> <span class="dt">int</span> offset<span class="op">)</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    RedisData result <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> end <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;*&#39;</span><span class="op">)</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">NotImplementedException</span><span class="op">();</span></span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span> <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;$&#39;</span><span class="op">)</span></span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">Type</span> <span class="op">=</span> RedisDataType<span class="op">.</span><span class="fu">BulkString</span><span class="op">;</span></span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> lengthEnd <span class="op">=</span> Array<span class="op">.</span><span class="fu">IndexOf</span><span class="op">(</span>data<span class="op">,</span> <span class="op">(</span><span class="dt">byte</span><span class="op">)</span><span class="ch">&#39;\r&#39;</span><span class="op">,</span> offset<span class="op">);</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> length <span class="op">=</span> Int32<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> offset <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> lengthEnd <span class="op">-</span> offset <span class="op">-</span> <span class="dv">1</span><span class="op">));</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        <span class="dt">int</span> stringStart <span class="op">=</span> lengthEnd <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">BulkString</span> <span class="op">=</span> Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> stringStart<span class="op">,</span> length<span class="op">);</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>        nextOffset <span class="op">=</span> stringStart <span class="op">+</span> length <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span></span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArgumentException</span><span class="op">(</span>$<span class="st">&quot;Invalid byte {data[offset]} to parse&quot;</span><span class="op">);</span></span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> <span class="op">(</span>result<span class="op">,</span> end<span class="op">);</span></span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">static (RedisData, int) Parse(byte[] data, int offset)
+{
+    RedisData result = new();
+    int end = 0;
+    
+    if (data[offset] == &#39;*&#39;)
+    {
+        throw new NotImplementedException();
+    }
+    else if (data[offset] == &#39;$&#39;)
+    {
+        result.Type = RedisDataType.BulkString;
+        var lengthEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - offset - 1));
+        int stringStart = lengthEnd + 2;
+        result.BulkString = Encoding.ASCII.GetString(data, stringStart, length);
+        nextOffset = stringStart + length + 2;
+    }
+    else
+    {
+        throw new ArgumentException($&quot;Invalid byte {data[offset]} to parse&quot;);
+    }
+
+    return (result, end);
+}</code></pre>
 <p>Note that the internal implementation will be refactored once our
 basic test cases are working.</p>
 <h2 id="parsing-arrays">Parsing arrays</h2>
@@ -178,71 +180,71 @@ plain values, e.g. bulk strings, as nested arrays. Hence, let’s define
 two different test cases: The first one mirrors the data we receive from
 the client and will allow to parse sent commands, the second checks that
 the implementation handles nested arrays correctly:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ToRedisMessage_SimpleArray_ReturnsCorrectResult</span><span class="op">()</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> message <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                    <span class="op">*</span><span class="dv">2</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">5</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                    HELLO</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">3</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                    FOO</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;&quot;&quot;.ToRedisMessage();</span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> data <span class="op">=</span> RedisData<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>message<span class="op">);</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">RedisDataType</span><span class="op">.</span><span class="fu">Array</span><span class="op">,</span> data<span class="op">.</span><span class="fu">Type</span><span class="op">);</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">RedisDataType</span><span class="op">.</span><span class="fu">BulkString</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">0</span><span class="op">].</span><span class="fu">Type</span><span class="op">);</span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;HELLO&quot;</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">0</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">RedisDataType</span><span class="op">.</span><span class="fu">BulkString</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">1</span><span class="op">].</span><span class="fu">Type</span><span class="op">);</span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;FOO&quot;</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">1</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="op">[</span>Fact<span class="op">]</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="dt">void</span> <span class="fu">ToRedisMessage_NestedArray_ReturnsCorrectResult</span><span class="op">()</span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> message <span class="op">=</span> <span class="st">&quot;&quot;&quot;</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>                    <span class="op">*</span><span class="dv">2</span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>                    <span class="op">*</span><span class="dv">2</span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">3</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>                    BAR</span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">5</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>                    HELLO</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>                    $<span class="dv">3</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>                    FOO</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>                    <span class="st">&quot;&quot;&quot;.ToRedisMessage();</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> data <span class="op">=</span> RedisData<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>message<span class="op">);</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">RedisDataType</span><span class="op">.</span><span class="fu">Array</span><span class="op">,</span> data<span class="op">.</span><span class="fu">Type</span><span class="op">);</span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">RedisDataType</span><span class="op">.</span><span class="fu">Array</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">0</span><span class="op">].</span><span class="fu">Type</span><span class="op">);</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>    <span class="dt">var</span> array <span class="op">=</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">0</span><span class="op">];</span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;BAR&quot;</span><span class="op">,</span> array<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">?[</span><span class="dv">0</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;HELLO&quot;</span><span class="op">,</span> array<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">?[</span><span class="dv">1</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span>RedisData<span class="op">.</span><span class="fu">RedisDataType</span><span class="op">.</span><span class="fu">BulkString</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">![</span><span class="dv">1</span><span class="op">].</span><span class="fu">Type</span><span class="op">);</span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">Equal</span><span class="op">(</span><span class="st">&quot;FOO&quot;</span><span class="op">,</span> data<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">?[</span><span class="dv">1</span><span class="op">].</span><span class="fu">BulkString</span><span class="op">);</span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">[Fact]
+public void ToRedisMessage_SimpleArray_ReturnsCorrectResult()
+{
+    var message = &quot;&quot;&quot;
+                    *2
+                    $5
+                    HELLO
+                    $3
+                    FOO
+                    &quot;&quot;&quot;.ToRedisMessage();
+    
+    var data = RedisData.Parse(message);
+    
+    Equal(RedisData.RedisDataType.Array, data.Type);
+    
+    Equal(RedisData.RedisDataType.BulkString, data.ArrayValues![0].Type);
+    Equal(&quot;HELLO&quot;, data.ArrayValues![0].BulkString);
+    
+    Equal(RedisData.RedisDataType.BulkString, data.ArrayValues![1].Type);
+    Equal(&quot;FOO&quot;, data.ArrayValues![1].BulkString);
+}
+
+[Fact]
+public void ToRedisMessage_NestedArray_ReturnsCorrectResult()
+{
+    var message = &quot;&quot;&quot;
+                    *2
+                    *2
+                    $3
+                    BAR
+                    $5
+                    HELLO
+                    $3
+                    FOO
+                    &quot;&quot;&quot;.ToRedisMessage();
+    
+    var data = RedisData.Parse(message);
+    
+    Equal(RedisData.RedisDataType.Array, data.Type);
+    
+    Equal(RedisData.RedisDataType.Array, data.ArrayValues![0].Type);
+    var array = data.ArrayValues![0];
+    Equal(&quot;BAR&quot;, array.ArrayValues?[0].BulkString);
+    Equal(&quot;HELLO&quot;, array.ArrayValues?[1].BulkString);
+    
+    Equal(RedisData.RedisDataType.BulkString, data.ArrayValues![1].Type);
+    Equal(&quot;FOO&quot;, data.ArrayValues?[1].BulkString);
+}</code></pre>
 <p>This can be implemented via the following snippet inside
 <code>Parse()</code></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">]</span> <span class="op">==</span> <span class="ch">&#39;*&#39;</span><span class="op">)</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">Type</span> <span class="op">=</span> RedisDataType<span class="op">.</span><span class="fu">Array</span><span class="op">;</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        result<span class="op">.</span><span class="fu">ArrayValues</span> <span class="op">=</span> <span class="kw">new</span><span class="op">();</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> numElementsIndexEnd <span class="op">=</span> Array<span class="op">.</span><span class="fu">IndexOf</span><span class="op">(</span>data<span class="op">,</span> <span class="op">(</span><span class="dt">byte</span><span class="op">)</span><span class="ch">&#39;\r&#39;</span><span class="op">,</span> offset<span class="op">);</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> numElements <span class="op">=</span> Int32<span class="op">.</span><span class="fu">Parse</span><span class="op">(</span>Encoding<span class="op">.</span><span class="fu">ASCII</span><span class="op">.</span><span class="fu">GetString</span><span class="op">(</span>data<span class="op">,</span> offset <span class="op">+</span> <span class="dv">1</span><span class="op">,</span> numElementsIndexEnd <span class="op">-</span> offset <span class="op">-</span> <span class="dv">1</span><span class="op">));</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        offset <span class="op">=</span> numElementsIndexEnd <span class="op">+</span> <span class="dv">2</span><span class="op">;</span></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">for</span> <span class="op">(</span><span class="dt">var</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> numElements<span class="op">;</span> i<span class="op">++)</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">{</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>            <span class="op">(</span>RedisData elem<span class="op">,</span> <span class="dt">int</span> nextArrayOffset<span class="op">)</span> <span class="op">=</span> <span class="fu">Parse</span><span class="op">(</span>data<span class="op">,</span> offset<span class="op">);</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            result<span class="op">.</span><span class="fu">ArrayValues</span><span class="op">.</span><span class="fu">Add</span><span class="op">(</span>elem<span class="op">);</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>            offset <span class="op">=</span> nextArrayOffset<span class="op">;</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        nextOffset <span class="op">=</span> offset<span class="op">;</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">    if (data[offset] == &#39;*&#39;)
+    {
+        result.Type = RedisDataType.Array;
+        result.ArrayValues = new();
+        var numElementsIndexEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var numElements = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, numElementsIndexEnd - offset - 1));
+        offset = numElementsIndexEnd + 2;
+        for (var i = 0; i &lt; numElements; i++)
+        {
+            (RedisData elem, int nextArrayOffset) = Parse(data, offset);
+            result.ArrayValues.Add(elem);
+            offset = nextArrayOffset;
+        }
+        nextOffset = offset;
+    }</code></pre>
 <p>Since we now have a basic test setup, let’s refactor the code a bit
 by moving away from this <code>if-else</code> cascade and introduce a
 switch statement and move the type-defining character to the enum.</p>
@@ -253,56 +255,61 @@ though one can rightfully argue that this is not the worst code to
 maintain. Nonetheless, a <code>switch</code> statement would be possible
 as well. For that, we have to add a custom attribute which stores the
 corresponding encoding character for each data type:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode cs"><code class="sourceCode cs"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">[</span><span class="fu">AttributeUsage</span><span class="op">(</span>AttributeTargets<span class="op">.</span><span class="fu">Field</span><span class="op">)]</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="kw">sealed</span> <span class="kw">class</span> ByteRepresentationAttribute <span class="op">:</span> Attribute</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">byte</span> Byte <span class="op">{</span> <span class="kw">get</span><span class="op">;</span> <span class="op">}</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">ByteRepresentationAttribute</span><span class="op">(</span><span class="dt">char</span> b<span class="op">)</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        Byte <span class="op">=</span> <span class="op">(</span><span class="dt">byte</span><span class="op">)</span>b<span class="op">;</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">[AttributeUsage(AttributeTargets.Field)]
+sealed class ByteRepresentationAttribute : Attribute
+{
+    public byte Byte { get; }
+
+    public ByteRepresentationAttribute(char b)
+    {
+        Byte = (byte)b;
+    }
+}</code></pre>
 <p>This allows to annotate the data type definition via</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode cs"><code class="sourceCode cs"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">enum</span> RedisDataType</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span><span class="fu">ByteRepresentation</span><span class="op">(</span><span class="ch">&#39;*&#39;</span><span class="op">)]</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    Array<span class="op">,</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">[</span><span class="fu">ByteRepresentation</span><span class="op">(</span><span class="ch">&#39;$&#39;</span><span class="op">)]</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    BulkString<span class="op">,</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">public enum RedisDataType
+{
+    [ByteRepresentation(&#39;*&#39;)]
+    Array,
+    [ByteRepresentation(&#39;$&#39;)]
+    BulkString,
+}</code></pre>
 <p>and retrieve the corresponding field from the type via an extension
 function</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode cs"><code class="sourceCode cs"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="kw">static</span> <span class="kw">class</span> DataTypeIdentifier</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="kw">static</span> <span class="dt">byte</span> <span class="fu">Identifier</span><span class="op">(</span><span class="kw">this</span> RedisDataType type<span class="op">)</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">{</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> fieldInfo <span class="op">=</span> type<span class="op">.</span><span class="fu">GetType</span><span class="op">().</span><span class="fu">GetField</span><span class="op">(</span>type<span class="op">.</span><span class="fu">ToString</span><span class="op">())!;</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="dt">var</span> attribute <span class="op">=</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">((</span>ByteRepresentationAttribute<span class="op">)</span>fieldInfo<span class="op">.</span><span class="fu">GetCustomAttribute</span><span class="op">(</span><span class="kw">typeof</span><span class="op">(</span>ByteRepresentationAttribute<span class="op">))!);</span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> attribute<span class="op">.</span><span class="fu">Byte</span><span class="op">;</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">public static class DataTypeIdentifier
+{
+    public static byte Identifier(this RedisDataType type)
+    {
+        var fieldInfo = type.GetType().GetField(type.ToString())!;
+        var attribute =
+            ((ByteRepresentationAttribute)fieldInfo.GetCustomAttribute(typeof(ByteRepresentationAttribute))!);
+        return attribute.Byte;
+    }
+}</code></pre>
 <p>This looks – on the first look – like a nice solution and we can
 refactor the <code>if</code>s into a switch statement</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode cs"><code class="sourceCode cs"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">switch</span> <span class="op">(</span>data<span class="op">[</span>offset<span class="op">])</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="op">{</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> <span class="dt">var</span> b when b <span class="op">==</span> RedisDataType<span class="op">.</span><span class="fu">BulkString</span><span class="op">.</span><span class="fu">Identifier</span><span class="op">():</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ...</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">break</span><span class="op">;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">case</span> <span class="dt">var</span> b when b <span class="op">==</span> RedisDataType<span class="op">.</span><span class="fu">Array</span><span class="op">.</span><span class="fu">Identifier</span><span class="op">():</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// ...</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">break</span><span class="op">;</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">default</span><span class="op">:</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">throw</span> <span class="kw">new</span> <span class="fu">ArgumentException</span><span class="op">(</span>$<span class="st">&quot;Invalid byte {data[offset]} to parse&quot;</span><span class="op">);</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<pre><code class="language-cs">switch (data[offset])
+{
+    case var b when b == RedisDataType.BulkString.Identifier():
+        // ...
+        break;
+    case var b when b == RedisDataType.Array.Identifier():
+        // ...
+        break;
+    default:
+        throw new ArgumentException($&quot;Invalid byte {data[offset]} to parse&quot;);
+}</code></pre>
 <p>where the problem becomes (in my humble view) obvious: while the
 switch looks syntactically simpler, the necessary
 <code>var b when b == ...</code> construct does not look very nice and
-quite a bit convoluted.</p>
+quite a bit convoluted. Note that we can not remove the section before
+the <code>when</code>, since the <code>Identifier()</code> call is
+dynamic and the case expression needs static values.</p>
+<!-- new section back to good code -->
+<p>A slightly better approach, which allows for more extensibility in
+the future, is to use a dictionary in combination with a proper delegate
+definition. One can argue that we do not follow <a
+href="https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it#:~:text=%22You%20aren&#39;t%20gonna%20need,add%20functionality%20until%20deemed%20necessary.">YAGNI</a>,
+but bear with me for a minute.</p>
 	</article>
 </body>
 

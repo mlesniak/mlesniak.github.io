@@ -266,7 +266,7 @@ public static class DataTypeIdentifier
     }
 }
 ```
-This looks -- on the first look -- like a nice solution and we can refactor the `if`s into a switch statement
+This looks -- on the first look -- like a nice solution and we can refactor the if-conditions into a switch statement
 ```cs
 switch (data[offset])
 {

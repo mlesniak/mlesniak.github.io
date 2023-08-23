@@ -282,6 +282,8 @@ where the problem becomes (in my humble view) obvious: while the switch looks sy
 
 A slightly better approach, which allows for more extensibility in the future, is to use a dictionary in combination with a proper delegate definition. One can argue that we do not follow [YAGNI](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it#:~:text=%22You%20aren't%20gonna%20need,add%20functionality%20until%20deemed%20necessary.), but bear with me for a minute.
 
+### ...and back into sane and understandable code
+
 First, let's formulate a delegate to allow definition of general parser functions:
 
 ```cs
@@ -392,3 +394,6 @@ public class RedisData
     }
 }
 ```
+
+Thanks to our test-driven approach we are still sure that all functionality which has corresponding tests is still correctly implemented.
+

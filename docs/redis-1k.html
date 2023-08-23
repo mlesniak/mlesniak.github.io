@@ -315,6 +315,8 @@ the future, is to use a dictionary in combination with a proper delegate
 definition. One can argue that we do not follow <a
 href="https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it#:~:text=%22You%20aren&#39;t%20gonna%20need,add%20functionality%20until%20deemed%20necessary.">YAGNI</a>,
 but bear with me for a minute.</p>
+<h3 id="and-back-into-sane-and-understandable-code">…and back into sane
+and understandable code</h3>
 <p>First, let’s formulate a delegate to allow definition of general
 parser functions:</p>
 <pre><code class="language-cs">private delegate (RedisData, int) Parser(byte[] data, int offset);</code></pre>
@@ -419,6 +421,9 @@ representation of this data type:</p>
         return &quot;TODO&quot;;
     }
 }</code></pre>
+<p>Thanks to our test-driven approach we are still sure that all
+functionality which has corresponding tests is still correctly
+implemented.</p>
 	</article>
 </body>
 

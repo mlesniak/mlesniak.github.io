@@ -24,12 +24,31 @@ body {
     margin: 0px;
 }
 
+.right {
+    float: right;
+    margin-top: 1em;
+}
+
+@media(min-width: 600px) {
+    .right-text {
+        display: inline;
+    }
+    .right-icon {
+        display: none;
+    }
+}
+
 @media (max-width: 600px) {
     body {
         font-size: 0.9em;
         margin: 0px;
     }
-
+    .right-text {
+        display: none;
+    }
+    .right-icon {
+        display: inline;
+    }
     article,
     .header-content {
         padding-left: 10px;
@@ -189,10 +208,6 @@ header *>a:hover {
     font-size: 1.5em;
 }
 
-.right {
-    float: right;
-    margin-top: 1em;
-}
 
 .right a {
     margin-left: 20px;

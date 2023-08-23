@@ -149,7 +149,6 @@ changed a lot once we gain more insights.</p>
 our parsing routine <code>Parse()</code>. Internally, it calls its
 counterpart which allows to specify the starting point for parsing which
 is necessary for sequential structures such as arrays.</p>
-<!-- implementation -- leave out arrays for now -->
 <p>Ignoring parsing arrays for now – overall, we focus on a somewhat
 test-driven approach and our tests focus on bulk strings for now – we
 can parse bulk strings as follows:</p>
@@ -311,12 +310,115 @@ switch looks syntactically simpler, the necessary
 quite a bit convoluted. Note that we can not remove the section before
 the <code>when</code>, since the <code>Identifier()</code> call is
 dynamic and the case expression needs static values.</p>
-<!-- new section back to good code -->
 <p>A slightly better approach, which allows for more extensibility in
 the future, is to use a dictionary in combination with a proper delegate
 definition. One can argue that we do not follow <a
 href="https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it#:~:text=%22You%20aren&#39;t%20gonna%20need,add%20functionality%20until%20deemed%20necessary.">YAGNI</a>,
 but bear with me for a minute.</p>
+<p>First, let’s formulate a delegate to allow definition of general
+parser functions:</p>
+<pre><code class="language-cs">private delegate (RedisData, int) Parser(byte[] data, int offset);</code></pre>
+<p>We use a dictionary from bytes to parsers to define parsers for each
+type of object that we want to parse and initialize it accordingly by
+moving the case (or inner if statements in the previous example) into
+the respective function definition:</p>
+<pre><code class="language-cs">private static Dictionary&lt;byte, Parser&gt; parsers = new();
+
+static RedisData()
+{
+    parsers.Add((byte)&#39;$&#39;, (data, offset) =&gt;
+    {
+        RedisData result = new() { Type = RedisDataType.BulkString };
+        var lengthEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - offset - 1));
+        int stringStart = lengthEnd + 2;
+        result.BulkString = Encoding.ASCII.GetString(data, stringStart, length);
+        return (result, stringStart + length + 2);
+    });
+    parsers.Add((byte)&#39;*&#39;, (data, offset) =&gt;
+    {
+        RedisData result = new() { Type = RedisDataType.Array, ArrayValues = new() };
+        var numElementsIndexEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var numElements =
+            Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, numElementsIndexEnd - offset - 1));
+        offset = numElementsIndexEnd + 2;
+        for (var i = 0; i &lt; numElements; i++)
+        {
+            (RedisData elem, int nextArrayOffset) = Parse(data, offset);
+            result.ArrayValues.Add(elem);
+            offset = nextArrayOffset;
+        }
+        return (result, offset);
+    });
+}</code></pre>
+<p>which allows us to greatly simplify our <code>Parse</code> functions
+to</p>
+<pre><code class="language-cs">public static RedisData Parse(byte[] data) =&gt; Parse(data, 0).Item1;
+
+static (RedisData, int) Parse(byte[] data, int offset) =&gt; parsers[data[offset]].Invoke(data, offset);</code></pre>
+<p>We can now move the whole parsing logic out of the data model
+definition and into a new file:</p>
+<pre><code class="language-cs">// RedisDataParser.cs
+public static class RedisDataParser
+{
+    private delegate (RedisData, int) Parser(byte[] data, int offset);
+
+    private static readonly Dictionary&lt;byte, Parser&gt; Parsers = new();
+
+    static RedisDataParser()
+    {
+        Parsers.Add((byte)&#39;$&#39;, ParseBulkString);
+        Parsers.Add((byte)&#39;*&#39;, ParseArray);
+    }
+    
+    public static RedisData Parse(byte[] data) =&gt; Parse(data, 0).Item1;
+
+    private static (RedisData, int) ParseArray(byte[] data, int offset)
+    {
+        RedisData result = new() { Type = RedisDataType.Array, ArrayValues = new() };
+        var numElementsIndexEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var numElements =
+            Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, numElementsIndexEnd - offset - 1));
+        offset = numElementsIndexEnd + 2;
+        for (var i = 0; i &lt; numElements; i++)
+        {
+            (RedisData elem, int nextArrayOffset) = Parse(data, offset);
+            result.ArrayValues.Add(elem);
+            offset = nextArrayOffset;
+        }
+
+        return (result, offset);
+    }
+
+    private static (RedisData, int) ParseBulkString(byte[] data, int offset)
+    {
+        RedisData result = new() { Type = RedisDataType.BulkString };
+        var lengthEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - offset - 1));
+        int stringStart = lengthEnd + 2;
+        result.BulkString = Encoding.ASCII.GetString(data, stringStart, length);
+        return (result, stringStart + length + 2);
+    }
+
+    private static (RedisData, int) Parse(byte[] data, int offset) =&gt; Parsers[data[offset]].Invoke(data, offset);
+}</code></pre>
+<p>We now define the mapping between characters identifying a data type
+and the corresponding logic in a single place. In addition, following <a
+href="https://en.wikipedia.org/wiki/Single-responsibility_principle">SRP</a>,
+the class <code>RedisData</code> is only responsible to represent a data
+structure but is not concerned with any parsing between different
+representation of this data type:</p>
+<pre><code class="language-cs">public class RedisData
+{
+    public RedisDataType Type { get; set; }
+    public string? BulkString { get; set; }
+    public List&lt;RedisData&gt;? ArrayValues { get; set; }
+    
+    public override string ToString()
+    {
+        return &quot;TODO&quot;;
+    }
+}</code></pre>
 	</article>
 </body>
 

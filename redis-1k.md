@@ -397,3 +397,12 @@ public class RedisData
 
 Thanks to our test-driven approach we are still sure that all functionality which has corresponding tests is still correctly implemented.
 
+We can now understand the command structure which is sent to use from `redis-cli` which enables us to implement a basic command parser as a preparation for actually supporting redis database operations. Lines of code-wise we are still very good
+
+```bash
+C#                               8             36             22            145
+```
+
+and have 879 lines of code available for the rest of our implementation.
+
+## Understanding received commands

@@ -30,9 +30,10 @@ body {
         margin: 0px;
     }
 
-    article, .header-content {
-	padding-left: 10px;
-	padding-right: 10px;
+    article,
+    .header-content {
+        padding-left: 10px;
+        padding-right: 10px;
     }
 
     h1 {
@@ -59,6 +60,7 @@ a {
     color: #004fa3;
     text-decoration: none;
 }
+
 a:hover {
     text-decoration: underline;
 }
@@ -162,22 +164,23 @@ header {
     padding-bottom: 1em;
     border-bottom: 1px solid #d1d1d1;
 }
+
 .header-content {
     max-width: 36em;
     margin: 0 auto;
 }
 
-header * > img {
+header *>img {
     margin-bottom: -4px;
 }
 
 
-header * > a {
+header *>a {
     margin-top: 20px;
     color: #333;
 }
 
-header * > a:hover {
+header *>a:hover {
     text-decoration: none;
 }
 
@@ -251,5 +254,6 @@ ul.task-list li input[type="checkbox"] {
 
 code[class*="language-"],
 pre[class*="language-"] {
-font-size: 0.8em;
+    font-size: 0.8em;
+    background-color: #fff;
 }

@@ -402,8 +402,8 @@ public static class RedisDataParser
 
     private static (RedisData, int) Parse(byte[] data, int offset) =&gt; Parsers[data[offset]].Invoke(data, offset);
 }</code></pre>
-<p>We now define the mapping between characters identifying a data type
-and the corresponding logic in a single place. In addition, following <a
+<p>We define the mapping between characters identifying a data type and
+the corresponding logic in a single place. In addition, following <a
 href="https://en.wikipedia.org/wiki/Single-responsibility_principle">SRP</a>,
 the class <code>RedisData</code> is only responsible to represent a data
 structure but is not concerned with any parsing between different

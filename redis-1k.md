@@ -378,7 +378,7 @@ public static class RedisDataParser
 }
 ```
 
-We now define the mapping between characters identifying a data type and the corresponding logic in a single place. In addition, following [SRP](https://en.wikipedia.org/wiki/Single-responsibility_principle), the class `RedisData` is only responsible to represent a data structure but is not concerned with any parsing between different representation of this data type:
+We define the mapping between characters identifying a data type and the corresponding logic in a single place. In addition, following [SRP](https://en.wikipedia.org/wiki/Single-responsibility_principle), the class `RedisData` is only responsible to represent a data structure but is not concerned with any parsing between different representation of this data type:
 ```cs
 public class RedisData
 {

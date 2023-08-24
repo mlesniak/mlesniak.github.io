@@ -409,3 +409,49 @@ C#                               8             36             22            145
 and have 879 lines of code available for the rest of our implementation.
 
 ## Understanding received commands
+
+To understand received commands we need to convert the received byte stream into a `RedisData` object using the aforementioned `Parse` method:
+
+```cs
+    // in RedisServer ...
+    private static void ReadNextCommand(NetworkStream stream)
+    {
+        byte[] buffer = new byte[16384];
+        stream.Read(buffer);
+        var command = RedisDataParser.Parse(buffer);
+        Console.WriteLine($"Command:\r\n{command}");
+    }
+```
+
+For the time being, let's just display the received and parsed command. To enable printing, we need to implement a string serialization. To make our lifes easier and since the internal serialization format is quite readable, let's override the default `ToString` method of the default data structure 
+
+```cs
+    // in RedisData...
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+
+        switch (Type)
+        {
+            case RedisDataType.Array:
+                sb.Append($"*{ArrayValues!.Count}");
+                sb.Append("\r\n");
+                ArrayValues.ForEach(v => sb.Append(v));
+                break;
+            case RedisDataType.BulkString:
+                sb.Append($"${BulkString!.Length}");
+                sb.Append("\r\n");
+                sb.Append(BulkString);
+                sb.Append("\r\n");
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return sb.ToString();
+    }
+```
+
+and add corresponding tests:
+
+<!-- TODO -->

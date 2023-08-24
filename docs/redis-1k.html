@@ -436,6 +436,48 @@ C#                               8             36             22            145<
 implementation.</p>
 <h2 id="understanding-received-commands">Understanding received
 commands</h2>
+<p>To understand received commands we need to convert the received byte
+stream into a <code>RedisData</code> object using the aforementioned
+<code>Parse</code> method:</p>
+<pre><code class="language-cs">    // in RedisServer ...
+    private static void ReadNextCommand(NetworkStream stream)
+    {
+        byte[] buffer = new byte[16384];
+        stream.Read(buffer);
+        var command = RedisDataParser.Parse(buffer);
+        Console.WriteLine($&quot;Command:\r\n{command}&quot;);
+    }</code></pre>
+<p>For the time being, let’s just display the received and parsed
+command. To enable printing, we need to implement a string
+serialization. To make our lifes easier and since the internal
+serialization format is quite readable, let’s override the default
+<code>ToString</code> method of the default data structure</p>
+<pre><code class="language-cs">    // in RedisData...
+    public override string ToString()
+    {
+        var sb = new StringBuilder();
+
+        switch (Type)
+        {
+            case RedisDataType.Array:
+                sb.Append($&quot;*{ArrayValues!.Count}&quot;);
+                sb.Append(&quot;\r\n&quot;);
+                ArrayValues.ForEach(v =&gt; sb.Append(v));
+                break;
+            case RedisDataType.BulkString:
+                sb.Append($&quot;${BulkString!.Length}&quot;);
+                sb.Append(&quot;\r\n&quot;);
+                sb.Append(BulkString);
+                sb.Append(&quot;\r\n&quot;);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return sb.ToString();
+    }</code></pre>
+<p>and add corresponding tests:</p>
+<!-- TODO -->
 	</article>
 </body>
 

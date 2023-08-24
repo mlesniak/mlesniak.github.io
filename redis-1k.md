@@ -423,11 +423,13 @@ To understand received commands we need to convert the received byte stream into
     }
 ```
 
-For the time being, let's just display the received and parsed command. To enable printing, we need to implement a string serialization. To make our lifes easier and since the internal serialization format is quite readable, let's override the default `ToString` method of the default data structure 
+For the time being, let's just display the received and parsed command. To enable printing, we need to implement a string serialization. To make our lifes easier and since the internal serialization format is quite readable, let's target the default Redis serialization format as our default output format and use it for internall debugging via `ToString` as well.
 
 ```cs
     // in RedisData...
-    public override string ToString()
+    public override string ToString() => ToRedisSerialization();
+
+    public string ToRedisSerialization()
     {
         var sb = new StringBuilder();
 
@@ -436,7 +438,7 @@ For the time being, let's just display the received and parsed command. To enabl
             case RedisDataType.Array:
                 sb.Append($"*{ArrayValues!.Count}");
                 sb.Append("\r\n");
-                ArrayValues.ForEach(v => sb.Append(v));
+                ArrayValues.ForEach(v => sb.Append(v.ToRedisSerialization()));
                 break;
             case RedisDataType.BulkString:
                 sb.Append($"${BulkString!.Length}");
@@ -455,3 +457,5 @@ For the time being, let's just display the received and parsed command. To enabl
 and add corresponding tests:
 
 <!-- TODO -->
+
+<!-- then: actual commands, start with get and set -->

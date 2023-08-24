@@ -450,10 +450,13 @@ stream into a <code>RedisData</code> object using the aforementioned
 <p>For the time being, let’s just display the received and parsed
 command. To enable printing, we need to implement a string
 serialization. To make our lifes easier and since the internal
-serialization format is quite readable, let’s override the default
-<code>ToString</code> method of the default data structure</p>
+serialization format is quite readable, let’s target the default Redis
+serialization format as our default output format and use it for
+internall debugging via <code>ToString</code> as well.</p>
 <pre><code class="language-cs">    // in RedisData...
-    public override string ToString()
+    public override string ToString() =&gt; ToRedisSerialization();
+
+    public string ToRedisSerialization()
     {
         var sb = new StringBuilder();
 
@@ -462,7 +465,7 @@ serialization format is quite readable, let’s override the default
             case RedisDataType.Array:
                 sb.Append($&quot;*{ArrayValues!.Count}&quot;);
                 sb.Append(&quot;\r\n&quot;);
-                ArrayValues.ForEach(v =&gt; sb.Append(v));
+                ArrayValues.ForEach(v =&gt; sb.Append(v.ToRedisSerialization()));
                 break;
             case RedisDataType.BulkString:
                 sb.Append($&quot;${BulkString!.Length}&quot;);
@@ -478,6 +481,7 @@ serialization format is quite readable, let’s override the default
     }</code></pre>
 <p>and add corresponding tests:</p>
 <!-- TODO -->
+<!-- then: actual commands, start with get and set -->
 	</article>
 </body>
 

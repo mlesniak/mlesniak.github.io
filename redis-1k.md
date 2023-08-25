@@ -562,6 +562,7 @@ for the client input
 ```
 $ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
 > set key value
+OK
 ```
 
 <!-- setup simple handler mechanism to understand parsing -->

@@ -10,6 +10,8 @@ This article describes my approach to write a Redis clone in C#, limiting myself
 
 The aim is to allow the official Redis CLI tool to interface with our server and execute as many standard-compliant operations as possible. As a twist in this experiment, I will be using a test-driven approach as much as possible and will write the code in parallel to the blog post -- expect refactoring and questioning of design decisions in later stages of the post...
 
+Note that this is also a development journal, i.e. I might present ideas, concepts or snippets which are outright wrong and will be corrected in later phases (or further down) in this page.
+
 ## The beginning
 
 While I could have commenced by diving into the protocol specification and building the server accordingly, I felt that might be somewhat mundane. Instead, I opted to initiate a basic TCP server, set it to listen on port 6379 (the standard port for Redis), and observe the commands the client transmits.
@@ -423,13 +425,13 @@ To understand received commands we need to convert the received byte stream into
     }
 ```
 
-For the time being, let's just display the received and parsed command. To enable printing, we need to implement a string serialization. To make our lifes easier and since the internal serialization format is quite readable, let's target the default Redis serialization format as our default output format and use it for internall debugging via `ToString` as well.
+For the time being, let's just display the received and parsed command. To enable printing, we need to implement a string serialization. To make our lifes easier and since the internal serialization format is quite readable, let's target the default Redis serialization format as our default output format and use it for internall debugging via `ToString` as well. This approach also allow eases responding to the client later on:
 
 ```cs
     // in RedisData...
-    public override string ToString() => ToRedisSerialization();
+    public override string ToString() => Encoding.ASCII.GetString(ToRedisSerialization());
 
-    public string ToRedisSerialization()
+    public byte[] ToRedisSerialization()
     {
         var sb = new StringBuilder();
 
@@ -438,7 +440,11 @@ For the time being, let's just display the received and parsed command. To enabl
             case RedisDataType.Array:
                 sb.Append($"*{ArrayValues!.Count}");
                 sb.Append("\r\n");
-                ArrayValues.ForEach(v => sb.Append(v.ToRedisSerialization()));
+                ArrayValues.ForEach(v =>
+                {
+                    byte[] array = v.ToRedisSerialization();
+                    sb.Append(Encoding.ASCII.GetString(array));
+                });
                 break;
             case RedisDataType.BulkString:
                 sb.Append($"${BulkString!.Length}");
@@ -450,12 +456,113 @@ For the time being, let's just display the received and parsed command. To enabl
                 throw new ArgumentOutOfRangeException();
         }
 
-        return sb.ToString();
+        return Encoding.ASCII.GetBytes(sb.ToString());
     }
 ```
 
-and add corresponding tests:
+and add corresponding tests
 
-<!-- TODO -->
+```cs
+    [Fact]
+    public void ToRedisSerialization_BulkString_ReturnsValidInput()
+    {
+        var data = RedisData.of("HELLO");
 
+        var serialized = data.ToRedisSerialization();
+
+        Equal(
+            ToByteArray("""
+                        $5
+                        HELLO
+                        """),
+            serialized);
+    }
+
+    [Fact]
+    public void ToRedisMessage_SimpleArray_ReturnsCorrectResult()
+    {
+        var data = RedisData.of(
+            RedisData.of("HELLO"),
+            RedisData.of("FOO")
+        );
+
+        var serialized = data.ToRedisSerialization();
+
+        Equal(
+            ToByteArray("""
+                        *2
+                        $5
+                        HELLO
+                        $3
+                        FOO
+                        """),
+            serialized);
+    }
+
+    [Fact]
+    public void ToRedisMessage_NestedArray_ReturnsCorrectResult()
+    {
+        var data = RedisData.of(
+            RedisData.of(
+                RedisData.of("BAR"),
+                RedisData.of("HELLO")
+            ),
+            RedisData.of("FOO")
+        );
+
+        var serialized = data.ToRedisSerialization();
+
+        Equal(
+            ToByteArray("""
+                        *2
+                        *2
+                        $3
+                        BAR
+                        $5
+                        HELLO
+                        $3
+                        FOO
+                        """),
+            serialized);
+    }
+```
+
+Note that we used the opportunity to also introduce factory functions to create `RedisData` objects easily via
+
+```cs
+    // RedisData
+    public static RedisData of(string s) => new() { Type = RedisDataType.BulkString, BulkString = s };
+
+    public static RedisData of(params RedisData[] arrayElements) =>
+        new() { Type = RedisDataType.Array, ArrayValues = arrayElements.ToList() };
+```
+
+When we now start our server and then redis-cli the following output will be printed
+```
+Server started, listening for clients.
+Client connected
+Command:
+*2
+$7
+COMMAND
+$4
+DOCS
+
+Command:
+*3
+$3
+set
+$3
+key
+$5
+value
+```
+
+for the client input
+```
+$ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
+> set key value
+```
+
+<!-- setup simple handler mechanism to understand parsing -->
 <!-- then: actual commands, start with get and set -->

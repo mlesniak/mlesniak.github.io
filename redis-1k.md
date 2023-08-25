@@ -565,5 +565,52 @@ $ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
 OK
 ```
 
-<!-- setup simple handler mechanism to understand parsing -->
-<!-- then: actual commands, start with get and set -->
+## React on received commands
+
+Now that we can receive commands, let's focus on actually handling them. While we will introduce a dedicated handler-setup later on, for now we just want to support `set` and `get`. Therefore
+
+```cs
+    // RedisServer
+
+    private static void HandleConnection(NetworkStream stream)
+    {
+        while (true)
+        {
+            var commandline = ReadCommandline(stream);
+            HandleCommand(commandline);
+
+            // Default response. We have to figure out
+            // semantics and actual responses for different
+            // commands.
+            var responseBytes = "+OK\r\n"u8.ToArray();
+            stream.Write(responseBytes, 0, responseBytes.Length);
+        }
+        
+        // We never close this connection 🙈 ...
+    }
+
+    // No error handling for now.
+    private static void HandleCommand(RedisData commandline)
+    {
+        // Start simple, write tests, refactor...
+        var command = commandline.ArrayValues[0].BulkString!;
+        switch (command)
+        {
+            case "set":
+                // TODO
+                break;
+            case "get":
+                // TODO
+                break;
+            default:
+                // Ignoring it for now.
+                break;
+        } 
+    }
+```
+
+Let's focus on handling the bare minimum to support these operations.
+
+<!-- todo sub chapter semantics and what is supported -->
+<!-- todo basic storage in memory to support this -->
+<!-- todo maybe including serialization suport? -->

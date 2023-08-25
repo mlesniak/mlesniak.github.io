@@ -580,8 +580,53 @@ value</code></pre>
 <pre><code>$ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
 &gt; set key value
 OK</code></pre>
-<!-- setup simple handler mechanism to understand parsing -->
-<!-- then: actual commands, start with get and set -->
+<h2 id="react-on-received-commands">React on received commands</h2>
+<p>Now that we can receive commands, let’s focus on actually handling
+them. While we will introduce a dedicated handler-setup later on, for
+now we just want to support <code>set</code> and <code>get</code>.
+Therefore</p>
+<pre><code class="language-cs">    // RedisServer
+
+    private static void HandleConnection(NetworkStream stream)
+    {
+        while (true)
+        {
+            var commandline = ReadCommandline(stream);
+            HandleCommand(commandline);
+
+            // Default response. We have to figure out
+            // semantics and actual responses for different
+            // commands.
+            var responseBytes = &quot;+OK\r\n&quot;u8.ToArray();
+            stream.Write(responseBytes, 0, responseBytes.Length);
+        }
+        
+        // We never close this connection 🙈 ...
+    }
+
+    // No error handling for now.
+    private static void HandleCommand(RedisData commandline)
+    {
+        // Start simple, write tests, refactor...
+        var command = commandline.ArrayValues[0].BulkString!;
+        switch (command)
+        {
+            case &quot;set&quot;:
+                // TODO
+                break;
+            case &quot;get&quot;:
+                // TODO
+                break;
+            default:
+                // Ignoring it for now.
+                break;
+        } 
+    }</code></pre>
+<p>Let’s focus on handling the bare minimum to support these
+operations.</p>
+<!-- todo sub chapter semantics and what is supported -->
+<!-- todo basic storage in memory to support this -->
+<!-- todo maybe including serialization suport? -->
 	</article>
 </body>
 

@@ -537,7 +537,7 @@ Note that we used the opportunity to also introduce factory functions to create 
         new() { Type = RedisDataType.Array, ArrayValues = arrayElements.ToList() };
 ```
 
-When we now start our server and then redis-cli the following output will be printed
+When we now start our server followed by redis-cli the following output will be printed
 ```
 Server started, listening for clients.
 Client connected

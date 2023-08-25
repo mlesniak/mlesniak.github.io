@@ -557,8 +557,8 @@ to create <code>RedisData</code> objects easily via</p>
 
     public static RedisData of(params RedisData[] arrayElements) =&gt;
         new() { Type = RedisDataType.Array, ArrayValues = arrayElements.ToList() };</code></pre>
-<p>When we now start our server and then redis-cli the following output
-will be printed</p>
+<p>When we now start our server followed by redis-cli the following
+output will be printed</p>
 <pre><code>Server started, listening for clients.
 Client connected
 Command:

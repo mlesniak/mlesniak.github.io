@@ -565,52 +565,36 @@ $ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
 OK
 ```
 
-## React on received commands
+## Reacting on basic set and get commands
 
-Now that we can receive commands, let's focus on actually handling them. While we will introduce a dedicated handler-setup later on, for now we just want to support `set` and `get`. Therefore
+Now that we can receive commands, let's focus on actually handling them. While we will introduce a dedicated handler-setup later on, for now we just want to support primitive `set` and `get` operations. When we start a real redis server and connect a client, we are able to perform, which we also want to implemention in our server:
 
-```cs
-    // RedisServer
-
-    private static void HandleConnection(NetworkStream stream)
-    {
-        while (true)
-        {
-            var commandline = ReadCommandline(stream);
-            HandleCommand(commandline);
-
-            // Default response. We have to figure out
-            // semantics and actual responses for different
-            // commands.
-            var responseBytes = "+OK\r\n"u8.ToArray();
-            stream.Write(responseBytes, 0, responseBytes.Length);
-        }
-        
-        // We never close this connection 🙈 ...
-    }
-
-    // No error handling for now.
-    private static void HandleCommand(RedisData commandline)
-    {
-        // Start simple, write tests, refactor...
-        var command = commandline.ArrayValues[0].BulkString!;
-        switch (command)
-        {
-            case "set":
-                // TODO
-                break;
-            case "get":
-                // TODO
-                break;
-            default:
-                // Ignoring it for now.
-                break;
-        } 
-    }
+```bash
+$ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
+docker.for.mac.localhost:6379> set name michael
+OK
+docker.for.mac.localhost:6379> get name
+"michael"
 ```
 
-Let's focus on handling the bare minimum to support these operations.
+Let's start with a (very) basic in-memory abstraction of a key value store via
+
+```cs
+public class Memory
+{
+    // We will add expiration time later.
+    private readonly Dictionary<string, byte[]> _memory = new();
+
+    public void Set(string key, byte[] value)
+    {
+        _memory[key] = value;
+    }
+
+    public byte[]? Get(string key) => _memory.TryGetValue(key, out byte[]? value) ? value : null;
+}
+```
 
 <!-- todo sub chapter semantics and what is supported -->
 <!-- todo basic storage in memory to support this -->
 <!-- todo maybe including serialization suport? -->
+<!-- todo connect with c# redis client and perform a simple store and retrieve -->

@@ -580,53 +580,37 @@ value</code></pre>
 <pre><code>$ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
 &gt; set key value
 OK</code></pre>
-<h2 id="react-on-received-commands">React on received commands</h2>
+<h2 id="reacting-on-basic-set-and-get-commands">Reacting on basic set
+and get commands</h2>
 <p>Now that we can receive commands, let’s focus on actually handling
 them. While we will introduce a dedicated handler-setup later on, for
-now we just want to support <code>set</code> and <code>get</code>.
-Therefore</p>
-<pre><code class="language-cs">    // RedisServer
+now we just want to support primitive <code>set</code> and
+<code>get</code> operations. When we start a real redis server and
+connect a client, we are able to perform, which we also want to
+implemention in our server:</p>
+<pre><code class="language-bash">$ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
+docker.for.mac.localhost:6379&gt; set name michael
+OK
+docker.for.mac.localhost:6379&gt; get name
+&quot;michael&quot;</code></pre>
+<p>Let’s start with a (very) basic in-memory abstraction of a key value
+store via</p>
+<pre><code class="language-cs">public class Memory
+{
+    // We will add expiration time later.
+    private readonly Dictionary&lt;string, byte[]&gt; _memory = new();
 
-    private static void HandleConnection(NetworkStream stream)
+    public void Set(string key, byte[] value)
     {
-        while (true)
-        {
-            var commandline = ReadCommandline(stream);
-            HandleCommand(commandline);
-
-            // Default response. We have to figure out
-            // semantics and actual responses for different
-            // commands.
-            var responseBytes = &quot;+OK\r\n&quot;u8.ToArray();
-            stream.Write(responseBytes, 0, responseBytes.Length);
-        }
-        
-        // We never close this connection 🙈 ...
+        _memory[key] = value;
     }
 
-    // No error handling for now.
-    private static void HandleCommand(RedisData commandline)
-    {
-        // Start simple, write tests, refactor...
-        var command = commandline.ArrayValues[0].BulkString!;
-        switch (command)
-        {
-            case &quot;set&quot;:
-                // TODO
-                break;
-            case &quot;get&quot;:
-                // TODO
-                break;
-            default:
-                // Ignoring it for now.
-                break;
-        } 
-    }</code></pre>
-<p>Let’s focus on handling the bare minimum to support these
-operations.</p>
+    public byte[]? Get(string key) =&gt; _memory.TryGetValue(key, out byte[]? value) ? value : null;
+}</code></pre>
 <!-- todo sub chapter semantics and what is supported -->
 <!-- todo basic storage in memory to support this -->
 <!-- todo maybe including serialization suport? -->
+<!-- todo connect with c# redis client and perform a simple store and retrieve -->
 	</article>
 </body>
 

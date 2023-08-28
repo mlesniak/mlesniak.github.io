@@ -2,7 +2,7 @@
 title: Overview
 ---
 
-- [Redis in 1024 lines of code](redis-1k.html)
+<!-- - [Redis in 1024 lines of code](redis-1k.html) -->
 - [The Motivation behind writing](motivation.html)
 - [Collection of interesting topics](ideas.html)
 

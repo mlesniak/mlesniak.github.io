@@ -15,3 +15,4 @@ This is a probably a neverending and continously growing list of ideas and conce
 - **Public Key Cryptography:** Show how public key cryptography works using concrete, but understandable numbers, i.e. primes not in the range of hundreds of digits.
 - **Implement a simple GC:** Implement a simple garbage collector (to be refined).
 - **Generate an RSS-feed xml from Pandoc files:** Since this site is static and pandoc does not support any form RSS generation, parse markdown files and their pandoc metadata to generate the corresponding XML feed file.
+- **Write your own text editor:** Use raylib (or any other UI library) to write my own text editor, diving deep into data structures to handle large texts, think about syntax highlighting, auto-completion, etc...

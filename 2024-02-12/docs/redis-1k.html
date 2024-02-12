@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Redis in 1024 lines of code</title>
+	<link rel="stylesheet" href="prism.css">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+</head>
+<script src="prism.js"></script>
+
+<body>
+	<header>
+		<div class="header-content">
+			<a href="/"><img src="profile.png" alt="profile picture" height="32"></a>
+			<a href="/" class="name">Michael Lesniak</a>
+			<span class="right right-text">
+				<a href="/about.html">About me</a>
+				<a href="mailto:mail@mlesniak.com">Email</a>
+				<a href="https://github.com/mlesniak"> GitHub </a>
+			</span>
+			<span class="right right-icon"> <a href="/about.html"><span class="material-symbols-outlined"> help
+					</span></a>
+				<a href="mailto:mail@mlesniak.com"><span class="material-symbols-outlined"> mail </span></a>
+				<a href="https://github.com/mlesniak"> <span class="material-symbols-outlined"> code </span> </a>
+			</span>
+		</div>
+	</header>
+
+	<article>
+				<h1 class="title">Redis in 1024 lines of code</h1>
+						<p>This article describes my approach to write a Redis clone in C#,
+limiting myself to 1024 lines of code (as stated by the code analysis
+tool <a href="https://github.com/AlDanial/cloc">cloc</a>). A similar
+approach for various topics has been discussed in books such as <a
+href="https://amzn.eu/d/b4iJBIa">500 Lines or Less</a>.</p>
+<h2 id="the-goal">The goal</h2>
+<p>The aim is to allow the official Redis CLI tool to interface with our
+server and execute as many standard-compliant operations as possible. As
+a twist in this experiment, I will be using a test-driven approach as
+much as possible and will write the code in parallel to the blog post –
+expect refactoring and questioning of design decisions in later stages
+of the post…</p>
+<p>Note that this is also a development journal, i.e. I might present
+ideas, concepts or snippets which are outright wrong and will be
+corrected in later phases (or further down) in this page.</p>
+<h2 id="the-beginning">The beginning</h2>
+<p>While I could have commenced by diving into the protocol
+specification and building the server accordingly, I felt that might be
+somewhat mundane. Instead, I opted to initiate a basic TCP server, set
+it to listen on port 6379 (the standard port for Redis), and observe the
+commands the client transmits.</p>
+<p>After setting up a project with
+<code>dotnet new console -o src</code>, let’s spawn up a simple TCP
+server which simply output what it has received</p>
+<pre><code class="language-cs">// Program.cs
+using System.Net.Sockets;
+
+TcpListener server = new(6379);
+server.Start();
+Console.WriteLine(&quot;Server started&quot;);
+while (true)
+{
+    TcpClient client = server.AcceptTcpClient();
+    Console.WriteLine(&quot;Client connected&quot;);
+    var stream = client.GetStream();
+
+    byte[] buffer = new byte[1024];
+    int read = stream.Read(buffer);
+    foreach (byte b in buffer.Take(read))
+    {
+        Console.Write((char)b);
+    }
+    Console.WriteLine();
+    client.Close();
+}</code></pre>
+<p>Subsequently, we’ll start the redis-cli through the default Docker
+image:</p>
+<pre><code class="language-bash">docker run --rm -it redis redis-cli -h docker.for.mac.localhost</code></pre>
+<p>The printout from the TCP server reveals the incoming data:</p>
+<pre><code class="language-bash">Server started
+Client connected
+*2
+$7
+COMMAND
+$4
+DOCS</code></pre>
+<p>Revisiting the protocol specification, it becomes evident that the
+client dispatches an array containing two components. Each of these is a
+bulk string. Essentially, the client is requesting the server to furnish
+a list of supported commands along with their respective
+documentation.</p>
+<h2 id="parsing-bulk-strings">Parsing bulk strings</h2>
+<!-- setting up a test project -->
+<p>I intentionally want to completely separate the actual implementation
+for its corresponding tests. Therefore let’s setup a test project using
+<a href="https://xunit.net/">xUnit</a> via
+<code>dotnet new xunit -o test</code> in the parent directory of the
+source code.</p>
+<!-- test for bulk string -->
+<p>The first test to verify correct parsing of bulk strings looks
+like</p>
+<pre><code class="language-cs">[Fact]
+public void ToRedisMessage_SimpleBulkString_ReturnsCorrectResult()
+{
+    var message = &quot;&quot;&quot;
+                  $5
+                  HELLO
+                  &quot;&quot;&quot;.ToRedisMessage();
+    
+    var data = RedisData.Parse(message);
+
+    Equal(RedisData.RedisDataType.BulkString, data.Type);
+    Equal(&quot;HELLO&quot;, data.BulkString);
+}</code></pre>
+<p>As you can see by the test, a bulk string consists of a
+<code>$</code> and a number stating the number of bytes to follow which
+will build up the string. Implicitly stated, but hidden in the string
+representation is the delimiter between elements,
+i.e. <code>\r\n</code>.</p>
+<!-- initial data structure -- will probably change -->
+<p>To represent the received input, and generate corresponding output
+later on, let’s start with a basic data structure which will probably be
+changed a lot once we gain more insights.</p>
+<pre><code class="language-cs">public class RedisData
+{
+    public enum RedisDataType
+    {
+        Array,
+        BulkString,
+    }
+
+    public RedisDataType Type { get; set; }
+    public string? BulkString { get; set; } = null;
+    public List&lt;RedisData&gt;? ArrayValues { get; set; } = null;
+
+    public static RedisData Parse(byte[] data)
+    {
+        (RedisData result, _) = Parse(data, 0);
+        return result;
+    }
+
+    // return (parsed data, beginning of next element)
+    static (RedisData, int) Parse(byte[] data, int offset)
+    {
+        // TODO
+    }</code></pre>
+<p>Currently, only (nested) arrays and bulk strings will be supported by
+our parsing routine <code>Parse()</code>. Internally, it calls its
+counterpart which allows to specify the starting point for parsing which
+is necessary for sequential structures such as arrays.</p>
+<p>Ignoring parsing arrays for now – overall, we focus on a somewhat
+test-driven approach and our tests focus on bulk strings for now – we
+can parse bulk strings as follows:</p>
+<pre><code class="language-cs">static (RedisData, int) Parse(byte[] data, int offset)
+{
+    RedisData result = new();
+    int end = 0;
+    
+    if (data[offset] == &#39;*&#39;)
+    {
+        throw new NotImplementedException();
+    }
+    else if (data[offset] == &#39;$&#39;)
+    {
+        result.Type = RedisDataType.BulkString;
+        var lengthEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - offset - 1));
+        int stringStart = lengthEnd + 2;
+        result.BulkString = Encoding.ASCII.GetString(data, stringStart, length);
+        nextOffset = stringStart + length + 2;
+    }
+    else
+    {
+        throw new ArgumentException($&quot;Invalid byte {data[offset]} to parse&quot;);
+    }
+
+    return (result, end);
+}</code></pre>
+<p>Note that the internal implementation will be refactored once our
+basic test cases are working.</p>
+<h2 id="parsing-arrays">Parsing arrays</h2>
+<p>We can use a similar approach to parse arrays, though arrayc are
+recursive data structures in the redis protocol and can contain both
+plain values, e.g. bulk strings, as nested arrays. Hence, let’s define
+two different test cases: The first one mirrors the data we receive from
+the client and will allow to parse sent commands, the second checks that
+the implementation handles nested arrays correctly:</p>
+<pre><code class="language-cs">[Fact]
+public void ToRedisMessage_SimpleArray_ReturnsCorrectResult()
+{
+    var message = &quot;&quot;&quot;
+                    *2
+                    $5
+                    HELLO
+                    $3
+                    FOO
+                    &quot;&quot;&quot;.ToRedisMessage();
+    
+    var data = RedisData.Parse(message);
+    
+    Equal(RedisData.RedisDataType.Array, data.Type);
+    
+    Equal(RedisData.RedisDataType.BulkString, data.ArrayValues![0].Type);
+    Equal(&quot;HELLO&quot;, data.ArrayValues![0].BulkString);
+    
+    Equal(RedisData.RedisDataType.BulkString, data.ArrayValues![1].Type);
+    Equal(&quot;FOO&quot;, data.ArrayValues![1].BulkString);
+}
+
+[Fact]
+public void ToRedisMessage_NestedArray_ReturnsCorrectResult()
+{
+    var message = &quot;&quot;&quot;
+                    *2
+                    *2
+                    $3
+                    BAR
+                    $5
+                    HELLO
+                    $3
+                    FOO
+                    &quot;&quot;&quot;.ToRedisMessage();
+    
+    var data = RedisData.Parse(message);
+    
+    Equal(RedisData.RedisDataType.Array, data.Type);
+    
+    Equal(RedisData.RedisDataType.Array, data.ArrayValues![0].Type);
+    var array = data.ArrayValues![0];
+    Equal(&quot;BAR&quot;, array.ArrayValues?[0].BulkString);
+    Equal(&quot;HELLO&quot;, array.ArrayValues?[1].BulkString);
+    
+    Equal(RedisData.RedisDataType.BulkString, data.ArrayValues![1].Type);
+    Equal(&quot;FOO&quot;, data.ArrayValues?[1].BulkString);
+}</code></pre>
+<p>This can be implemented via the following snippet inside
+<code>Parse()</code></p>
+<pre><code class="language-cs">    if (data[offset] == &#39;*&#39;)
+    {
+        result.Type = RedisDataType.Array;
+        result.ArrayValues = new();
+        var numElementsIndexEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var numElements = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, numElementsIndexEnd - offset - 1));
+        offset = numElementsIndexEnd + 2;
+        for (var i = 0; i &lt; numElements; i++)
+        {
+            (RedisData elem, int nextArrayOffset) = Parse(data, offset);
+            result.ArrayValues.Add(elem);
+            offset = nextArrayOffset;
+        }
+        nextOffset = offset;
+    }</code></pre>
+<p>Since we now have a basic test setup, let’s refactor the code a bit
+by moving away from this <code>if-else</code> cascade and introduce a
+switch statement and move the type-defining character to the enum.</p>
+<h3 id="a-short-excursion-into-over-engineering">A short excursion into
+over-engineering</h3>
+<p>We want to implement a more general approach the if-else-cascade,
+though one can rightfully argue that this is not the worst code to
+maintain. Nonetheless, a <code>switch</code> statement would be possible
+as well. For that, we have to add a custom attribute which stores the
+corresponding encoding character for each data type:</p>
+<pre><code class="language-cs">[AttributeUsage(AttributeTargets.Field)]
+sealed class ByteRepresentationAttribute : Attribute
+{
+    public byte Byte { get; }
+
+    public ByteRepresentationAttribute(char b)
+    {
+        Byte = (byte)b;
+    }
+}</code></pre>
+<p>This allows to annotate the data type definition via</p>
+<pre><code class="language-cs">public enum RedisDataType
+{
+    [ByteRepresentation(&#39;*&#39;)]
+    Array,
+    [ByteRepresentation(&#39;$&#39;)]
+    BulkString,
+}</code></pre>
+<p>and retrieve the corresponding field from the type via an extension
+function</p>
+<pre><code class="language-cs">public static class DataTypeIdentifier
+{
+    public static byte Identifier(this RedisDataType type)
+    {
+        var fieldInfo = type.GetType().GetField(type.ToString())!;
+        var attribute =
+            ((ByteRepresentationAttribute)fieldInfo.GetCustomAttribute(typeof(ByteRepresentationAttribute))!);
+        return attribute.Byte;
+    }
+}</code></pre>
+<p>This looks – on the first look – like a nice solution and we can
+refactor the if-conditions into a switch statement</p>
+<pre><code class="language-cs">switch (data[offset])
+{
+    case var b when b == RedisDataType.BulkString.Identifier():
+        // ...
+        break;
+    case var b when b == RedisDataType.Array.Identifier():
+        // ...
+        break;
+    default:
+        throw new ArgumentException($&quot;Invalid byte {data[offset]} to parse&quot;);
+}</code></pre>
+<p>where the problem becomes (in my humble view) obvious: while the
+switch looks syntactically simpler, the necessary
+<code>var b when b == ...</code> construct does not look very nice and
+quite a bit convoluted. Note that we can not remove the section before
+the <code>when</code>, since the <code>Identifier()</code> call is
+dynamic and the case expression needs static values.</p>
+<p>A slightly better approach, which allows for more extensibility in
+the future, is to use a dictionary in combination with a proper delegate
+definition. One can argue that we do not follow <a
+href="https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it#:~:text=%22You%20aren&#39;t%20gonna%20need,add%20functionality%20until%20deemed%20necessary.">YAGNI</a>,
+but bear with me for a minute.</p>
+<h3 id="and-back-into-sane-and-understandable-code">…and back into sane
+and understandable code</h3>
+<p>First, let’s formulate a delegate to allow definition of general
+parser functions:</p>
+<pre><code class="language-cs">private delegate (RedisData, int) Parser(byte[] data, int offset);</code></pre>
+<p>We use a dictionary from bytes to parsers to define parsers for each
+type of object that we want to parse and initialize it accordingly by
+moving the case (or inner if statements in the previous example) into
+the respective function definition:</p>
+<pre><code class="language-cs">private static Dictionary&lt;byte, Parser&gt; parsers = new();
+
+static RedisData()
+{
+    parsers.Add((byte)&#39;$&#39;, (data, offset) =&gt;
+    {
+        RedisData result = new() { Type = RedisDataType.BulkString };
+        var lengthEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - offset - 1));
+        int stringStart = lengthEnd + 2;
+        result.BulkString = Encoding.ASCII.GetString(data, stringStart, length);
+        return (result, stringStart + length + 2);
+    });
+    parsers.Add((byte)&#39;*&#39;, (data, offset) =&gt;
+    {
+        RedisData result = new() { Type = RedisDataType.Array, ArrayValues = new() };
+        var numElementsIndexEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var numElements =
+            Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, numElementsIndexEnd - offset - 1));
+        offset = numElementsIndexEnd + 2;
+        for (var i = 0; i &lt; numElements; i++)
+        {
+            (RedisData elem, int nextArrayOffset) = Parse(data, offset);
+            result.ArrayValues.Add(elem);
+            offset = nextArrayOffset;
+        }
+        return (result, offset);
+    });
+}</code></pre>
+<p>which allows us to greatly simplify our <code>Parse</code> functions
+to</p>
+<pre><code class="language-cs">public static RedisData Parse(byte[] data) =&gt; Parse(data, 0).Item1;
+
+static (RedisData, int) Parse(byte[] data, int offset) =&gt; parsers[data[offset]].Invoke(data, offset);</code></pre>
+<p>We can now move the whole parsing logic out of the data model
+definition and into a new file:</p>
+<pre><code class="language-cs">// RedisDataParser.cs
+public static class RedisDataParser
+{
+    private delegate (RedisData, int) Parser(byte[] data, int offset);
+
+    private static readonly Dictionary&lt;byte, Parser&gt; Parsers = new();
+
+    static RedisDataParser()
+    {
+        Parsers.Add((byte)&#39;$&#39;, ParseBulkString);
+        Parsers.Add((byte)&#39;*&#39;, ParseArray);
+    }
+    
+    public static RedisData Parse(byte[] data) =&gt; Parse(data, 0).Item1;
+
+    private static (RedisData, int) ParseArray(byte[] data, int offset)
+    {
+        RedisData result = new() { Type = RedisDataType.Array, ArrayValues = new() };
+        var numElementsIndexEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var numElements =
+            Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, numElementsIndexEnd - offset - 1));
+        offset = numElementsIndexEnd + 2;
+        for (var i = 0; i &lt; numElements; i++)
+        {
+            (RedisData elem, int nextArrayOffset) = Parse(data, offset);
+            result.ArrayValues.Add(elem);
+            offset = nextArrayOffset;
+        }
+
+        return (result, offset);
+    }
+
+    private static (RedisData, int) ParseBulkString(byte[] data, int offset)
+    {
+        RedisData result = new() { Type = RedisDataType.BulkString };
+        var lengthEnd = Array.IndexOf(data, (byte)&#39;\r&#39;, offset);
+        var length = Int32.Parse(Encoding.ASCII.GetString(data, offset + 1, lengthEnd - offset - 1));
+        int stringStart = lengthEnd + 2;
+        result.BulkString = Encoding.ASCII.GetString(data, stringStart, length);
+        return (result, stringStart + length + 2);
+    }
+
+    private static (RedisData, int) Parse(byte[] data, int offset) =&gt; Parsers[data[offset]].Invoke(data, offset);
+}</code></pre>
+<p>We define the mapping between characters identifying a data type and
+the corresponding logic in a single place. In addition, following <a
+href="https://en.wikipedia.org/wiki/Single-responsibility_principle">SRP</a>,
+the class <code>RedisData</code> is only responsible to represent a data
+structure but is not concerned with any parsing between different
+representation of this data type:</p>
+<pre><code class="language-cs">public class RedisData
+{
+    public RedisDataType Type { get; set; }
+    public string? BulkString { get; set; }
+    public List&lt;RedisData&gt;? ArrayValues { get; set; }
+    
+    public override string ToString()
+    {
+        return &quot;TODO&quot;;
+    }
+}</code></pre>
+<p>Thanks to our test-driven approach we are still sure that all
+functionality which has corresponding tests is still correctly
+implemented.</p>
+<p>We can now understand the command structure which is sent to use from
+<code>redis-cli</code> which enables us to implement a basic command
+parser as a preparation for actually supporting redis database
+operations. Lines of code-wise we are still very good</p>
+<pre><code class="language-bash">-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+C#                               8             36             22            145</code></pre>
+<p>and have 879 lines of code available for the rest of our
+implementation.</p>
+<h2 id="understanding-received-commands">Understanding received
+commands</h2>
+<p>To understand received commands we need to convert the received byte
+stream into a <code>RedisData</code> object using the aforementioned
+<code>Parse</code> method:</p>
+<pre><code class="language-cs">    // in RedisServer ...
+    private static void ReadNextCommand(NetworkStream stream)
+    {
+        byte[] buffer = new byte[16384];
+        stream.Read(buffer);
+        var command = RedisDataParser.Parse(buffer);
+        Console.WriteLine($&quot;Command:\r\n{command}&quot;);
+    }</code></pre>
+<p>For the time being, let’s just display the received and parsed
+command. To enable printing, we need to implement a string
+serialization. To make our lifes easier and since the internal
+serialization format is quite readable, let’s target the default Redis
+serialization format as our default output format and use it for
+internall debugging via <code>ToString</code> as well. This approach
+also allow eases responding to the client later on:</p>
+<pre><code class="language-cs">    // in RedisData...
+    public override string ToString() =&gt; Encoding.ASCII.GetString(ToRedisSerialization());
+
+    public byte[] ToRedisSerialization()
+    {
+        var sb = new StringBuilder();
+
+        switch (Type)
+        {
+            case RedisDataType.Array:
+                sb.Append($&quot;*{ArrayValues!.Count}&quot;);
+                sb.Append(&quot;\r\n&quot;);
+                ArrayValues.ForEach(v =&gt;
+                {
+                    byte[] array = v.ToRedisSerialization();
+                    sb.Append(Encoding.ASCII.GetString(array));
+                });
+                break;
+            case RedisDataType.BulkString:
+                sb.Append($&quot;${BulkString!.Length}&quot;);
+                sb.Append(&quot;\r\n&quot;);
+                sb.Append(BulkString);
+                sb.Append(&quot;\r\n&quot;);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        return Encoding.ASCII.GetBytes(sb.ToString());
+    }</code></pre>
+<p>and add corresponding tests</p>
+<pre><code class="language-cs">    [Fact]
+    public void ToRedisSerialization_BulkString_ReturnsValidInput()
+    {
+        var data = RedisData.of(&quot;HELLO&quot;);
+
+        var serialized = data.ToRedisSerialization();
+
+        Equal(
+            ToByteArray(&quot;&quot;&quot;
+                        $5
+                        HELLO
+                        &quot;&quot;&quot;),
+            serialized);
+    }
+
+    [Fact]
+    public void ToRedisMessage_SimpleArray_ReturnsCorrectResult()
+    {
+        var data = RedisData.of(
+            RedisData.of(&quot;HELLO&quot;),
+            RedisData.of(&quot;FOO&quot;)
+        );
+
+        var serialized = data.ToRedisSerialization();
+
+        Equal(
+            ToByteArray(&quot;&quot;&quot;
+                        *2
+                        $5
+                        HELLO
+                        $3
+                        FOO
+                        &quot;&quot;&quot;),
+            serialized);
+    }
+
+    [Fact]
+    public void ToRedisMessage_NestedArray_ReturnsCorrectResult()
+    {
+        var data = RedisData.of(
+            RedisData.of(
+                RedisData.of(&quot;BAR&quot;),
+                RedisData.of(&quot;HELLO&quot;)
+            ),
+            RedisData.of(&quot;FOO&quot;)
+        );
+
+        var serialized = data.ToRedisSerialization();
+
+        Equal(
+            ToByteArray(&quot;&quot;&quot;
+                        *2
+                        *2
+                        $3
+                        BAR
+                        $5
+                        HELLO
+                        $3
+                        FOO
+                        &quot;&quot;&quot;),
+            serialized);
+    }</code></pre>
+<p>Note that we used the opportunity to also introduce factory functions
+to create <code>RedisData</code> objects easily via</p>
+<pre><code class="language-cs">    // RedisData
+    public static RedisData of(string s) =&gt; new() { Type = RedisDataType.BulkString, BulkString = s };
+
+    public static RedisData of(params RedisData[] arrayElements) =&gt;
+        new() { Type = RedisDataType.Array, ArrayValues = arrayElements.ToList() };</code></pre>
+<p>When we now start our server followed by redis-cli the following
+output will be printed</p>
+<pre><code>Server started, listening for clients.
+Client connected
+Command:
+*2
+$7
+COMMAND
+$4
+DOCS
+
+Command:
+*3
+$3
+set
+$3
+key
+$5
+value</code></pre>
+<p>for the client input</p>
+<pre><code>$ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
+&gt; set key value
+OK</code></pre>
+<h2 id="reacting-on-basic-set-and-get-commands">Reacting on basic set
+and get commands</h2>
+<p>Now that we can receive commands, let’s focus on actually handling
+them. While we will introduce a dedicated handler-setup later on, for
+now we just want to support primitive <code>set</code> and
+<code>get</code> operations. When we start a real redis server and
+connect a client, we are able to perform, which we also want to
+implemention in our server:</p>
+<pre><code class="language-bash">$ docker run --rm -it redis redis-cli -h docker.for.mac.localhost
+docker.for.mac.localhost:6379&gt; set name michael
+OK
+docker.for.mac.localhost:6379&gt; get name
+&quot;michael&quot;</code></pre>
+<p>Let’s start with a (very) basic in-memory abstraction of a key value
+store via</p>
+<pre><code class="language-cs">public class Memory
+{
+    // We will add expiration time later.
+    private readonly Dictionary&lt;string, byte[]&gt; _memory = new();
+
+    public void Set(string key, byte[] value)
+    {
+        _memory[key] = value;
+    }
+
+    public byte[]? Get(string key) =&gt; _memory.TryGetValue(key, out byte[]? value) ? value : null;
+}</code></pre>
+<!-- todo sub chapter semantics and what is supported -->
+<!-- todo basic storage in memory to support this -->
+<!-- todo maybe including serialization suport? -->
+<!-- todo connect with c# redis client and perform a simple store and retrieve -->
+	</article>
+</body>
+
+</html>

@@ -47,6 +47,7 @@ header > nav a {
 
 ul {
     list-style-type: square;
+    /*margin-top: -10px;*/
 }
 
 header h1 {
@@ -54,7 +55,7 @@ header h1 {
 }
 
 h5,h4 {
-    margin-bottom: -15px;
+    margin-bottom: -20px;
 }
 
 @media only screen and (max-width: 720px) {

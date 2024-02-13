@@ -26,7 +26,7 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 
 #### Project list
 
-##### 02/2024 - 05/2024 | Java Software Engineer (Freelance)
+##### 02/2024 | Java Software Engineer (Freelance)
 [N/A](#)
 
 

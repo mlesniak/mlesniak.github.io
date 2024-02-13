@@ -4,14 +4,14 @@ a {
 }
 
 a, a:visited {
-    color:red;
+    color: red;
 }
 
 a:hover {
     text-decoration: underline dashed;
 }
 
-body > header *> a:hover {
+body > header * > a:hover {
     text-decoration: none;
 }
 
@@ -23,7 +23,7 @@ body > header {
     margin-bottom: 15px;
 }
 
-header>nav a {
+header > nav a {
     border: none;
     font-size: 1.3rem;
     /*color: red;*/
@@ -40,11 +40,33 @@ header>nav a {
     border-radius: 50%;
 }
 
-.block {
+.justify {
     margin-top: 20px;
     text-align: justify;
 }
 
-h1 {
-    font-size: 1.2rem;
+ul {
+    list-style-type: square;
+}
+
+header h1 {
+    font-size: 1.6rem;
+}
+
+h5,h4 {
+    margin-bottom: -15px;
+}
+
+@media only screen and (max-width: 720px) {
+    header > nav a {
+        /*background-color: green;*/
+        border: none;
+        padding: 0;
+        text-decoration: none;
+        line-height: 1;
+    }
+}
+
+.light {
+    border: 1px solid #EEEEEE;
 }

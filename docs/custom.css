@@ -9,6 +9,7 @@ a, a:visited {
 
 a:hover {
     text-decoration: underline dashed;
+    text-underline-offset: 5px;
 }
 
 body > header * > a:hover {
@@ -18,7 +19,6 @@ body > header * > a:hover {
 
 body > header {
     background-color: #EEEEEE;
-    /*height: 60px;*/
     padding-bottom: 5px;
     margin-bottom: 15px;
 }
@@ -26,8 +26,6 @@ body > header {
 header > nav a {
     border: none;
     font-size: 1.3rem;
-    /*color: red;*/
-    /*font-size: 50px;*/
     margin-bottom: 0px;
 }
 
@@ -54,7 +52,7 @@ header h1 {
     font-size: 1.6rem;
 }
 
-h5,h4 {
+h5, h4 {
     margin-bottom: -20px;
 }
 
@@ -71,3 +69,13 @@ h5,h4 {
 .light {
     border: 1px solid #EEEEEE;
 }
+
+body > footer {
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 1px solid lightgray;
+}
+
+

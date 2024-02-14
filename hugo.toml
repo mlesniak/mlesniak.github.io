@@ -52,7 +52,7 @@ name = "Resume"
 pageRef = "/resume"
 weight = 20
 [[menu.main]]
-name = "Contact"
+name = "Contact & Legal Notice"
 url = "/contact"
 weight = 30
 

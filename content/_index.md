@@ -15,7 +15,7 @@ My blend of technical, strategic, and interpersonal skills drives **innovative s
 {.justify}
 
 If you're **seeking freelance services in** software development, reach out via [email](mailto:mail@mlesniak.com) or connect with me on [LinkedIn](https://www.linkedin.com/in/dr-michael-lesniak-1577a315/).
-Let's make something remarkable together.
+Let's make something **remarkable together**.
 
 
 

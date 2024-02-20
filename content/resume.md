@@ -7,7 +7,7 @@ title: Overview of my qualifications, past projects and education
 ##### Expert
 
 Java, Kotlin, Spring Boot, Analytical thinking, Mentoring and coaching, Leadership, Software architecture, 
-Distributed systems, Microservices, Implementation, Docker, Cloud (AWS), REST, Terraform, Git, Requirements 
+Distributed systems, Microservices, Implementation, Debugging, Docker, Cloud (AWS), REST, Terraform, Git, Requirements 
 Engineering, JetBrains products, SQL, Code Reviews, SCRUM, Refactoring, REST, API Design
 
 ##### Professional

@@ -26,12 +26,15 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 
 #### Project list
 
-##### 02/2024 | Java Software Engineer (Freelance)
+##### 02/2024 -- today | Java Software Engineer (Freelance)
 [N/A](#)
 
+- Implementation of new features
+  - Extending the company-specific framework to measure capacity impact of DynamoDB calls to reduce costs
+  - Adding JavaScript support to the client's scripting engine
+- Analysis and documentation of SQS performance problems
 
-- In progress...
-
+Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices
 
 
 ##### 01/2024 - 02/2024 | Consultant 

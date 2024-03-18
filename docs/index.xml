@@ -386,6 +386,7 @@ Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence)
 <ul>
 <li>Extending the company-specific framework to measure capacity impact of DynamoDB calls to reduce costs</li>
 <li>Adding JavaScript support to the client&rsquo;s scripting engine</li>
+<li>Developing a custom VSCode extension to support an internal configuration language with validation and auto-completion</li>
 </ul>
 </li>
 <li>Analysis and documentation of SQS performance problems</li>

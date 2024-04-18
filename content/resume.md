@@ -33,9 +33,11 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 - Adding JavaScript support to the client's scripting engine
 - Developing a custom VSCode extension to support an internal configuration language with validation and auto-completion
 - Analysis and documentation of SQS performance problems
+- Add security to endpoints via Bewit and Hawk protocol
+- Convert legacy infrastructure as code setup to CDK for AWS
 - Anlayzing and fixing bugs
 
-Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices
+Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices, CDK
 
 
 ##### 01/2024 - 02/2024 | Consultant 

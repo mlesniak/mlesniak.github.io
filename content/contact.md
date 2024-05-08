@@ -16,7 +16,7 @@ Phone: +49 151 551 69 221<br/>
 
 #### Company details
 
-VAT identification number: _to be provided soon_
+VAT identification number: DE366616834
 
 #### Online Dispute Resolution (ODR)
 

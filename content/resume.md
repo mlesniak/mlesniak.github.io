@@ -280,7 +280,7 @@ Keywords: Java, Groovy, SQL, Spring Boot, Wicket, Oracle DB, JIRA
 
 #### Education
 
-##### 04/2008 - 04/20212 | Ph.D. in Computer Science
+##### 04/2008 - 04/2012 | Ph.D. in Computer Science
 [University of Kassel](https://www.uni-kassel.de)
 - Title: "On the Benefits of Abstraction in Concurrent Haskell"
 - Focused on advancing the field of functional programming and concurrency models.

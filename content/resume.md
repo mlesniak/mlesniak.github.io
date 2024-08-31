@@ -26,8 +26,8 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 
 #### Project list
 
-##### 02/2024 -- today | Senior Java Software Engineer (Freelance)
-[N/A](#)
+##### 02/2024 -- 08/2024 | Senior Java Software Engineer (Freelance)
+[Micromerce](https://www.micromerce.com)
 
 - Extending the company-specific framework to measure capacity impact of DynamoDB calls to reduce costs
 - Adding JavaScript support to the client's scripting engine

@@ -265,6 +265,7 @@ Keywords: Java, Groovy, SQL, Spring Boot, Wicket, Oracle DB, JIRA
 
 #### Certifications
 
+- **09/2024**  AWS Certified Solution Architect Associate
 - **11/2023**  HashiCorp Certified: Terraform Associate (003)
 - **03/2021**  AWS Certified Cloud Practitioner
 - **02/2019 – 04/2021**  Training as a Systemic Coach (SG)
@@ -272,11 +273,9 @@ Keywords: Java, Groovy, SQL, Spring Boot, Wicket, Oracle DB, JIRA
   - Assisting with change processes for teams and organizations to enable smooth transitions and effective adaptation to new circumstances
 - **10/2018**  Certified Neo4J Professional
 - **03/2017**  SCRUM Professional Scrum Master (ITEMO)
-- **03/2017**  SCRUM Foundation und Professional Level (ITEMO)
-- **01/2016**  HA100 SAP HANA – Introduction
-- **12/2014**  MapR Certified Hadoop Admin (MCHA)
 - **11/2014**  MapR Certified Hadoop Professional: Developer (MCHP:D)
-- **02/2013**  Certified Professional for Requirements Engineering Foundation Level (FL)
+- **02/2013**  Certified Professional for Requirements Engineering Foundation Level
+
 
 #### Education
 

@@ -14,7 +14,7 @@ I'm an **experienced software engineer** with a **solid track record** in divers
 Skilled in **software architecture** (distributed systems, microservices, and maintainable monoliths) 
 and various **programming languages** (Java, Kotlin, Go), 
 
-I've **led teams** to success in multiple domains and mentored countless junior engineers.
+I've **led teams** to success in multiple domains and **mentored** countless junior engineers.
 
 Known for curiosity, passion, and dedication to complex problem-solving, 
 I champion **software craftsmanship**, emphasizing **continuous improvement** and **code quality**. 

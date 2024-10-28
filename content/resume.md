@@ -29,16 +29,17 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 ##### 02/2024 -- 08/2024 | Senior Java Software Engineer (Freelance)
 [Micromerce](https://www.micromerce.com)
 
-- Extending the company-specific framework to measure capacity impact of DynamoDB calls to reduce costs
-- Adding JavaScript support to the client's scripting engine
-- Developing a custom VSCode extension to support an internal configuration language with validation and auto-completion
-- Analysis and documentation of SQS performance problems
-- Add security to existing endpoints via Bewit and Hawk protocol
-- Convert legacy infrastructure as code setup to CDK for AWS
-- Adding brute force prevention to an authentication service
-- Implementation of smaller features and anaysis and fixing of bugs
+- Improved ticket processing time by connecting the ticket system to OpenAI API.
+- Enhanced AI responses by setting up and configuring a RAG-based system.
+- Reducing database costs in DynamoDB by over 30% through improvements of the company-specific persistence framework
+- Enabling teams to move faster by enabling JavaScript besides Groovy for an in-house scripting engine
+- Making solutions engineers more productive by developing a custom VSCode extension to support an internal configuration language with validation and auto-completion
+- Improving platform stability by analyzing and fixing SQS performance issues
+- Future-proofing the infrastructure as code setup by setting up CDK for AWS and migrating the existing code base from an unsupported legacy solution
+- Improving platform security by adding a custom-tailored brute-force prevention
+- Helping their teams to understand the tradeoffs of different architectural approaches
 
-Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices, CDK
+Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices, CDK, TypeScript
 
 
 ##### 01/2024 - 02/2024 | Consultant 

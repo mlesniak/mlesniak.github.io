@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Dr. Michael Lesniak -- Freelancer | Software Engineer | Software Architect</title>
+    <title>Dr. Michael Lesniak -- Turning Code Into Business Value</title>
     <link>https://example.com/</link>
-    <description>Recent content on Dr. Michael Lesniak -- Freelancer | Software Engineer | Software Architect</description>
+    <description>Recent content on Dr. Michael Lesniak -- Turning Code Into Business Value</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>mail@mlesniak.com (Dr. Michael Lesniak)</managingEditor>
     <webMaster>mail@mlesniak.com (Dr. Michael Lesniak)</webMaster>
-    <copyright>© 2024 Dr. Michael Lesniak</copyright>
     <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
@@ -356,6 +355,51 @@ Phone: +49 151 551 69 221<br/></p>
 ]]></content:encoded>
     </item>
     <item>
+      <title>My story</title>
+      <link>https://example.com/journey/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
+      <guid>https://example.com/journey/</guid>
+      <description>I’ve let my younger self down.
+I started coding on a C64 and achieved a lot in the last thirty years — leading teams, designing systems, solving tough bugs, and earning promotions.
+But I felt empty.
+Even though my CV looked impressive, I didn&amp;rsquo;t feel connected to what I loved - getting my hands dirty and solving real business problems that make a difference for customers.
+To bring back the spark and make my younger self proud again, I moved to freelancing.</description>
+      <content:encoded><![CDATA[<p>I’ve let my younger self down.</p>
+<p>I started coding on a C64 and achieved a lot in the last thirty years — leading teams, designing systems, solving tough bugs, and earning promotions.</p>
+<p>But I felt empty.</p>
+<p>Even though my CV looked impressive, I didn&rsquo;t feel connected to what I loved - getting my hands dirty and solving real business problems that make a difference for customers.</p>
+<p>To bring back the spark and make my younger self proud again, I moved to freelancing.</p>
+<p>I build impactful features — from understanding the goal, to architecture, implementation, and rollout.</p>
+<p>The spark returned.</p>
+<p>My younger self is proud again, though would have a lot to say about my lack of gaming skills.</p>
+<p>I want my work to matter.</p>
+<p>That’s why I focus on startups and small businesses.</p>
+<p>They don’t need abstract consulting, they need to move fast.</p>
+<p>They need someone who delivers immediate value.</p>
+<p>That’s where I excel.</p>
+<p>What’s in it for you?</p>
+<p>I improve your architecture to handle 10x the data, build a time-critical feature to close a big deal, or fix a framework bug which blocks a critical security upgrade.</p>
+<p>I don’t just offer advice.</p>
+<p>I’m in the code with your team.</p>
+<p>I build what helps you scale and succeed.</p>
+<p>Yet, I’m not the right fit for every company.</p>
+<p>Don’t reach out if you’re</p>
+<ul>
+<li>
+<p>looking for consultants rather than doers.</p>
+</li>
+<li>
+<p>not ready for rapid, hands-on problem-solving.</p>
+</li>
+<li>
+<p>prefer slow processes over fast, effective execution.</p>
+</li>
+</ul>
+<p>Ready for someone who doesn’t just write code but crafts solutions that resonate with your mission &hellip; and has a talent for confusing, but funny, metaphors?</p>
+<p>Shoot me a <a href="mailto:mail@mlesniak.com">message</a>. I’ll respond in &lt;10ms.</p>
+]]></content:encoded>
+    </item>
+    <item>
       <title>Overview of my qualifications, past projects and education</title>
       <link>https://example.com/resume/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
@@ -382,16 +426,17 @@ Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence)
 <h5 id="022024----082024--senior-java-software-engineer-freelance">02/2024 &ndash; 08/2024 | Senior Java Software Engineer (Freelance)</h5>
 <p><a href="https://www.micromerce.com">Micromerce</a></p>
 <ul>
-<li>Extending the company-specific framework to measure capacity impact of DynamoDB calls to reduce costs</li>
-<li>Adding JavaScript support to the client&rsquo;s scripting engine</li>
-<li>Developing a custom VSCode extension to support an internal configuration language with validation and auto-completion</li>
-<li>Analysis and documentation of SQS performance problems</li>
-<li>Add security to existing endpoints via Bewit and Hawk protocol</li>
-<li>Convert legacy infrastructure as code setup to CDK for AWS</li>
-<li>Adding brute force prevention to an authentication service</li>
-<li>Implementation of smaller features and anaysis and fixing of bugs</li>
+<li>Improved ticket processing time by connecting the ticket system to OpenAI API.</li>
+<li>Enhanced AI responses by setting up and configuring a RAG-based system.</li>
+<li>Reducing database costs in DynamoDB by over 30% through improvements of the company-specific persistence framework</li>
+<li>Enabling teams to move faster by enabling JavaScript besides Groovy for an in-house scripting engine</li>
+<li>Making solutions engineers more productive by developing a custom VSCode extension to support an internal configuration language with validation and auto-completion</li>
+<li>Improving platform stability by analyzing and fixing SQS performance issues</li>
+<li>Future-proofing the infrastructure as code setup by setting up CDK for AWS and migrating the existing code base from an unsupported legacy solution</li>
+<li>Improving platform security by adding a custom-tailored brute-force prevention</li>
+<li>Helping their teams to understand the tradeoffs of different architectural approaches</li>
 </ul>
-<p>Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices, CDK</p>
+<p>Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices, CDK, TypeScript</p>
 <h5 id="012024---022024--consultant">01/2024 - 02/2024 | Consultant</h5>
 <p><a href="https://www.linkedin.com/company/algominds/">AlgoMinds GmbH</a></p>
 <ul>

@@ -2,8 +2,8 @@
 baseURL = "https://example.com"
 theme = "hugo-simple"
 languageCode = "en"
-title = "Dr. Michael Lesniak -- Freelancer | Software Engineer | Software Architect"
-copyright = "© 2024 Dr. Michael Lesniak"
+title = "Dr. Michael Lesniak -- Turning Code Into Business Value"
+#copyright = "© 2024 Dr. Michael Lesniak"
 
 # Generate a nice robots.txt for SEO
 enableRobotsTXT = true
@@ -39,6 +39,8 @@ description = "Homepage of Dr. Michael Lesniak (Freelancer, Software Engineer, S
 favicon = "images/favicon.png"
 dateFormat = "2006-01-02"
 hideMadeWithLine = true
+hideRSSLink = true
+
 [params.author]
 name = "Dr. Michael Lesniak"
 email = "mail@mlesniak.com"
@@ -48,9 +50,21 @@ name = "Home"
 pageRef = "/"
 weight = 10
 [[menu.main]]
+name = "My Journey"
+pageRef = "/journey"
+weight = 11
+#[[menu.main]]
+#name = "Articles"
+#pageRef = "/blog"
+#weight = 12
+[[menu.main]]
 name = "Resume"
 pageRef = "/resume"
-weight = 20
+weight = 15
+#[[menu.main]]
+#name = "Recommendations"
+#pageRef = "/recommendations"
+#weight = 18
 [[menu.main]]
 name = "Contact & Legal Notice"
 url = "/contact"

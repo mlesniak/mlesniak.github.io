@@ -26,7 +26,7 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 
 #### Project list
 
-##### 02/2024 -- 08/2024 | Senior Java Software Engineer (Freelance)
+##### 02/2024 -- 08/2024 | Senior Java Software Engineer
 [Micromerce](https://www.micromerce.com)
 
 - Improved ticket processing time by connecting the ticket system to OpenAI API.

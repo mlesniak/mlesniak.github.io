@@ -59,7 +59,8 @@ Keywords: Infrastructure as Code, Pulumi, Microsoft Azure, C#, .NET Core 8, Type
 
 
 
-#####  04/2021 – 11/2023 | Senior, Staff and Principal Engineer 
+<!-- #####  04/2021 – 11/2023 | Senior, Staff and Principal Engineer  -->
+#####  04/2021 – 11/2023 | Principal Engineer 
 [Scalable Capital GmbH](https://de.scalable.capital/en)
 
 - Planning, leading and implementation of a large-scale migration project (400k+ lines of code) from Spring Boot 2.3 to 3.1

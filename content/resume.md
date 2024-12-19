@@ -26,6 +26,14 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 
 #### Project list
 
+##### 12/2024 | Senior Software Engineer
+[Milia](https://milia.io)
+
+- Improving and optimizing software architecture
+- Design, specification and implementation of new features
+- Bugfixing and troubleshooting
+- General platform improvements
+
 ##### 02/2024 -- 08/2024 | Senior Java Software Engineer
 [Micromerce](https://www.micromerce.com)
 

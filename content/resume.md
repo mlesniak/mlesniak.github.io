@@ -1,5 +1,5 @@
 ---
-title: Overview of my qualifications, past projects and education
+title: Qualifications, Past Project and Education
 ---
 
 #### Qualifications

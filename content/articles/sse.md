@@ -145,9 +145,7 @@ data:
 ## A simple user interface
 By any means, I am not a frontend software engineer. Nonetheless, here's a basic, framework-less UI which
 shows how to use SSE in a client.
-
-!(UI view)[sse.png]
-
+<img src="https://mlesniak.com/articles/sse.png" />
 The key implementation is this JavaScript snippet
 ```javascript
 document.querySelector('form').addEventListener('submit', e => {

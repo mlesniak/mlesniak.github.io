@@ -8,316 +8,337 @@
     <language>en</language>
     <managingEditor>mail@mlesniak.com (Dr. Michael Lesniak)</managingEditor>
     <webMaster>mail@mlesniak.com (Dr. Michael Lesniak)</webMaster>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 21 Dec 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Markdown Syntax Guide</title>
-      <link>https://example.com/markdown-syntax/</link>
-      <pubDate>Mon, 11 Mar 2019 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/markdown-syntax/</guid>
-      <description>&lt;p&gt;This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<p>This article offers a sample of basic Markdown syntax that can be used in Hugo content files, also it shows whether basic HTML elements are decorated with CSS in a Hugo theme.</p>
-<h2 id="headings">Headings</h2>
-<p>The following HTML <code>&lt;h1&gt;</code>—<code>&lt;h6&gt;</code> elements represent six levels of section headings. <code>&lt;h1&gt;</code> is the highest section level while <code>&lt;h6&gt;</code> is the lowest.</p>
-<h1 id="h1">H1</h1>
-<h2 id="h2">H2</h2>
-<h3 id="h3">H3</h3>
-<h4 id="h4">H4</h4>
-<h5 id="h5">H5</h5>
-<h6 id="h6">H6</h6>
-<h2 id="paragraph">Paragraph</h2>
-<p>Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui voluptate ma dolestendit peritin re plis aut quas inctum laceat est volestemque commosa as cus endigna tectur, offic to cor sequas etum rerum idem sintibus eiur? Quianimin porecus evelectur, cum que nis nust voloribus ratem aut omnimi, sitatur? Quiatem. Nam, omnis sum am facea corem alique molestrunt et eos evelece arcillit ut aut eos eos nus, sin conecerem erum fuga. Ri oditatquam, ad quibus unda veliamenimin cusam et facea ipsamus es exerum sitate dolores editium rerore eost, temped molorro ratiae volorro te reribus dolorer sperchicium faceata tiustia prat.</p>
-<p>Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sapicia is sinveli squiatum, core et que aut hariosam ex eat.</p>
-<h2 id="blockquotes">Blockquotes</h2>
-<p>The blockquote element represents content that is quoted from another source, optionally with a citation which must be within a <code>footer</code> or <code>cite</code> element, and optionally with in-line changes such as annotations and abbreviations.</p>
-<h3 id="blockquote-without-attribution">Blockquote without attribution</h3>
-<blockquote>
-<p>Tiam, ad mint andaepu dandae nostion secatur sequo quae.
-<strong>Note</strong> that you can use <em>Markdown syntax</em> within a blockquote.</p>
-</blockquote>
-<h3 id="blockquote-with-attribution">Blockquote with attribution</h3>
-<blockquote>
-<p>Don&rsquo;t communicate by sharing memory, share memory by communicating.<br>
-— <cite>Rob Pike<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></cite></p>
-</blockquote>
-<h2 id="tables">Tables</h2>
-<p>Tables aren&rsquo;t part of the core Markdown spec, but Hugo supports supports them out-of-the-box.</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Age</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bob</td>
-<td>27</td>
-</tr>
-<tr>
-<td>Alice</td>
-<td>23</td>
-</tr>
-</tbody>
-</table>
-<h3 id="inline-markdown-within-tables">Inline Markdown within tables</h3>
-<table>
-<thead>
-<tr>
-<th>Italics</th>
-<th>Bold</th>
-<th>Code</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>italics</em></td>
-<td><strong>bold</strong></td>
-<td><code>code</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="code-blocks">Code Blocks</h2>
-<h3 id="code-block-with-backticks">Code block with backticks</h3>
+      <title>You could have invented it yourself: Server-Side Events</title>
+      <link>https://example.com/articles/sse/</link>
+      <pubDate>Sat, 21 Dec 2024 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
+      <guid>https://example.com/articles/sse/</guid>
+      <description>Why do we need Server-Side Events? In modern web applications, real-time communication is more important than ever. Features like live updates, collaborative editing, notifications, and data streaming have become standard expectations for users. While technologies like WebSockets and polling exist to enable such functionality, they each come with trade-offs.
+Alternatives to SSE Polling Polling is the simplest approach to achieve near-real-time updates. The client repeatedly sends HTTP requests to the server at regular intervals to check for changes.</description>
+      <content:encoded><![CDATA[<h2 id="why-do-we-need-server-side-events">Why do we need Server-Side Events?</h2>
+<p>In modern web applications, real-time communication is more
+important than ever. Features like live updates, collaborative
+editing, notifications, and data streaming have become standard
+expectations for users. While technologies like WebSockets and
+polling exist to enable such functionality, they each come with
+trade-offs.</p>
+<h3 id="alternatives-to-sse">Alternatives to SSE</h3>
+<h4 id="polling">Polling</h4>
+<p>Polling is the simplest approach to achieve near-real-time
+updates. The client repeatedly sends HTTP requests to the server
+at regular intervals to check for changes. While easy to
+implement, this method is inefficient. It generates unnecessary
+network traffic and puts extra load on the server, especially
+when updates are infrequent. The client may poll repeatedly even
+when no updates are available, resulting in wasted resources.</p>
+<h4 id="long-polling">Long Polling</h4>
+<p>Long polling improves upon basic polling by keeping the HTTP
+connection open until the server has an update to send. Once
+the server responds with data, the connection closes, and the
+client immediately reopens it to wait for the next update. While
+this reduces some of the inefficiencies of traditional polling,
+it still has drawbacks. Opening and closing connections repeatedly
+can strain resources, and implementing long polling often
+introduces additional complexity.</p>
+<h4 id="websockets">WebSockets</h4>
+<p>WebSockets offer full-duplex communication, enabling the server
+and client to send messages to each other in real time. While
+this is powerful, WebSockets can be overkill for many use cases
+that only require one-way communication from the server to the
+client. They also add complexity in terms of setup, management,
+and maintaining stateful connections, which can be challenging
+in distributed or load-balanced environments.</p>
+<h3 id="why-sse">Why SSE?</h3>
+<p>This is where Server-Side Events (SSE) shine. SSE provide a
+lightweight, efficient, and straightforward way for servers to
+push updates to clients. They rely on a simple HTTP connection,
+making them easy to implement and compatible with most
+environments. Unlike WebSockets, SSE is inherently one-directional
+(server to client), which is ideal for scenarios like live score
+updates, stock price monitoring, or streaming logs.</p>
+<p>With SSE, developers get a solution that&rsquo;s simple to use,
+resource-friendly, and aligned with the natural statelessness of
+HTTP. In many cases, it&rsquo;s the elegant middle ground between the
+brute force of polling and the power of WebSockets.</p>
+<h2 id="backend-with-spring-boot">Backend with Spring Boot</h2>
+<p>The backend streams Server-Side Events (SSE) using Spring Boot&rsquo;s
+<code>SseEmitter</code> class. In general, this should be quite straightforward.
+We expose an endpoint via <code>/events</code> with an optional count to restrict the number
+of sent events. Once a client (which supports SSE) connects, we emit JSON-serialized
+tick events with a unique id and event name.</p>
+<h3 id="implementation">Implementation</h3>
 
 
 
 
 
 
-<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 1</span><span><span style="color:#6c7086;font-style:italic">&lt;!doctype html&gt;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 2</span><span>&lt;<span style="color:#cba6f7">html</span> <span style="color:#89b4fa">lang</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;en&#34;</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 3</span><span>&lt;<span style="color:#cba6f7">head</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 4</span><span>  &lt;<span style="color:#cba6f7">meta</span> <span style="color:#89b4fa">charset</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 5</span><span>  &lt;<span style="color:#cba6f7">title</span>&gt;Example HTML5 Document&lt;/<span style="color:#cba6f7">title</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 6</span><span>&lt;/<span style="color:#cba6f7">head</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 7</span><span>&lt;<span style="color:#cba6f7">body</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 8</span><span>  &lt;<span style="color:#cba6f7">p</span>&gt;Test&lt;/<span style="color:#cba6f7">p</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 9</span><span>&lt;/<span style="color:#cba6f7">body</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">10</span><span>&lt;/<span style="color:#cba6f7">html</span>&gt;</span></span></code></pre></div>
-<h3 id="code-block-indented-with-four-spaces">Code block indented with four spaces</h3>
-<pre><code>&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-  &lt;meta charset=&quot;utf-8&quot;&gt;
-  &lt;title&gt;Example HTML5 Document&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-  &lt;p&gt;Test&lt;/p&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-</code></pre>
-<h3 id="code-block-with-hugos-internal-highlight-shortcode">Code block with Hugo&rsquo;s internal highlight shortcode</h3>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1</span><span><span style="color:#6ab825;font-weight:bold">record</span> <span style="color:#447fcf;text-decoration:underline">Tick</span>(<span style="color:#6ab825;font-weight:bold">int</span><span style="color:#666"> </span>tick)<span style="color:#666"> </span>{<span style="color:#666"> </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3</span><span><span style="color:#666"></span><span style="color:#ffa500">@RestController</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4</span><span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">public</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">class</span> <span style="color:#447fcf;text-decoration:underline">EventController</span><span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5</span><span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">private</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">static</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">final</span><span style="color:#666"> </span>Logger<span style="color:#666"> </span>log<span style="color:#666"> </span>=<span style="color:#666"> </span>LoggerFactory.<span style="color:#bbb">getLogger</span>(EventController.<span style="color:#bbb">class</span>);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6</span><span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">private</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">final</span><span style="color:#666"> </span>ObjectMapper<span style="color:#666"> </span>objectMapper;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8</span><span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">public</span><span style="color:#666"> </span><span style="color:#447fcf">EventController</span>(ObjectMapper<span style="color:#666"> </span>objectMapper)<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9</span><span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">this</span>.<span style="color:#bbb">objectMapper</span><span style="color:#666"> </span>=<span style="color:#666"> </span>objectMapper;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10</span><span><span style="color:#666">    </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12</span><span><span style="color:#666">    </span><span style="color:#ffa500">@GetMapping</span>(<span style="color:#ed9d13">&#34;/events&#34;</span>)<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13</span><span><span style="color:#666">    </span><span style="color:#6ab825;font-weight:bold">public</span><span style="color:#666"> </span>SseEmitter<span style="color:#666"> </span><span style="color:#447fcf">events</span>(<span style="color:#ffa500">@RequestParam</span>(name<span style="color:#666"> </span>=<span style="color:#666"> </span><span style="color:#ed9d13">&#34;count&#34;</span>,<span style="color:#666"> </span>required<span style="color:#666"> </span>=<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">false</span>)<span style="color:#666"> </span>Integer<span style="color:#666"> </span>count)<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14</span><span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">var</span><span style="color:#666"> </span>max<span style="color:#666"> </span>=<span style="color:#666"> </span>count<span style="color:#666"> </span>==<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">null</span><span style="color:#666"> </span>?<span style="color:#666"> </span>10<span style="color:#666"> </span>:<span style="color:#666"> </span>count;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15</span><span><span style="color:#666">        </span>log.<span style="color:#bbb">info</span>(<span style="color:#ed9d13">&#34;/events called with count {} and max {}&#34;</span>,<span style="color:#666"> </span>count,<span style="color:#666"> </span>max);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17</span><span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">var</span><span style="color:#666"> </span>emitter<span style="color:#666"> </span>=<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">new</span><span style="color:#666"> </span>SseEmitter(60<span style="color:#666"> </span>*<span style="color:#666"> </span>1000L);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18</span><span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">var</span><span style="color:#666"> </span>id<span style="color:#666"> </span>=<span style="color:#666"> </span>UUID.<span style="color:#bbb">randomUUID</span>().<span style="color:#bbb">toString</span>();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19</span><span><span style="color:#666">        </span>Executors.<span style="color:#bbb">newSingleThreadScheduledExecutor</span>().<span style="color:#bbb">execute</span>(()<span style="color:#666"> </span>-&gt;<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20</span><span><span style="color:#666">            </span><span style="color:#6ab825;font-weight:bold">try</span><span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21</span><span><span style="color:#666">                </span><span style="color:#6ab825;font-weight:bold">for</span><span style="color:#666"> </span>(<span style="color:#6ab825;font-weight:bold">int</span><span style="color:#666"> </span>i<span style="color:#666"> </span>=<span style="color:#666"> </span>0;<span style="color:#666"> </span>i<span style="color:#666"> </span>&lt;<span style="color:#666"> </span>max;<span style="color:#666"> </span>i++)<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22</span><span><span style="color:#666">                    </span><span style="color:#6ab825;font-weight:bold">var</span><span style="color:#666"> </span>tick<span style="color:#666"> </span>=<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">new</span><span style="color:#666"> </span>Tick(i);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23</span><span><span style="color:#666">                    </span>emitter.<span style="color:#bbb">send</span>(SseEmitter.<span style="color:#bbb">event</span>()<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24</span><span><span style="color:#666">                            </span>.<span style="color:#bbb">name</span>(<span style="color:#ed9d13">&#34;tick&#34;</span>)<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25</span><span><span style="color:#666">                            </span>.<span style="color:#bbb">id</span>(id)<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26</span><span><span style="color:#666">                            </span>.<span style="color:#bbb">data</span>(objectMapper.<span style="color:#bbb">writeValueAsString</span>(tick)));<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27</span><span><span style="color:#666">                    </span>TimeUnit.<span style="color:#bbb">MILLISECONDS</span>.<span style="color:#bbb">sleep</span>(500);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28</span><span><span style="color:#666">                </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29</span><span><span style="color:#666">                </span><span style="color:#999;font-style:italic">// Without a payload, the event is not correctly processed</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30</span><span><span style="color:#666">                </span><span style="color:#999;font-style:italic">// in the browser. This is actually expected behaviour,</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31</span><span><span style="color:#666">                </span><span style="color:#999;font-style:italic">// see https://github.com/denoland/deno/issues/23135.</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">32</span><span><span style="color:#666">                </span>emitter.<span style="color:#bbb">send</span>(SseEmitter.<span style="color:#bbb">event</span>().<span style="color:#bbb">name</span>(<span style="color:#ed9d13">&#34;close&#34;</span>).<span style="color:#bbb">data</span>(<span style="color:#ed9d13">&#34;&#34;</span>));<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">33</span><span><span style="color:#666">                </span>log.<span style="color:#bbb">info</span>(<span style="color:#ed9d13">&#34;Closing connection&#34;</span>);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">34</span><span><span style="color:#666">                </span>emitter.<span style="color:#bbb">complete</span>();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">35</span><span><span style="color:#666">            </span>}<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">catch</span><span style="color:#666"> </span>(Exception<span style="color:#666"> </span>e)<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">36</span><span><span style="color:#666">                </span>emitter.<span style="color:#bbb">completeWithError</span>(e);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">37</span><span><span style="color:#666">            </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">38</span><span><span style="color:#666">        </span>});<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">39</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">40</span><span><span style="color:#666">        </span><span style="color:#6ab825;font-weight:bold">return</span><span style="color:#666"> </span>emitter;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">41</span><span><span style="color:#666">    </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">42</span><span><span style="color:#666"></span>}</span></span></code></pre></div>
+<p>The only annoying trap was figuring out why the <code>close</code> event
+was never processed by the frontend (see below). If you omit
+any data, the browser is free to ignore the event&hellip;</p>
+<h3 id="testing-the-endpoint-with-curl">Testing the endpoint with curl</h3>
+<p>When using curl, this looks like</p>
 
 
 
 
 
 
-  <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 1</span><span><span style="color:#6c7086;font-style:italic">&lt;!doctype html&gt;</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 2</span><span>&lt;<span style="color:#cba6f7">html</span> <span style="color:#89b4fa">lang</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;en&#34;</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 3</span><span>&lt;<span style="color:#cba6f7">head</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 4</span><span>  &lt;<span style="color:#cba6f7">meta</span> <span style="color:#89b4fa">charset</span><span style="color:#89dceb;font-weight:bold">=</span><span style="color:#a6e3a1">&#34;utf-8&#34;</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 5</span><span>  &lt;<span style="color:#cba6f7">title</span>&gt;Example HTML5 Document&lt;/<span style="color:#cba6f7">title</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 6</span><span>&lt;/<span style="color:#cba6f7">head</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 7</span><span>&lt;<span style="color:#cba6f7">body</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 8</span><span>  &lt;<span style="color:#cba6f7">p</span>&gt;Test&lt;/<span style="color:#cba6f7">p</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c"> 9</span><span>&lt;/<span style="color:#cba6f7">body</span>&gt;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">10</span><span>&lt;/<span style="color:#cba6f7">html</span>&gt;</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1</span><span>$ curl http://localhost:9000/events?count=<span style="color:#3677a9">4</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2</span><span>event:tick
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3</span><span>id:ba711ed1-bb55-4696-9312-ca4c10725e5a
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4</span><span>data:{<span style="color:#ed9d13">&#34;tick&#34;</span>:0}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6</span><span>event:tick
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7</span><span>id:ba711ed1-bb55-4696-9312-ca4c10725e5a
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8</span><span>data:{<span style="color:#ed9d13">&#34;tick&#34;</span>:1}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10</span><span>event:tick
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11</span><span>id:ba711ed1-bb55-4696-9312-ca4c10725e5a
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12</span><span>data:{<span style="color:#ed9d13">&#34;tick&#34;</span>:2}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14</span><span>event:tick
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15</span><span>id:ba711ed1-bb55-4696-9312-ca4c10725e5a
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16</span><span>data:{<span style="color:#ed9d13">&#34;tick&#34;</span>:3}
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18</span><span>event:close
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19</span><span>data:</span></span></code></pre></div>
+<h2 id="a-simple-user-interface">A simple user interface</h2>
+<p>By any means, I am not a frontend software engineer. Nonetheless, here&rsquo;s a basic, framework-less UI which
+shows how to use SSE in a client.</p>
+<p>!(UI view)[sse.png]</p>
+<p>The key implementation is this JavaScript snippet</p>
 
 
-<h2 id="list-types">List Types</h2>
-<h3 id="ordered-list">Ordered List</h3>
+
+
+
+
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1</span><span><span style="color:#24909d">document</span>.querySelector(<span style="color:#ed9d13">&#39;form&#39;</span>).addEventListener(<span style="color:#ed9d13">&#39;submit&#39;</span>, e =&gt; {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2</span><span>    e.preventDefault();
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3</span><span>    <span style="color:#6ab825;font-weight:bold">const</span> count = <span style="color:#24909d">document</span>.getElementById(<span style="color:#ed9d13">&#39;count&#39;</span>).value;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4</span><span>    <span style="color:#24909d">document</span>.getElementById(<span style="color:#ed9d13">&#39;count&#39;</span>).value = <span style="color:#ed9d13">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5</span><span>    <span style="color:#6ab825;font-weight:bold">const</span> eventDisplay = <span style="color:#24909d">document</span>.getElementById(<span style="color:#ed9d13">&#39;events&#39;</span>);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6</span><span>    eventDisplay.innerHTML = <span style="color:#ed9d13">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8</span><span>    <span style="color:#6ab825;font-weight:bold">if</span> (<span style="color:#24909d">window</span>.eventSource) <span style="color:#24909d">window</span>.eventSource.close();
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9</span><span>    <span style="color:#24909d">window</span>.eventSource = <span style="color:#6ab825;font-weight:bold">new</span> EventSource(<span style="color:#ed9d13">`/events?count=</span><span style="color:#ed9d13">${</span>count<span style="color:#ed9d13">}</span><span style="color:#ed9d13">`</span>);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11</span><span>    eventSource.addEventListener(<span style="color:#ed9d13">&#39;tick&#39;</span>, event =&gt; {
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12</span><span>        <span style="color:#6ab825;font-weight:bold">const</span> p = <span style="color:#24909d">document</span>.createElement(<span style="color:#ed9d13">&#39;p&#39;</span>);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13</span><span>        p.textContent = <span style="color:#ed9d13">`Tick: </span><span style="color:#ed9d13">${</span>JSON.parse(event.data).tick + <span style="color:#3677a9">1</span><span style="color:#ed9d13">}</span><span style="color:#ed9d13">`</span>;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14</span><span>        eventDisplay.appendChild(p);
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15</span><span>    });
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16</span><span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17</span><span>    eventSource.addEventListener(<span style="color:#ed9d13">&#39;close&#39;</span>, () =&gt; eventSource.close());
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18</span><span>});</span></span></code></pre></div>
+<p>Once we&rsquo;ve subscribed to the <code>submit</code> event of the form, we use the
+Browser&rsquo;s <a href="https://developer.mozilla.org/de/docs/Web/API/EventSource">EventSource API</a> to listen
+to events sent by the server and react accordingly.</p>
+<p>If we do not react to a <code>close</code> event by closing our listener, and the server closes its connection on their side,
+the browser will simply reopen the connection after a few seconds and listen to new events again.</p>
+<h2 id="the-specification">The specification</h2>
+<p>Server-Side Events (SSE) are defined as <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html">part of the HTML5 specification</a>.
+They provide a standardized way for servers to
+push updates to web clients over a persistent HTTP connection
+using a lightweight, text-based protocol.</p>
+<h3 id="key-characteristics">Key Characteristics</h3>
 <ol>
-<li>First item</li>
-<li>Second item</li>
-<li>Third item</li>
-</ol>
-<h3 id="unordered-list">Unordered List</h3>
+<li>
+<p><strong>Protocol</strong>:</p>
 <ul>
-<li>List item</li>
-<li>Another item</li>
-<li>And another item</li>
-</ul>
-<h3 id="nested-list">Nested list</h3>
-<ul>
-<li>Fruit
-<ul>
-<li>Apple</li>
-<li>Orange</li>
-<li>Banana</li>
+<li>SSE uses a standard HTTP connection (typically GET requests).</li>
+<li>The <code>Content-Type</code> for SSE responses must be <code>text/event-stream</code>.</li>
+<li>HTTP headers like <code>Cache-Control: no-cache</code> are commonly used
+to prevent caching of the event stream by intermediaries.</li>
+<li>Connections are usually kept open indefinitely, relying on
+persistent HTTP/1.1 or HTTP/2 features.</li>
 </ul>
 </li>
-<li>Dairy
+<li>
+<p><strong>Event Format</strong>:</p>
 <ul>
-<li>Milk</li>
-<li>Cheese</li>
+<li>Events are sent as plain text in the following structure:
+
+
+
+
+
+
+<pre tabindex="0"><code>id: &lt;unique-id&gt;
+event: &lt;event-name&gt;
+data: &lt;payload&gt;</code></pre>
+</li>
+<li>Each event ends with a blank line to indicate completion.</li>
+<li>Binary data is not directly supported, i.e., must be encoded with Base64.</li>
 </ul>
 </li>
+<li>
+<p><strong>Auto-Reconnection</strong>:</p>
+<ul>
+<li>If the connection is lost, the browser automatically attempts
+to reconnect after a short delay.</li>
+<li>The <code>id</code> field allows clients to resume from the last event
+by sending a <code>Last-Event-ID</code> header in subsequent requests.</li>
 </ul>
-<h2 id="other-elements--abbr-sub-sup-kbd-mark">Other Elements — abbr, sub, sup, kbd, mark</h2>
-<p><abbr title="Graphics Interchange Format">GIF</abbr> is a bitmap image format.</p>
-<p>H<sub>2</sub>O</p>
-<p>X<sup>n</sup> + Y<sup>n</sup> = Z<sup>n</sup></p>
-<p>Press <kbd>CTRL+ALT+Delete</kbd> to end the session.</p>
-<p>Most <mark>salamanders</mark> are nocturnal, and hunt for insects, worms, and other small creatures.</p>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>The above quote is excerpted from Rob Pike&rsquo;s <a href="https://www.youtube.com/watch?v=PAAkCSZUG1c">talk</a> during Gopherfest, November 18, 2015.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li>
+<p><strong>Character Encoding</strong>:</p>
+<ul>
+<li>SSE requires UTF-8 encoding for all transmitted data.</li>
+</ul>
 </li>
 </ol>
-</div>]]></content:encoded>
-    </item>
-    <item>
-      <title>Rich Content</title>
-      <link>https://example.com/rich-content/</link>
-      <pubDate>Sun, 10 Mar 2019 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/rich-content/</guid>
-      <description>&lt;p&gt;Hugo ships with several &lt;a href=&#34;https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes&#34;&gt;Built-in Shortcodes&lt;/a&gt; for rich content, along with a &lt;a href=&#34;https://gohugo.io/about/hugo-and-gdpr/&#34;&gt;Privacy Config&lt;/a&gt; and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<p>Hugo ships with several <a href="https://gohugo.io/content-management/shortcodes/#use-hugos-built-in-shortcodes">Built-in Shortcodes</a> for rich content, along with a <a href="https://gohugo.io/about/hugo-and-gdpr/">Privacy Config</a> and a set of Simple Shortcodes that enable static and no-JS versions of various social media embeds.</p>
-<hr>
-<h2 id="youtube-privacy-enhanced-shortcode">YouTube Privacy Enhanced Shortcode</h2>
-
-
-    
-    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-      <iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/ZJthWmvUzzc?autoplay=0&controls=1&end=0&loop=0&mute=0&start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video"
-      ></iframe>
-    </div>
-
-<br>
-<hr>
-<h2 id="twitter-simple-shortcode">Twitter Simple Shortcode</h2>
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">“In addition to being more logical, asymmetry has the advantage that its complete appearance is far more optically effective than symmetry.”<br>— Jan Tschichold <a href="https://t.co/gcv7SrhvJb">pic.twitter.com/gcv7SrhvJb</a></p>&mdash; Design Reviewed | Graphic Design History (@DesignReviewed) <a href="https://twitter.com/DesignReviewed/status/1085870671291310081?ref_src=twsrc%5Etfw">January 17, 2019</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-
-<br>
-<hr>
-<h2 id="vimeo-simple-shortcode">Vimeo Simple Shortcode</h2>
-<style>
-.__h_video {
-   position: relative;
-   padding-bottom: 56.23%;
-   height: 0;
-   overflow: hidden;
-   width: 100%;
-   background: #000;
-}
-.__h_video img {
-   width: 100%;
-   height: auto;
-   color: #000;
-}
-.__h_video .play {
-   height: 72px;
-   width: 72px;
-   left: 50%;
-   top: 50%;
-   margin-left: -36px;
-   margin-top: -36px;
-   position: absolute;
-   cursor: pointer;
-}
-</style><div class="s_video_simple __h_video">
-          <a href="https://vimeo.com/4.8912912e&#43;07" rel="noopener" target="_blank">
-            <img src="https://i.vimeocdn.com/video/337401969-979f0cc9f55fdf305fb8984e90d92639ec9d7ecc4c9dfbc6536e28edb43784ce-d_640" srcset="https://i.vimeocdn.com/video/337401969-979f0cc9f55fdf305fb8984e90d92639ec9d7ecc4c9dfbc6536e28edb43784ce-d_640 1x, https://i.vimeocdn.com/video/337401969-979f0cc9f55fdf305fb8984e90d92639ec9d7ecc4c9dfbc6536e28edb43784ce-d_640 2x" alt="Sing Jan Swing - Kinetic Type">
-            <div class="play">
-              <svg version="1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61 61"><circle cx="30.5" cy="30.5" r="30.5" opacity=".8" fill="#000"></circle><path d="M25.3 19.2c-2.1-1.2-3.8-.2-3.8 2.2v18.1c0 2.4 1.7 3.4 3.8 2.2l16.6-9.1c2.1-1.2 2.1-3.2 0-4.4l-16.6-9z" fill="#fff"></path></svg>
-            </div>
-          </a>
-        </div>]]></content:encoded>
-    </item>
-    <item>
-      <title>Placeholder Text</title>
-      <link>https://example.com/placeholder-text/</link>
-      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/placeholder-text/</guid>
-      <description>&lt;p&gt;Lorem est tota propiore conpellat pectoribus de pectora summo.&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<p>Lorem est tota propiore conpellat pectoribus de pectora summo.</p>
-<p>Redit teque digerit hominumque toris verebor lumina non cervice subde tollit usus habet Arctonque, furores quas nec ferunt. Quoque montibus nunc caluere tempus inhospita parcite confusaque translucet patri vestro qui optatis lumine cognoscere flos nubis! Fronde ipsamque patulos Dryopen deorum.</p>
-<ol>
-<li>Exierant elisi ambit vivere dedere</li>
-<li>Duce pollice</li>
-<li>Eris modo</li>
-<li>Spargitque ferrea quos palude</li>
-</ol>
-<p>Rursus nulli murmur; hastile inridet ut ab gravi sententia! Nomine potitus silentia flumen, sustinet placuit petis in dilapsa erat sunt. Atria tractus malis.</p>
-<ol>
-<li>Comas hunc haec pietate fetum procerum dixit</li>
-<li>Post torum vates letum Tiresia</li>
-<li>Flumen querellas</li>
-<li>Arcanaque montibus omnes</li>
-<li>Quidem et</li>
-</ol>
-<h1 id="vagus-elidunt">Vagus elidunt</h1>
-<p><svg class="canon" xmlns="http://www.w3.org/2000/svg" overflow="visible" viewBox="0 0 496 373" height="373" width="496"><g fill="none"><path stroke="#000" stroke-width=".75" d="M.599 372.348L495.263 1.206M.312.633l494.95 370.853M.312 372.633L247.643.92M248.502.92l246.76 370.566M330.828 123.869V1.134M330.396 1.134L165.104 124.515"></path><path stroke="#ED1C24" stroke-width=".75" d="M275.73 41.616h166.224v249.05H275.73zM54.478 41.616h166.225v249.052H54.478z"></path><path stroke="#000" stroke-width=".75" d="M.479.375h495v372h-495zM247.979.875v372"></path><ellipse cx="498.729" cy="177.625" rx=".75" ry="1.25"></ellipse><ellipse cx="247.229" cy="377.375" rx=".75" ry="1.25"></ellipse></g></svg></p>
-<p><a href="https://en.wikipedia.org/wiki/Canons_of_page_construction#Van_de_Graaf_canon">The Van de Graaf Canon</a></p>
-<h2 id="mane-refeci-capiebant-unda-mulcebat">Mane refeci capiebant unda mulcebat</h2>
-<p>Victa caducifer, malo vulnere contra dicere aurato, ludit regale, voca! Retorsit colit est profanae esse virescere furit nec; iaculi matertera et visa est, viribus. Divesque creatis, tecta novat collumque vulnus est, parvas. <strong>Faces illo pepulere</strong> tempus adest. Tendit flamma, ab opes virum sustinet, sidus sequendo urbis.</p>
-<p>Iubar proles corpore raptos vero auctor imperium; sed et huic: manus caeli Lelegas tu lux. Verbis obstitit intus oblectamina fixis linguisque ausus sperare Echionides cornuaque tenent clausit possit. Omnia putatur. Praeteritae refert ausus; ferebant e primus lora nutat, vici quae mea ipse. Et iter nil spectatae vulnus haerentia iuste et exercebat, sui et.</p>
-<p>Eurytus Hector, materna ipsumque ut Politen, nec, nate, ignari, vernum cohaesit sequitur. Vel <strong>mitis temploque</strong> vocatus, inque alis, <em>oculos nomen</em> non silvis corpore coniunx ne displicet illa. Crescunt non unus, vidit visa quantum inmiti flumina mortis facto sic: undique a alios vincula sunt iactata abdita! Suspenderat ego fuit tendit: luna, ante urbem Propoetides <strong>parte</strong>.</p>]]></content:encoded>
-    </item>
-    <item>
-      <title>Math Typesetting</title>
-      <link>https://example.com/math-typesetting/</link>
-      <pubDate>Fri, 08 Mar 2019 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/math-typesetting/</guid>
-      <description>&lt;p&gt;Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<p>Mathematical notation in a Hugo project can be enabled by using third party JavaScript libraries.</p>
-<p>In this example we will be using <a href="https://katex.org/">KaTeX</a></p>
-<ul>
-<li>Create a partial under <code>/layouts/partials/math.html</code></li>
-<li>Within this partial reference the <a href="https://katex.org/docs/autorender.html">Auto-render Extension</a> or host these scripts locally.</li>
-<li>Include the partial in your templates like so:</li>
-</ul>
+<h3 id="an-exchange-with-curl">An exchange with curl</h3>
+<p>Coming back to our example with curl, we can verify the actual
+HTTP headers sent in the response.</p>
 
 
 
 
 
 
-<div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span><span style="color:#89dceb;font-weight:bold">{{</span> <span style="color:#cba6f7">if</span> or .Params.math .Site.Params.math <span style="color:#89dceb;font-weight:bold">}}</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">2</span><span><span style="color:#89dceb;font-weight:bold">{{</span> partial <span style="color:#a6e3a1">&#34;math.html&#34;</span> . <span style="color:#89dceb;font-weight:bold">}}</span>
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">3</span><span><span style="color:#89dceb;font-weight:bold">{{</span> end <span style="color:#89dceb;font-weight:bold">}}</span></span></span></code></pre></div>
-<ul>
-<li>To enable KaTex globally set the parameter <code>math</code> to <code>true</code> in a project&rsquo;s configuration</li>
-<li>To enable KaTex on a per page basis include the parameter <code>math: true</code> in content files</li>
-</ul>
-<p><strong>Note:</strong> Use the online reference of <a href="https://katex.org/docs/supported.html">Supported TeX Functions</a></p>
-
-<h3 id="examples">Examples</h3>
-
-<p>Block math:
-$$
-\varphi = 1+\frac{1} {1+\frac{1} {1+\frac{1} {1+\cdots} } }
-$$</p>]]></content:encoded>
-    </item>
-    <item>
-      <title>Emoji Support</title>
-      <link>https://example.com/emoji-support/</link>
-      <pubDate>Tue, 05 Mar 2019 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/emoji-support/</guid>
-      <description>&lt;p&gt;Emoji can be enabled in a Hugo project in a number of ways.&lt;/p&gt;</description>
-      <content:encoded><![CDATA[<p>Emoji can be enabled in a Hugo project in a number of ways.</p>
-<p>The <a href="https://gohugo.io/functions/emojify/"><code>emojify</code></a> function can be called directly in templates or <a href="https://gohugo.io/templates/shortcode-templates/#inline-shortcodes">Inline Shortcodes</a>.</p>
-<p>To enable emoji globally, set <code>enableEmoji</code> to <code>true</code> in your site&rsquo;s <a href="https://gohugo.io/getting-started/configuration/">configuration</a> and then you can type emoji shorthand codes directly in content files; e.g.</p>
-<p><span class="nowrap"><span class="emojify">🙈</span> <code>:see_no_evil:</code></span>  <span class="nowrap"><span class="emojify">🙉</span> <code>:hear_no_evil:</code></span>  <span class="nowrap"><span class="emojify">🙊</span> <code>:speak_no_evil:</code></span></p>
-<br>
-<p>The <a href="http://www.emoji-cheat-sheet.com/">Emoji cheat sheet</a> is a useful reference for emoji shorthand codes.</p>
-<hr>
-<p><strong>N.B.</strong> The above steps enable Unicode Standard emoji characters and sequences in Hugo, however the rendering of these glyphs depends on the browser and the platform. To style the emoji you can either use a third party emoji font or a font stack; e.g.</p>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1</span><span>$ curl -v http://localhost:9000/events?count=<span style="color:#3677a9">4</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2</span><span>* Host localhost:9000 was resolved.
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3</span><span>* IPv6: ::1
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4</span><span>* IPv4: 127.0.0.1
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5</span><span>*   Trying [::1]:9000...
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6</span><span>* Connected to localhost (::1) port <span style="color:#3677a9">9000</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7</span><span>&gt; GET /events?count=<span style="color:#3677a9">4</span> HTTP/1.1
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8</span><span>&gt; Host: localhost:9000
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9</span><span>&gt; User-Agent: curl/8.9.1
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10</span><span>&gt; Accept: */*
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11</span><span>&gt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12</span><span>* Request completely sent off
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13</span><span>&lt; HTTP/1.1 <span style="color:#3677a9">200</span>
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14</span><span>&lt; Content-Type: text/event-stream
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15</span><span>&lt; Transfer-Encoding: chunked
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16</span><span>&lt; Date: Sat, <span style="color:#3677a9">21</span> Dec <span style="color:#3677a9">2024</span> 17:32:27 GMT
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17</span><span>&lt;
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18</span><span>event:tick
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19</span><span>id:5d482700-187c-4928-8de5-cca0681f0aac
+</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20</span><span>data:{<span style="color:#ed9d13">&#34;tick&#34;</span>:0}</span></span></code></pre></div>
+<h2 id="a-backend-using-just-the-jdk">A backend using just the JDK</h2>
+<p>Looks like Server-Side Events are not magic at all. While Spring allows us to use
+them via a comfortable API through the <code>SseEmitter</code> class, we can easily write our
+own backend implementation &ndash; the frontend part is left as an exercise for the reader.</p>
 
 
 
 
 
 
-  <div class="highlight"><pre tabindex="0" style="color:#cdd6f4;background-color:#1e1e2e;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">1</span><span>.emoji {
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">2</span><span>  font-family: Apple Color Emoji, Segoe UI Emoji, NotoColorEmoji, Segoe UI Symbol, Android Emoji, EmojiSymbols;
-</span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#7f849c">3</span><span>}</span></span></code></pre></div>]]></content:encoded>
+<div class="highlight"><pre tabindex="0" style="color:#d0d0d0;background-color:#202020;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 1</span><span><span style="color:#999;font-style:italic">// ...boring package declaration and imports...</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 2</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 3</span><span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">record</span> <span style="color:#447fcf;text-decoration:underline">TickEvent</span>(<span style="color:#6ab825;font-weight:bold">int</span><span style="color:#666"> </span>tick)<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 4</span><span><span style="color:#666">   </span>String<span style="color:#666"> </span><span style="color:#447fcf">toJson</span>()<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 5</span><span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">return</span><span style="color:#666"> </span><span style="color:#ed9d13">&#34;{\&#34;tick\&#34;:&#34;</span><span style="color:#666"> </span>+<span style="color:#666"> </span>tick<span style="color:#666"> </span>+<span style="color:#666"> </span><span style="color:#ed9d13">&#34;}&#34;</span>;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 6</span><span><span style="color:#666">   </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 7</span><span><span style="color:#666"></span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 8</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868"> 9</span><span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">record</span> <span style="color:#447fcf;text-decoration:underline">SseEvent</span>(String<span style="color:#666"> </span>id,<span style="color:#666"> </span>String<span style="color:#666"> </span>event,<span style="color:#666"> </span>String<span style="color:#666"> </span>data)<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">10</span><span><span style="color:#666">   </span>String<span style="color:#666"> </span><span style="color:#447fcf">toSseFormat</span>()<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">11</span><span><span style="color:#666">      </span><span style="color:#999;font-style:italic">// Not beautiful, but good enough.</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">12</span><span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">return</span><span style="color:#666"> </span><span style="color:#ed9d13">&#34;id: &#34;</span><span style="color:#666"> </span>+<span style="color:#666"> </span>id<span style="color:#666"> </span>+<span style="color:#666"> </span><span style="color:#ed9d13">&#34;\n&#34;</span><span style="color:#666"> </span>+<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">13</span><span><span style="color:#666">              </span><span style="color:#ed9d13">&#34;event: &#34;</span><span style="color:#666"> </span>+<span style="color:#666"> </span>event<span style="color:#666"> </span>+<span style="color:#666"> </span><span style="color:#ed9d13">&#34;\n&#34;</span><span style="color:#666"> </span>+<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">14</span><span><span style="color:#666">              </span><span style="color:#ed9d13">&#34;data: &#34;</span><span style="color:#666"> </span>+<span style="color:#666"> </span>data<span style="color:#666"> </span>+<span style="color:#666"> </span><span style="color:#ed9d13">&#34;\n\n&#34;</span>;<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">15</span><span><span style="color:#666">   </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">16</span><span><span style="color:#666"></span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">17</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">18</span><span><span style="color:#666"></span><span style="color:#6ab825;font-weight:bold">public</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">class</span> <span style="color:#447fcf;text-decoration:underline">SseServer</span><span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19</span><span><span style="color:#666">   </span><span style="color:#6ab825;font-weight:bold">public</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">static</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">void</span><span style="color:#666"> </span><span style="color:#447fcf">main</span>(String[]<span style="color:#666"> </span>args)<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">throws</span><span style="color:#666"> </span>Exception<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20</span><span><span style="color:#666">      </span><span style="color:#999;font-style:italic">// Create a basic HTTP server which is part of the JDK.</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">21</span><span><span style="color:#666">      </span>HttpServer<span style="color:#666"> </span>server<span style="color:#666"> </span>=<span style="color:#666"> </span>HttpServer.<span style="color:#bbb">create</span>(<span style="color:#6ab825;font-weight:bold">new</span><span style="color:#666"> </span>InetSocketAddress(9000),<span style="color:#666"> </span>0);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">22</span><span><span style="color:#666">      </span>server.<span style="color:#bbb">createContext</span>(<span style="color:#ed9d13">&#34;/events&#34;</span>,<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">new</span><span style="color:#666"> </span>SseHandler());<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">23</span><span><span style="color:#666">      </span>server.<span style="color:#bbb">setExecutor</span>(Executors.<span style="color:#bbb">newCachedThreadPool</span>());<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">24</span><span><span style="color:#666">      </span>server.<span style="color:#bbb">start</span>();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">25</span><span><span style="color:#666">   </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">26</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">27</span><span><span style="color:#666">   </span><span style="color:#6ab825;font-weight:bold">static</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">class</span> <span style="color:#447fcf;text-decoration:underline">SseHandler</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">implements</span><span style="color:#666"> </span>HttpHandler<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">28</span><span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">private</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">final</span><span style="color:#666"> </span>ObjectMapper<span style="color:#666"> </span>objectMapper<span style="color:#666"> </span>=<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">new</span><span style="color:#666"> </span>ObjectMapper();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">29</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">30</span><span><span style="color:#666">      </span><span style="color:#ffa500">@Override</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">31</span><span><span style="color:#666">      </span><span style="color:#6ab825;font-weight:bold">public</span><span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">void</span><span style="color:#666"> </span><span style="color:#447fcf">handle</span>(HttpExchange<span style="color:#666"> </span>exchange)<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">32</span><span><span style="color:#666">         </span><span style="color:#6ab825;font-weight:bold">try</span><span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">33</span><span><span style="color:#666">            </span><span style="color:#999;font-style:italic">// Set default headers for SSE.</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">34</span><span><span style="color:#666">            </span>exchange.<span style="color:#bbb">getResponseHeaders</span>().<span style="color:#bbb">set</span>(<span style="color:#ed9d13">&#34;Content-Type&#34;</span>,<span style="color:#666"> </span><span style="color:#ed9d13">&#34;text/event-stream&#34;</span>);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">35</span><span><span style="color:#666">            </span>exchange.<span style="color:#bbb">getResponseHeaders</span>().<span style="color:#bbb">set</span>(<span style="color:#ed9d13">&#34;Cache-Control&#34;</span>,<span style="color:#666"> </span><span style="color:#ed9d13">&#34;no-cache&#34;</span>);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">36</span><span><span style="color:#666">            </span>exchange.<span style="color:#bbb">getResponseHeaders</span>().<span style="color:#bbb">set</span>(<span style="color:#ed9d13">&#34;Connection&#34;</span>,<span style="color:#666"> </span><span style="color:#ed9d13">&#34;keep-alive&#34;</span>);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">37</span><span><span style="color:#666">            </span>exchange.<span style="color:#bbb">sendResponseHeaders</span>(200,<span style="color:#666"> </span>0);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">38</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">39</span><span><span style="color:#666">            </span><span style="color:#6ab825;font-weight:bold">try</span><span style="color:#666"> </span>(OutputStream<span style="color:#666"> </span>os<span style="color:#666"> </span>=<span style="color:#666"> </span>exchange.<span style="color:#bbb">getResponseBody</span>())<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">40</span><span><span style="color:#666">               </span><span style="color:#6ab825;font-weight:bold">var</span><span style="color:#666"> </span>id<span style="color:#666"> </span>=<span style="color:#666"> </span>UUID.<span style="color:#bbb">randomUUID</span>().<span style="color:#bbb">toString</span>();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">41</span><span><span style="color:#666">               </span><span style="color:#6ab825;font-weight:bold">for</span><span style="color:#666"> </span>(<span style="color:#6ab825;font-weight:bold">int</span><span style="color:#666"> </span>i<span style="color:#666"> </span>=<span style="color:#666"> </span>0;<span style="color:#666"> </span>i<span style="color:#666"> </span>&lt;<span style="color:#666"> </span>10;<span style="color:#666"> </span>i++)<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">42</span><span><span style="color:#666">                  </span>TickEvent<span style="color:#666"> </span>tickEvent<span style="color:#666"> </span>=<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">new</span><span style="color:#666"> </span>TickEvent(i);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">43</span><span><span style="color:#666">                  </span>SseEvent<span style="color:#666"> </span>sseEvent<span style="color:#666"> </span>=<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">new</span><span style="color:#666"> </span>SseEvent(<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">44</span><span><span style="color:#666">                          </span>id,<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">45</span><span><span style="color:#666">                          </span><span style="color:#ed9d13">&#34;tick&#34;</span>,<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">46</span><span><span style="color:#666">                          </span>tickEvent.<span style="color:#bbb">toJson</span>()<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">47</span><span><span style="color:#666">                  </span>);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">48</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">49</span><span><span style="color:#666">                  </span>os.<span style="color:#bbb">write</span>(sseEvent.<span style="color:#bbb">toSseFormat</span>().<span style="color:#bbb">getBytes</span>());<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">50</span><span><span style="color:#666">                  </span>os.<span style="color:#bbb">flush</span>();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">51</span><span><span style="color:#666">                  </span>Thread.<span style="color:#bbb">sleep</span>(500);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">52</span><span><span style="color:#666">               </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">53</span><span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">54</span><span><span style="color:#666">               </span>SseEvent<span style="color:#666"> </span>closeEvent<span style="color:#666"> </span>=<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">new</span><span style="color:#666"> </span>SseEvent(<span style="color:#ed9d13">&#34;&#34;</span>,<span style="color:#666"> </span><span style="color:#ed9d13">&#34;close&#34;</span>,<span style="color:#666"> </span><span style="color:#ed9d13">&#34;&#34;</span>);<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">55</span><span><span style="color:#666">               </span>os.<span style="color:#bbb">write</span>(closeEvent.<span style="color:#bbb">toSseFormat</span>().<span style="color:#bbb">getBytes</span>());<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">56</span><span><span style="color:#666">               </span>os.<span style="color:#bbb">flush</span>();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">57</span><span><span style="color:#666">            </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">58</span><span><span style="color:#666">         </span>}<span style="color:#666"> </span><span style="color:#6ab825;font-weight:bold">catch</span><span style="color:#666"> </span>(Exception<span style="color:#666"> </span>e)<span style="color:#666"> </span>{<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">59</span><span><span style="color:#666">            </span><span style="color:#999;font-style:italic">// 🙈 ... good enough for us.</span><span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">60</span><span><span style="color:#666">            </span>e.<span style="color:#bbb">printStackTrace</span>();<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">61</span><span><span style="color:#666">         </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">62</span><span><span style="color:#666">      </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">63</span><span><span style="color:#666">   </span>}<span style="color:#666">
+</span></span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">64</span><span><span style="color:#666"></span>}</span></span></code></pre></div>
+<h2 id="source-code">Source code</h2>
+<p>The whole source code can be found on <a href="https://github.com/mlesniak/server-side-events">GitHub</a>.</p>
+]]></content:encoded>
     </item>
     <item>
       <title>Contact options and legal notice</title>

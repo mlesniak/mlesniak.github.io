@@ -32,7 +32,8 @@ endLevel = 3
 lineNos = true
 lineNumbersInTable = false
 noClasses = true
-style = "catppuccin-mocha"
+# style = "catppuccin-mocha"
+style = "native"
 
 [params]
 description = "Homepage of Dr. Michael Lesniak (Freelancer, Software Engineer, Software Architect)"
@@ -50,17 +51,17 @@ name = "Home"
 pageRef = "/"
 weight = 10
 [[menu.main]]
+name = "Articles"
+pageRef = "/articles"
+weight = 20
+[[menu.main]]
 name = "My Journey"
 pageRef = "/journey"
-weight = 11
-#[[menu.main]]
-#name = "Articles"
-#pageRef = "/blog"
-#weight = 12
+weight = 30
 [[menu.main]]
 name = "Resume"
 pageRef = "/resume"
-weight = 15
+weight = 40
 #[[menu.main]]
 #name = "Recommendations"
 #pageRef = "/recommendations"
@@ -68,7 +69,7 @@ weight = 15
 [[menu.main]]
 name = "Contact & Legal Notice"
 url = "/contact"
-weight = 30
+weight = 50
 
 #[services.rss]
 #limit = 42

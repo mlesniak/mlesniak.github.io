@@ -177,3 +177,7 @@ body > footer {
         width: 70%;
     }
 }
+
+.highlight {
+    font-size: 12px;
+}

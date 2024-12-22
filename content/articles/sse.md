@@ -1,15 +1,15 @@
 +++
-title = "You could have invented it yourself: Server-Side Events"
+title = "You could have invented it yourself: Server-Sent Events"
 description = ""
 date = "2024-12-21"
 +++
 
-## Why do we need Server-Side Events?
+## Why do we need Server-Sent Events?
 
 In modern web applications, real-time communication is more
 important than ever. Features like live updates, collaborative
 editing, notifications, and data streaming have become standard
-expectations for users. Before we look at Server-Side Events,
+expectations for users. Before we look at Server-Sent Events,
 let's first look at a few alternatives.
 
 ### Alternatives to SSE
@@ -59,7 +59,7 @@ brute force of polling and the power of WebSockets.
 
 ## Backend with Spring Boot
 
-The backend streams Server-Side Events (SSE) using Spring Boot's
+The backend streams Server-Sent Events (SSE) using Spring Boot's
 `SseEmitter` class. In general, this should be quite straightforward.
 We expose an endpoint via `/events` with an optional count to restrict the number
 of sent events. Once a client (which supports SSE) connects, we emit JSON-serialized
@@ -180,7 +180,7 @@ the browser will simply reopen the connection after a few seconds and listen to 
 
 ## The specification
 
-Server-Side Events (SSE) are defined as [part of the HTML5 specification](https://html.spec.whatwg.org/multipage/server-sent-events.html). 
+Server-Sent Events (SSE) are defined as [part of the HTML5 specification](https://html.spec.whatwg.org/multipage/server-sent-events.html). 
 They provide a standardized way for servers to
 push updates to web clients over a persistent HTTP connection
 using a lightweight, text-based protocol.
@@ -243,7 +243,7 @@ data:{"tick":0}
 
 ## A backend using just the JDK
 
-Looks like Server-Side Events are not magic at all. While Spring allows us to use
+Looks like Server-Sent Events are not magic at all. While Spring allows us to use
 them via a comfortable API through the `SseEmitter` class, we can easily write our
 own backend implementation -- the frontend part is left as an exercise for the reader.
 

@@ -11,17 +11,17 @@
     <lastBuildDate>Sat, 21 Dec 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>You could have invented it yourself: Server-Side Events</title>
+      <title>You could have invented it yourself: Server-Sent Events</title>
       <link>https://example.com/articles/sse/</link>
       <pubDate>Sat, 21 Dec 2024 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
       <guid>https://example.com/articles/sse/</guid>
-      <description>Why do we need Server-Side Events? In modern web applications, real-time communication is more important than ever. Features like live updates, collaborative editing, notifications, and data streaming have become standard expectations for users. Before we look at Server-Side Events, let&amp;rsquo;s first look at a few alternatives.
+      <description>Why do we need Server-Sent Events? In modern web applications, real-time communication is more important than ever. Features like live updates, collaborative editing, notifications, and data streaming have become standard expectations for users. Before we look at Server-Sent Events, let&amp;rsquo;s first look at a few alternatives.
 Alternatives to SSE Polling Polling is the simplest approach to achieve near-real-time updates. The client repeatedly sends HTTP requests to the server at regular intervals to check for changes.</description>
-      <content:encoded><![CDATA[<h2 id="why-do-we-need-server-side-events">Why do we need Server-Side Events?</h2>
+      <content:encoded><![CDATA[<h2 id="why-do-we-need-server-sent-events">Why do we need Server-Sent Events?</h2>
 <p>In modern web applications, real-time communication is more
 important than ever. Features like live updates, collaborative
 editing, notifications, and data streaming have become standard
-expectations for users. Before we look at Server-Side Events,
+expectations for users. Before we look at Server-Sent Events,
 let&rsquo;s first look at a few alternatives.</p>
 <h3 id="alternatives-to-sse">Alternatives to SSE</h3>
 <h4 id="polling">Polling</h4>
@@ -62,7 +62,7 @@ resource-friendly, and aligned with the natural statelessness of
 HTTP. In many cases, it&rsquo;s the elegant middle ground between the
 brute force of polling and the power of WebSockets.</p>
 <h2 id="backend-with-spring-boot">Backend with Spring Boot</h2>
-<p>The backend streams Server-Side Events (SSE) using Spring Boot&rsquo;s
+<p>The backend streams Server-Sent Events (SSE) using Spring Boot&rsquo;s
 <code>SseEmitter</code> class. In general, this should be quite straightforward.
 We expose an endpoint via <code>/events</code> with an optional count to restrict the number
 of sent events. Once a client (which supports SSE) connects, we emit JSON-serialized
@@ -184,7 +184,7 @@ to events sent by the server and react accordingly.</p>
 <p>If we do not react to a <code>close</code> event by closing our listener, and the server closes its connection on their side,
 the browser will simply reopen the connection after a few seconds and listen to new events again.</p>
 <h2 id="the-specification">The specification</h2>
-<p>Server-Side Events (SSE) are defined as <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html">part of the HTML5 specification</a>.
+<p>Server-Sent Events (SSE) are defined as <a href="https://html.spec.whatwg.org/multipage/server-sent-events.html">part of the HTML5 specification</a>.
 They provide a standardized way for servers to
 push updates to web clients over a persistent HTTP connection
 using a lightweight, text-based protocol.</p>
@@ -265,7 +265,7 @@ HTTP headers sent in the response.</p>
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">19</span><span>id:5d482700-187c-4928-8de5-cca0681f0aac
 </span></span><span style="display:flex;"><span style="white-space:pre;-webkit-user-select:none;user-select:none;margin-right:0.4em;padding:0 0.4em 0 0.4em;color:#686868">20</span><span>data:{<span style="color:#ed9d13">&#34;tick&#34;</span>:0}</span></span></code></pre></div>
 <h2 id="a-backend-using-just-the-jdk">A backend using just the JDK</h2>
-<p>Looks like Server-Side Events are not magic at all. While Spring allows us to use
+<p>Looks like Server-Sent Events are not magic at all. While Spring allows us to use
 them via a comfortable API through the <code>SseEmitter</code> class, we can easily write our
 own backend implementation &ndash; the frontend part is left as an exercise for the reader.</p>
 

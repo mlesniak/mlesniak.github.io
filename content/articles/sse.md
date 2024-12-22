@@ -247,6 +247,9 @@ Looks like Server-Sent Events are not magic at all. While Spring allows us to us
 them via a comfortable API through the `SseEmitter` class, we can easily write our
 own backend implementation -- the frontend part is left as an exercise for the reader.
 
+For convinience, we also left out handling of the optional `count` parameter since 
+it's not relevant for the protocol.
+
 ```java
 // ...boring package declaration and imports...
 

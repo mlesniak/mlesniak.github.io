@@ -55,7 +55,7 @@ Alternatives to SSE Polling Polling is the simplest approach to achieve near-rea
 Alternatives to SSE Polling Polling is the simplest approach to achieve near-real-time updates. The client repeatedly sends HTTP requests to the server at regular intervals to check for changes.">
   <meta itemprop="datePublished" content="2024-12-21T00:00:00+00:00">
   <meta itemprop="dateModified" content="2024-12-21T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1414">
+  <meta itemprop="wordCount" content="1433">
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
     
@@ -377,6 +377,8 @@ HTTP headers sent in the response.</p>
 <p>Looks like Server-Sent Events are not magic at all. While Spring allows us to use
 them via a comfortable API through the <code>SseEmitter</code> class, we can easily write our
 own backend implementation &ndash; the frontend part is left as an exercise for the reader.</p>
+<p>For convinience, we also left out handling of the optional <code>count</code> parameter since
+it&rsquo;s not relevant for the protocol.</p>
 
 
 

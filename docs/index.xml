@@ -268,6 +268,8 @@ HTTP headers sent in the response.</p>
 <p>Looks like Server-Sent Events are not magic at all. While Spring allows us to use
 them via a comfortable API through the <code>SseEmitter</code> class, we can easily write our
 own backend implementation &ndash; the frontend part is left as an exercise for the reader.</p>
+<p>For convinience, we also left out handling of the optional <code>count</code> parameter since
+it&rsquo;s not relevant for the protocol.</p>
 
 
 

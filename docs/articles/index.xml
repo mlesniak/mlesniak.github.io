@@ -15,15 +15,14 @@
       <link>https://example.com/articles/sse/</link>
       <pubDate>Sat, 21 Dec 2024 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
       <guid>https://example.com/articles/sse/</guid>
-      <description>Why do we need Server-Side Events? In modern web applications, real-time communication is more important than ever. Features like live updates, collaborative editing, notifications, and data streaming have become standard expectations for users. While technologies like WebSockets and polling exist to enable such functionality, they each come with trade-offs.
+      <description>Why do we need Server-Side Events? In modern web applications, real-time communication is more important than ever. Features like live updates, collaborative editing, notifications, and data streaming have become standard expectations for users. Before we look at Server-Side Events, let&amp;rsquo;s first look at a few alternatives.
 Alternatives to SSE Polling Polling is the simplest approach to achieve near-real-time updates. The client repeatedly sends HTTP requests to the server at regular intervals to check for changes.</description>
       <content:encoded><![CDATA[<h2 id="why-do-we-need-server-side-events">Why do we need Server-Side Events?</h2>
 <p>In modern web applications, real-time communication is more
 important than ever. Features like live updates, collaborative
 editing, notifications, and data streaming have become standard
-expectations for users. While technologies like WebSockets and
-polling exist to enable such functionality, they each come with
-trade-offs.</p>
+expectations for users. Before we look at Server-Side Events,
+let&rsquo;s first look at a few alternatives.</p>
 <h3 id="alternatives-to-sse">Alternatives to SSE</h3>
 <h4 id="polling">Polling</h4>
 <p>Polling is the simplest approach to achieve near-real-time
@@ -51,7 +50,7 @@ client. They also add complexity in terms of setup, management,
 and maintaining stateful connections, which can be challenging
 in distributed or load-balanced environments.</p>
 <h3 id="why-sse">Why SSE?</h3>
-<p>This is where Server-Side Events (SSE) shine. SSE provide a
+<p>SSE provide a
 lightweight, efficient, and straightforward way for servers to
 push updates to clients. They rely on a simple HTTP connection,
 making them easy to implement and compatible with most
@@ -68,6 +67,9 @@ brute force of polling and the power of WebSockets.</p>
 We expose an endpoint via <code>/events</code> with an optional count to restrict the number
 of sent events. Once a client (which supports SSE) connects, we emit JSON-serialized
 tick events with a unique id and event name.</p>
+<p>In a classic REST-based API, one can add this as an extension to the query endpoints.
+Besides <code>GET /users</code> and <code>GET /users/{id}</code> you would also have <code>GET /users/events</code> and
+<code>GET /users/{id}/events</code>.</p>
 <h3 id="implementation">Implementation</h3>
 
 

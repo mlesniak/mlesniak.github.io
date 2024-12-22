@@ -9,9 +9,8 @@ date = "2024-12-21"
 In modern web applications, real-time communication is more
 important than ever. Features like live updates, collaborative
 editing, notifications, and data streaming have become standard
-expectations for users. While technologies like WebSockets and
-polling exist to enable such functionality, they each come with
-trade-offs.
+expectations for users. Before we look at Server-Side Events,
+let's first look at a few alternatives.
 
 ### Alternatives to SSE
 
@@ -45,7 +44,7 @@ in distributed or load-balanced environments.
 
 ### Why SSE?
 
-This is where Server-Side Events (SSE) shine. SSE provide a
+SSE provide a
 lightweight, efficient, and straightforward way for servers to
 push updates to clients. They rely on a simple HTTP connection,
 making them easy to implement and compatible with most
@@ -65,6 +64,10 @@ The backend streams Server-Side Events (SSE) using Spring Boot's
 We expose an endpoint via `/events` with an optional count to restrict the number
 of sent events. Once a client (which supports SSE) connects, we emit JSON-serialized
 tick events with a unique id and event name.
+
+In a classic REST-based API, one can add this as an extension to the query endpoints.
+Besides `GET /users` and `GET /users/{id}` you would also have `GET /users/events` and
+`GET /users/{id}/events`.
 
 ### Implementation
 

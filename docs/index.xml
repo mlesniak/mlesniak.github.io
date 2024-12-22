@@ -269,7 +269,8 @@ HTTP headers sent in the response.</p>
 them via a comfortable API through the <code>SseEmitter</code> class, we can easily write our
 own backend implementation &ndash; the frontend part is left as an exercise for the reader.</p>
 <p>For convinience, we also left out handling of the optional <code>count</code> parameter since
-it&rsquo;s not relevant for the protocol.</p>
+it&rsquo;s not relevant for the protocol and the thread handling. It&rsquo;s easy to add but
+would hide the relevant part, the implementation of SSE itself.</p>
 
 
 

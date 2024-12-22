@@ -248,7 +248,8 @@ them via a comfortable API through the `SseEmitter` class, we can easily write o
 own backend implementation -- the frontend part is left as an exercise for the reader.
 
 For convinience, we also left out handling of the optional `count` parameter since 
-it's not relevant for the protocol.
+it's not relevant for the protocol and the thread handling. It's easy to add but 
+would hide the relevant part, the implementation of SSE itself.
 
 ```java
 // ...boring package declaration and imports...

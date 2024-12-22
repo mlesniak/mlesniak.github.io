@@ -10,7 +10,7 @@ title: Turning code into business value.
 
 Moin (as we say in Münster),
 
-I'm an **experienced software engineer** with a **solid track record** in diverse development roles. 
+I'm an **experienced freelance software engineer** with a **solid track record** in diverse development roles. 
 
 Skilled in **software architecture** (distributed systems, microservices, and maintainable monoliths),
 various **programming languages** (Java, Kotlin, Go), and cloud-native development (AWS, Kubernetes).

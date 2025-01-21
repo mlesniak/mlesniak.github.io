@@ -55,7 +55,7 @@ Initially, this seems fine. But what happens when you need different engines, ga
 Initially, this seems fine. But what happens when you need different engines, gas, electric, or something new? Suddenly, your Car class has to handle creation logic, breaking its focus and making changes a nightmare.">
   <meta itemprop="datePublished" content="2025-01-03T00:00:00+00:00">
   <meta itemprop="dateModified" content="2025-01-03T00:00:00+00:00">
-  <meta itemprop="wordCount" content="1768">
+  <meta itemprop="wordCount" content="1770">
 <meta name="referrer" content="no-referrer-when-downgrade" />
 
     
@@ -196,6 +196,8 @@ method from the consumer is called since it implements <code>CommandLineRunner</
 <p>In the following sections, we will implement our own dependency injection
 framework. Our goal is to allow seamless switching of import statements to our implementation without any other changes.
 The example should still function as expected.</p>
+<p>Our goal:
+<img src="https://mlesniak.com/articles/di.png" /></p>
 <h2 id="our-own-implementation">Our own implementation</h2>
 <p>Spring&rsquo;s DI framework offers extensive functionality, much of which is beyond the scope of this educational example.
 Let’s begin by clarifying what we won’t implement, though much of it is

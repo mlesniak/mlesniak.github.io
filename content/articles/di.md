@@ -80,6 +80,9 @@ In the following sections, we will implement our own dependency injection
 framework. Our goal is to allow seamless switching of import statements to our implementation without any other changes.
 The example should still function as expected.
 
+Our goal:
+<img src="https://mlesniak.com/articles/di.png" />
+
 ## Our own implementation
 
 Spring's DI framework offers extensive functionality, much of which is beyond the scope of this educational example.

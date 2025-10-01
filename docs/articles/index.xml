@@ -15,8 +15,13 @@
       <link>https://example.com/articles/di/</link>
       <pubDate>Fri, 03 Jan 2025 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
       <guid>https://example.com/articles/di/</guid>
-      <description>Why do we need Dependency Injection? Dependency Injection (DI) addresses a simple but critical problem: keeping your code manageable. Without it, you’re stuck with tightly coupled components, like a Car class that directly creates its own Engine.
-Initially, this seems fine. But what happens when you need different engines, gas, electric, or something new? Suddenly, your Car class has to handle creation logic, breaking its focus and making changes a nightmare.</description>
+      <description>&lt;h2 id=&#34;why-do-we-need-dependency-injection&#34;&gt;Why do we need Dependency Injection?&lt;/h2&gt;
+&lt;p&gt;Dependency Injection (DI) addresses a simple but critical problem: keeping your
+code manageable. Without it, you’re stuck with tightly coupled components, like
+a Car class that directly creates its own Engine.&lt;/p&gt;
+&lt;p&gt;Initially, this seems fine. But what happens when you need different engines,
+gas, electric, or something new? Suddenly, your Car class has to handle creation
+logic, breaking its focus and making changes a nightmare.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h2 id="why-do-we-need-dependency-injection">Why do we need Dependency Injection?</h2>
 <p>Dependency Injection (DI) addresses a simple but critical problem: keeping your
 code manageable. Without it, you’re stuck with tightly coupled components, like
@@ -409,8 +414,21 @@ on <a href="https://github.com/mlesniak/dependency-injection">GitHub</a>.</p>
       <link>https://example.com/articles/sse/</link>
       <pubDate>Sat, 21 Dec 2024 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
       <guid>https://example.com/articles/sse/</guid>
-      <description>Why do we need Server-Sent Events? In modern web applications, real-time communication is more important than ever. Features like live updates, collaborative editing, notifications, and data streaming have become standard expectations for users. Before we look at Server-Sent Events, let&amp;rsquo;s first look at a few alternatives.
-Alternatives to SSE Polling Polling is the simplest approach to achieve near-real-time updates. The client repeatedly sends HTTP requests to the server at regular intervals to check for changes.</description>
+      <description>&lt;h2 id=&#34;why-do-we-need-server-sent-events&#34;&gt;Why do we need Server-Sent Events?&lt;/h2&gt;
+&lt;p&gt;In modern web applications, real-time communication is more
+important than ever. Features like live updates, collaborative
+editing, notifications, and data streaming have become standard
+expectations for users. Before we look at Server-Sent Events,
+let&amp;rsquo;s first look at a few alternatives.&lt;/p&gt;
+&lt;h3 id=&#34;alternatives-to-sse&#34;&gt;Alternatives to SSE&lt;/h3&gt;
+&lt;h4 id=&#34;polling&#34;&gt;Polling&lt;/h4&gt;
+&lt;p&gt;Polling is the simplest approach to achieve near-real-time
+updates. The client repeatedly sends HTTP requests to the server
+at regular intervals to check for changes. While easy to
+implement, this method is inefficient. It generates unnecessary
+network traffic and puts extra load on the server, especially
+when updates are infrequent. The client may poll repeatedly even
+when no updates are available, resulting in wasted resources.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h2 id="why-do-we-need-server-sent-events">Why do we need Server-Sent Events?</h2>
 <p>In modern web applications, real-time communication is more
 important than ever. Features like live updates, collaborative

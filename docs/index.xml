@@ -15,8 +15,13 @@
       <link>https://example.com/articles/di/</link>
       <pubDate>Fri, 03 Jan 2025 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
       <guid>https://example.com/articles/di/</guid>
-      <description>Why do we need Dependency Injection? Dependency Injection (DI) addresses a simple but critical problem: keeping your code manageable. Without it, you’re stuck with tightly coupled components, like a Car class that directly creates its own Engine.
-Initially, this seems fine. But what happens when you need different engines, gas, electric, or something new? Suddenly, your Car class has to handle creation logic, breaking its focus and making changes a nightmare.</description>
+      <description>&lt;h2 id=&#34;why-do-we-need-dependency-injection&#34;&gt;Why do we need Dependency Injection?&lt;/h2&gt;
+&lt;p&gt;Dependency Injection (DI) addresses a simple but critical problem: keeping your
+code manageable. Without it, you’re stuck with tightly coupled components, like
+a Car class that directly creates its own Engine.&lt;/p&gt;
+&lt;p&gt;Initially, this seems fine. But what happens when you need different engines,
+gas, electric, or something new? Suddenly, your Car class has to handle creation
+logic, breaking its focus and making changes a nightmare.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h2 id="why-do-we-need-dependency-injection">Why do we need Dependency Injection?</h2>
 <p>Dependency Injection (DI) addresses a simple but critical problem: keeping your
 code manageable. Without it, you’re stuck with tightly coupled components, like
@@ -409,8 +414,21 @@ on <a href="https://github.com/mlesniak/dependency-injection">GitHub</a>.</p>
       <link>https://example.com/articles/sse/</link>
       <pubDate>Sat, 21 Dec 2024 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
       <guid>https://example.com/articles/sse/</guid>
-      <description>Why do we need Server-Sent Events? In modern web applications, real-time communication is more important than ever. Features like live updates, collaborative editing, notifications, and data streaming have become standard expectations for users. Before we look at Server-Sent Events, let&amp;rsquo;s first look at a few alternatives.
-Alternatives to SSE Polling Polling is the simplest approach to achieve near-real-time updates. The client repeatedly sends HTTP requests to the server at regular intervals to check for changes.</description>
+      <description>&lt;h2 id=&#34;why-do-we-need-server-sent-events&#34;&gt;Why do we need Server-Sent Events?&lt;/h2&gt;
+&lt;p&gt;In modern web applications, real-time communication is more
+important than ever. Features like live updates, collaborative
+editing, notifications, and data streaming have become standard
+expectations for users. Before we look at Server-Sent Events,
+let&amp;rsquo;s first look at a few alternatives.&lt;/p&gt;
+&lt;h3 id=&#34;alternatives-to-sse&#34;&gt;Alternatives to SSE&lt;/h3&gt;
+&lt;h4 id=&#34;polling&#34;&gt;Polling&lt;/h4&gt;
+&lt;p&gt;Polling is the simplest approach to achieve near-real-time
+updates. The client repeatedly sends HTTP requests to the server
+at regular intervals to check for changes. While easy to
+implement, this method is inefficient. It generates unnecessary
+network traffic and puts extra load on the server, especially
+when updates are infrequent. The client may poll repeatedly even
+when no updates are available, resulting in wasted resources.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h2 id="why-do-we-need-server-sent-events">Why do we need Server-Sent Events?</h2>
 <p>In modern web applications, real-time communication is more
 important than ever. Features like live updates, collaborative
@@ -744,13 +762,20 @@ would hide the relevant part, the implementation of SSE itself.</p>
       <link>https://example.com/contact/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
       <guid>https://example.com/contact/</guid>
-      <description>Provider Dr. Michael Lesniak
-Joseph-König-Str. 8
-48147 Münster
-Contact options Email: mail@mlesniak.com LinkedIn: Link to my profile Phone: +49 151 551 69 221
-Company details VAT identification number: DE366616834
-Online Dispute Resolution (ODR) Online dispute resolution: The European Commission provides a platform for Online Dispute Resolution (ODR), which can be accessed at https://ec.europa.eu/consumers/odr. Consumers have the possibility to use this platform to settle their disputes.
-Liability and Intellectual Property Rights Information Liability Disclaimer: While the content of this website has been put together with great care and reflects our current knowledge, it is provided for information purposes without being legally binding, unless the disclosure of this information is required by law (e.</description>
+      <description>&lt;h4 id=&#34;provider&#34;&gt;Provider&lt;/h4&gt;
+&lt;p&gt;Dr. Michael Lesniak&lt;br&gt;
+Joseph-König-Str. 8&lt;br&gt;
+48147 Münster&lt;br&gt;&lt;/p&gt;
+&lt;h4 id=&#34;contact-options&#34;&gt;Contact options&lt;/h4&gt;
+&lt;p&gt;Email: &lt;a href=&#34;mailto:mail@mlesniak.com&#34;&gt;mail@mlesniak.com&lt;/a&gt;  &lt;br/&gt;
+LinkedIn: &lt;a href=&#34;https://www.linkedin.com/in/dr-michael-lesniak-1577a315/&#34;&gt;Link to my profile&lt;/a&gt; &lt;br/&gt;
+Phone: +49 151 551 69 221&lt;br/&gt;&lt;/p&gt;
+&lt;h4 id=&#34;company-details&#34;&gt;Company details&lt;/h4&gt;
+&lt;p&gt;VAT identification number: DE366616834&lt;/p&gt;
+&lt;h4 id=&#34;online-dispute-resolution-odr&#34;&gt;Online Dispute Resolution (ODR)&lt;/h4&gt;
+&lt;p class=&#34;justify&#34;&gt;Online dispute resolution: The European Commission provides a platform for Online Dispute Resolution (ODR), which can be accessed at &lt;a href=&#34;https://ec.europa.eu/consumers/odr&#34;&gt;https://ec.europa.eu/consumers/odr&lt;/a&gt;. Consumers have the possibility to use this platform to settle their disputes.&lt;/p&gt;
+&lt;h4 id=&#34;liability-and-intellectual-property-rights-information&#34;&gt;Liability and Intellectual Property Rights Information&lt;/h4&gt;
+&lt;p class=&#34;justify&#34;&gt;Liability Disclaimer: While the content of this website has been put together with great care and reflects our current knowledge, it is provided for information purposes without being legally binding, unless the disclosure of this information is required by law (e.g. the legal information), the privacy policy, terms and conditions or mandatory instructions for consumers) . We reserve the right to modify or delete the content, whether in full or in part, provided this does not affect our existing contractual obligations. All website content is subject to change and non-binding.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h4 id="provider">Provider</h4>
 <p>Dr. Michael Lesniak<br>
 Joseph-König-Str. 8<br>
@@ -775,11 +800,11 @@ Phone: +49 151 551 69 221<br/></p>
       <link>https://example.com/journey/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
       <guid>https://example.com/journey/</guid>
-      <description>I’ve let my younger self down.
-I started coding on a C64 and achieved a lot in the last thirty years — leading teams, designing systems, solving tough bugs, and earning promotions.
-But I felt empty.
-Even though my CV looked impressive, I didn&amp;rsquo;t feel connected to what I loved - getting my hands dirty and solving real business problems that make a difference for customers.
-To bring back the spark and make my younger self proud again, I moved to freelancing.</description>
+      <description>&lt;p&gt;I’ve let my younger self down.&lt;/p&gt;
+&lt;p&gt;I started coding on a C64 and achieved a lot in the last thirty years — leading teams, designing systems, solving tough bugs, and earning promotions.&lt;/p&gt;
+&lt;p&gt;But I felt empty.&lt;/p&gt;
+&lt;p&gt;Even though my CV looked impressive, I didn&amp;rsquo;t feel connected to what I loved - getting my hands dirty and solving real business problems that make a difference for customers.&lt;/p&gt;
+&lt;p&gt;To bring back the spark and make my younger self proud again, I moved to freelancing.&lt;/p&gt;</description>
       <content:encoded><![CDATA[<p>I’ve let my younger self down.</p>
 <p>I started coding on a C64 and achieved a lot in the last thirty years — leading teams, designing systems, solving tough bugs, and earning promotions.</p>
 <p>But I felt empty.</p>
@@ -820,9 +845,16 @@ To bring back the spark and make my younger self proud again, I moved to freelan
       <link>https://example.com/resume/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
       <guid>https://example.com/resume/</guid>
-      <description>Qualifications Expert Java, Kotlin, Spring Boot, Analytical thinking, Mentoring and coaching, Leadership, Software architecture, Distributed systems, Microservices, Implementation, Debugging, Docker, Cloud (AWS), REST, Terraform, Git, Requirements Engineering, JetBrains products, SQL, Code Reviews, SCRUM, Refactoring, REST, API Design
-Professional Domain-Driven Design, Serverless, Project management, Testing, Linux, Go, MongoDB, Cassandra, Neo4J, Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence)
-Basic Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pulumi</description>
+      <description>&lt;h4 id=&#34;qualifications&#34;&gt;Qualifications&lt;/h4&gt;
+&lt;h5 id=&#34;expert&#34;&gt;Expert&lt;/h5&gt;
+&lt;p&gt;Java, Kotlin, Spring Boot, Analytical thinking, Mentoring and coaching, Leadership, Software architecture,
+Distributed systems, Microservices, Implementation, Debugging, Docker, Cloud (AWS), REST, Terraform, Git, Requirements
+Engineering, JetBrains products, SQL, Code Reviews, SCRUM, Refactoring, REST, API Design&lt;/p&gt;
+&lt;h5 id=&#34;professional&#34;&gt;Professional&lt;/h5&gt;
+&lt;p&gt;Domain-Driven Design, Serverless, Project management, Testing, Linux, Go, MongoDB, Cassandra, Neo4J,
+Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence)&lt;/p&gt;
+&lt;h5 id=&#34;basic&#34;&gt;Basic&lt;/h5&gt;
+&lt;p&gt;Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pulumi&lt;/p&gt;</description>
       <content:encoded><![CDATA[<h4 id="qualifications">Qualifications</h4>
 <h5 id="expert">Expert</h5>
 <p>Java, Kotlin, Spring Boot, Analytical thinking, Mentoring and coaching, Leadership, Software architecture,
@@ -839,14 +871,27 @@ Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence)
 <li>English: professional proficiency</li>
 </ul>
 <h4 id="project-list">Project list</h4>
-<h5 id="122024--senior-software-engineer">12/2024 | Senior Software Engineer</h5>
-<p><a href="https://milia.io">Milia</a></p>
+<h5 id="102025----today--senior-java-software-engineer">10/2025 &ndash; today | Senior Java Software Engineer</h5>
+<p><a href="https://www.micromerce.com">Micromerce</a></p>
 <ul>
 <li>Improving and optimizing software architecture</li>
 <li>Design, specification and implementation of new features</li>
 <li>Bugfixing and troubleshooting</li>
 <li>General platform improvements</li>
 </ul>
+<p>Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices, CDK, TypeScript</p>
+<h5 id="122024----092024--senior-software-engineer">12/2024 &ndash; 09/2024 | Senior Software Engineer</h5>
+<p><a href="https://milia.io">Milia</a></p>
+<ul>
+<li>Enable fulltext search by designing an OpenSearch (ElasticSearch)-based solution and incorporating business-specific additional rules</li>
+<li>Improving client responsiveness via designing and implementing an adaptive invitation reminder subsystem</li>
+<li>Increasing client experience and reducing support team load by analyzing, designing, implementing and maintaining a DATEV document status replication system</li>
+<li>Improving platform scalability by designing and (re-)implementing synchronous to asynchronous processes</li>
+<li>Analyzing and fixing bugs in close collaboration with the support team</li>
+<li>General improvements to the CI/CD GitHub-based build pipeline</li>
+<li>Designing and implementing general business-specific features</li>
+</ul>
+<p>Keywords: Java, AWS, SQS, Postgresql, Microservices, DATEV</p>
 <h5 id="022024----082024--senior-java-software-engineer">02/2024 &ndash; 08/2024 | Senior Java Software Engineer</h5>
 <p><a href="https://www.micromerce.com">Micromerce</a></p>
 <ul>

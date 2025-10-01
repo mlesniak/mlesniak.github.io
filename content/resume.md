@@ -26,13 +26,28 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 
 #### Project list
 
-##### 12/2024 | Senior Software Engineer
-[Milia](https://milia.io)
+##### 10/2025 -- today | Senior Java Software Engineer
+[Micromerce](https://www.micromerce.com)
 
 - Improving and optimizing software architecture
 - Design, specification and implementation of new features
 - Bugfixing and troubleshooting
 - General platform improvements
+
+Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices, CDK, TypeScript
+
+##### 12/2024 -- 09/2024 | Senior Software Engineer
+[Milia](https://milia.io)
+
+- Enable fulltext search by designing an OpenSearch (ElasticSearch)-based solution and incorporating business-specific additional rules
+- Improving client responsiveness via designing and implementing an adaptive invitation reminder subsystem
+- Increasing client experience and reducing support team load by analyzing, designing, implementing and maintaining a DATEV document status replication system
+- Improving platform scalability by designing and (re-)implementing synchronous to asynchronous processes
+- Analyzing and fixing bugs in close collaboration with the support team
+- General improvements to the CI/CD GitHub-based build pipeline
+- Designing and implementing general business-specific features
+
+Keywords: Java, AWS, SQS, Postgresql, Microservices, DATEV
 
 ##### 02/2024 -- 08/2024 | Senior Java Software Engineer
 [Micromerce](https://www.micromerce.com)

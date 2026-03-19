@@ -29,10 +29,14 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 ##### 10/2025 -- today | Senior Java Software Engineer
 [Micromerce](https://www.micromerce.com)
 
-- Improving and optimizing software architecture
-- Design, specification and implementation of new features
-- Bugfixing and troubleshooting
-- General platform improvements
+- Built and evolved a data lake to centralize data processing, analytics, and long-term storage, improving data transparency and enabling better business decisions
+- Designed and implemented an S3-based backup and archiving strategy, increasing data reliability while significantly optimizing storage costs through lifecycle management
+- Developed a comprehensive data deletion and retention concept, ensuring GDPR-compliant data handling and reducing operational and legal risks
+- Delivered targeted performance and cost optimizations, reducing execution times, infrastructure costs, and system load while improving overall stability
+- Analyzed and resolved production issues and bottlenecks, leading to increased system reliability and availability
+- Established scalable data processing and background job workflows to handle large data volumes efficiently
+- Improved monitoring, logging, and alerting, enabling faster incident detection and reduced downtime
+- Enhanced deployment and quality assurance processes, increasing release reliability and development efficiency
 
 Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices, CDK, TypeScript
 

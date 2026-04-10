@@ -13,11 +13,11 @@ Engineering, JetBrains products, SQL, Code Reviews, SCRUM, Refactoring, REST, AP
 ##### Professional
 
 Domain-Driven Design, Serverless, Project management, Testing, Linux, Go, MongoDB, Cassandra, Neo4J, 
-Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence)
+Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence), RAG, LLM, Claude Code
 
 ##### Basic
 
-Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pulumi
+Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pulumi, MCP
 
 #### Languages
 

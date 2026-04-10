@@ -8,7 +8,7 @@ title: Turning code into business value.
 </div>
 -->
 
-Moin (as we say in Münster),
+Moin,
 
 I'm an **experienced freelance software engineer** with a **solid track record** in diverse development roles. 
 

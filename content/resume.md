@@ -40,7 +40,7 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 
 Keywords: Java (17, 21), AWS, SQS, DynamoDB, Microservices, CDK, TypeScript
 
-##### 09/2024 -- 09/2025 | Senior Software Engineer
+##### 12/2024 -- 09/2025 | Senior Software Engineer
 [Milia](https://milia.io)
 
 - Enabled fulltext search by designing an OpenSearch (ElasticSearch)-based solution and incorporating business-specific rules
@@ -96,6 +96,7 @@ Keywords: Kotlin, Java, Go, Python, Terraform, SQL and NoSQL, Jenkins, CI/CD, AW
 [AirMap](https://www.airmap.com/)
 
 - Designed, implemented, and maintained a nationally deployed registry for drone operators
+- Coordinated an international development team across the USA, Argentina, and Germany
 - Improved software development processes
 - Extended and improved the underlying AirMap platform
 - Conducted code reviews

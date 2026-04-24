@@ -1,0 +1,11 @@
+<nav>{{- partial "nav.html" . -}}</nav>
+
+{{ if .IsHome }}
+<h1><a href="/">{{ .Site.Params.author.name }}</a></h1>
+<p class="header-tagline"><span>Engineering depth.</span> <span class="tagline-accent">Business impact.</span></p>
+{{ else }}
+<h1>{{ .Title }}</h1>
+{{ with .Description }}
+  <p>{{ . }}</p>
+{{ end }}
+{{ end }}

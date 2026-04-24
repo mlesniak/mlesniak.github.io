@@ -13,7 +13,7 @@ Engineering, JetBrains products, SQL, Code Reviews, Scrum, Refactoring, API Desi
 ##### Professional
 
 Domain-Driven Design, Serverless, Project management, Testing, Linux, Go, MongoDB, Cassandra, Neo4J, 
-Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence), RAG, LLM, Claude Code
+Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence), RAG, LLM, Claude Code, PostgreSQL
 
 ##### Basic
 

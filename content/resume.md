@@ -26,6 +26,13 @@ Haskell, React, JavaScript, TypeScript, Python, C#, .NET Core, gRPC, Angular, Pu
 
 #### Project list
 
+##### 04/2026 | Technical Advisor
+[MACH](https://mach.today/)
+
+- Advised on technical architecture and platform strategy for an early-stage business initiative
+- Evaluated infrastructure options, cost structures, and scalability tradeoffs
+- Contributed to product and system design decisions during the concept phase
+
 ##### 10/2025 -- 04/2026 | Senior Java Software Engineer
 [Micromerce](https://www.micromerce.com)
 

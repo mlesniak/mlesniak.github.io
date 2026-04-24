@@ -24,4 +24,15 @@ title: Recommendations
 </blockquote>
 </div>
 
+---
+
+#### MACH
+<span class="rec-date">Christian Dymek, Founder — April 2026</span>
+
+<div class="testimonials">
+<blockquote>
+<p>"Michael brought exactly what we needed at the concept stage: sharp technical instincts, an honest outside perspective, and concrete recommendations we could act on immediately. In just a few sessions he helped us avoid costly architectural dead ends and gave our idea a solid technical foundation. A trusted sparring partner for any founder navigating early technical decisions."</p>
+</blockquote>
+</div>
+
 Full recommendation letters available upon request.

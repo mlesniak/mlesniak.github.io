@@ -8,7 +8,7 @@ title: Engineering depth. Business impact.
 
 I've been breaking software since my C64 days — and fixing it professionally for 14 years.
 
-A **freelance software engineer** who ramps up fast and brings an outside perspective to any domain.
+A **freelance software engineer** who ramps up fast, writes the code himself, and brings an outside perspective to any domain.
 
 Skilled in software architecture (distributed systems, microservices, and maintainable monoliths),
 various programming languages (Java, Kotlin, Go), cloud-native development (AWS, Kubernetes),

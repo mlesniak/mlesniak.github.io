@@ -16,8 +16,7 @@ and AI engineering (LLM integrations, RAG pipelines, agent-based tooling).
 
 I've led teams to success in multiple domains and mentored 30+ junior engineers.
 
-I bring curiosity, passion, and dedication to every complex problem,
-championing software craftsmanship, continuous improvement, and code quality.
+I care about the craft: readable code, honest architecture decisions, and systems that don't surprise you at 2am — and I push for teams that continuously get better at their work, not just their velocity.
 
 As a former **CTO** and **Principal Engineer**, I've driven large-scale migrations, defined company-wide architecture standards, and consulted with CTOs and heads of engineering on critical technical decisions.
 

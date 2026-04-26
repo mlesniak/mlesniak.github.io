@@ -3,8 +3,5 @@
 {{ if .IsHome }}
 <p class="header-tagline"><span>Engineering depth.</span> <span class="tagline-accent">Business impact.</span></p>
 {{ else }}
-<h1>{{ .Title }}</h1>
-{{ with .Description }}
-  <p>{{ . }}</p>
-{{ end }}
+<p class="header-tagline"><span>Engineering depth.</span> <span class="tagline-accent">{{ .Title }}.</span></p>
 {{ end }}

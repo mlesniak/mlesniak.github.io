@@ -6,9 +6,9 @@ title: Engineering depth. Business impact.
 <img src="images/profile.png" alt="Profile picture"/>
 </div>
 
-I've been breaking software since my C64 days — and fixing it professionally for 14 years.
+I've been breaking software since my C64 days. Fixing it professionally for 14 years.
 
-A **freelance software engineer** who ramps up fast, writes the code himself, and brings an outside perspective to any domain.
+A **freelance software engineer** who takes ownership of features end-to-end, ramps up fast, and writes the code himself.
 
 Skilled in software architecture (distributed systems, microservices, and maintainable monoliths),
 various programming languages (Java, Kotlin, Go), cloud-native development (AWS, Kubernetes),
@@ -16,7 +16,7 @@ and AI engineering (LLM integrations, RAG pipelines, agent-based tooling).
 
 I care about the craft: readable code, honest architecture decisions, and systems that don't surprise you at 2am. Having mentored 30+ engineers, I push for teams that get better at their work, not just their velocity.
 
-As a former **CTO** and **Principal Engineer**, I've driven large-scale migrations, defined company-wide architecture standards, and consulted with CTOs and heads of engineering on critical technical decisions.
+As a former **CTO** and **Principal Engineer**, I've driven large-scale migrations, shaped company-wide standards, and shipped critical features under real constraints.
 
 Grounded in a **Ph.D. in Computer Science** and a strong background in mathematics, my work combines theoretical depth with hands-on engineering at scale.
 

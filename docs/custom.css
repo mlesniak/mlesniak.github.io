@@ -75,8 +75,7 @@ nav a.current:link,
 nav a.current:visited {
     color: orange !important;
     text-decoration: none !important;
-    border-bottom: 2px solid orange !important;
-    padding-bottom: 1px;
+    border-bottom: none !important;
 }
 
 /* List styles */

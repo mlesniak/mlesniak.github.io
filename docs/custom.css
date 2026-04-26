@@ -10,7 +10,7 @@ main {
 header {
     background-color: #0a346e !important;
     color: white !important;
-    padding: 0.5rem 0 1rem;
+    padding: 0.25rem 0;
     width: 100%;
     position: sticky;
     top: 0;
@@ -300,6 +300,15 @@ body > footer {
     }
 }
 
+
+/* Page claim */
+.page-claim {
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 1.75rem 0 0;
+    color: var(--text);
+}
 
 /* Hero */
 .hero {

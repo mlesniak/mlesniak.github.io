@@ -2,6 +2,8 @@
 title: Engineering depth. Business impact.
 ---
 
+<p class="page-claim"><span>Engineering depth.</span> <span class="tagline-accent">Business impact.</span></p>
+
 <div class="hero">
 <div class="hero-photo">
 <img src="images/profile.png" alt="Profile picture"/>

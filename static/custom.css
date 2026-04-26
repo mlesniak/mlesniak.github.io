@@ -273,3 +273,10 @@ body > footer {
 .highlight {
     font-size: 12px;
 }
+
+.nav-icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    vertical-align: -0.125em;
+}

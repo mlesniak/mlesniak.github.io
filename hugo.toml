@@ -55,12 +55,12 @@ name = "My Journey"
 pageRef = "/journey"
 weight = 20
 [[menu.main]]
-name = "Articles"
-pageRef = "/articles"
-weight = 30
-[[menu.main]]
 name = "Resume"
 pageRef = "/resume"
+weight = 30
+[[menu.main]]
+name = "Articles"
+pageRef = "/articles"
 weight = 40
 [[menu.main]]
 name = "Recommendations"

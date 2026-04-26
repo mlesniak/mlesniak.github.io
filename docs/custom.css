@@ -273,10 +273,15 @@ body > footer {
         margin: 1rem 0 0.5rem;
     }
 
+    .hero-photo {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
     .hero-photo img {
         width: 80px;
         height: 80px;
-        margin: 0 auto;
     }
 
     .opening-line {

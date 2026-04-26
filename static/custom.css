@@ -303,11 +303,11 @@ body > footer {
 
 /* Page claim */
 .page-claim {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
-    text-align: center;
-    margin: 1.75rem 0 0;
-    color: var(--text);
+    text-align: left;
+    margin: 0 0 0.4rem;
+    color: #0a346e;
 }
 
 /* Hero */

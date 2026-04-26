@@ -12,6 +12,9 @@ header {
     color: white !important;
     padding: 0.5rem 0 1rem;
     width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 header h1 {
@@ -166,10 +169,11 @@ a:hover {
 
 .testimonials blockquote {
     margin: 0;
-    padding: 0.75rem 1rem;
-    border-left: 3px solid #0a346e;
-    background: #f5f7ff;
-    border-radius: 0 4px 4px 0;
+    padding: 1rem 1.25rem;
+    border-left: none;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(10, 52, 110, 0.1);
     font-style: normal;
     color: var(--text);
 }
@@ -247,6 +251,31 @@ body > footer {
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.25rem;
+        margin: 1rem 0 1.5rem;
+    }
+
+    .hero-photo img {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+    }
+
+    .service-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-section {
+        padding: 1.25rem;
+    }
+
+    .cta-section .cta-block {
+        align-items: center;
+    }
 }
 
 /* Small screen adjustments */
@@ -269,6 +298,95 @@ body > footer {
     }
 }
 
+
+/* Hero */
+.hero {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+    margin: 1.5rem 0 2rem;
+}
+
+.hero-photo {
+    flex-shrink: 0;
+}
+
+.hero-photo img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    box-shadow: 0 4px 24px rgba(10, 52, 110, 0.15);
+    display: block;
+}
+
+.hero-text {
+    flex: 1;
+}
+
+.hero-text p {
+    margin-top: 0;
+}
+
+.opening-line {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #0a346e;
+    margin-bottom: 0.5rem;
+}
+
+/* Section labels */
+.section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #0a346e;
+    margin-top: 2.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid rgba(10, 52, 110, 0.2);
+    padding-bottom: 0.3rem;
+    display: block;
+}
+
+/* Service cards */
+.service-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 0.75rem 0 1rem;
+}
+
+.service-card {
+    background: #f5f7ff;
+    border-top: 3px solid #0a346e;
+    border-radius: 0 0 4px 4px;
+    padding: 1rem;
+}
+
+.service-card h5 {
+    color: #0a346e;
+    margin: 0 0 0.5rem;
+    font-size: 0.95rem;
+}
+
+.service-card p {
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* CTA section */
+.cta-section {
+    background: #f5f7ff;
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.cta-section p {
+    margin-top: 0;
+}
 
 .highlight {
     font-size: 12px;

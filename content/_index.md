@@ -2,13 +2,15 @@
 title: Engineering depth. Business impact.
 ---
 
-<div class="center">
+<div class="hero">
+<div class="hero-photo">
 <img src="images/profile.png" alt="Profile picture"/>
 </div>
-
-I've been breaking software since my C64 days. Fixing it professionally for 14 years.
-
-A **freelance software engineer** who takes ownership of features end-to-end, ramps up fast, and writes the code himself.
+<div class="hero-text">
+<p class="opening-line">I've been breaking software since my C64 days. Fixing it professionally for 14 years.</p>
+<p>A <strong>freelance software engineer</strong> who takes ownership of features end-to-end, ramps up fast, and writes the code himself.</p>
+</div>
+</div>
 
 Skilled in software architecture (distributed systems, microservices, and maintainable monoliths),
 various programming languages (Java, Kotlin, Go), cloud-native development (AWS, Kubernetes),
@@ -19,6 +21,25 @@ I care about the craft: readable code, honest architecture decisions, and system
 As a former **CTO** and **Principal Engineer**, I've driven large-scale migrations, shaped company-wide standards, and shipped critical features under real constraints.
 
 Grounded in a **Ph.D. in Computer Science** and a strong background in mathematics, my work combines theoretical depth with **hands-on engineering** at scale.
+
+<p class="section-label">What I take on</p>
+
+<div class="service-cards">
+<div class="service-card">
+<h5>Architecture &amp; Migration</h5>
+<p>Large-scale system redesigns, monolith-to-microservices, and technology migrations that don't break production.</p>
+</div>
+<div class="service-card">
+<h5>Feature Delivery</h5>
+<p>End-to-end ownership of complex features from design through deployment, in Java, Kotlin, or Go.</p>
+</div>
+<div class="service-card">
+<h5>AI Integration</h5>
+<p>LLM integrations, RAG pipelines, and agent-based tooling that fits the actual problem, not the hype.</p>
+</div>
+</div>
+
+<p class="section-label">What they say</p>
 
 <div class="testimonials">
 <blockquote>
@@ -31,12 +52,13 @@ Grounded in a **Ph.D. in Computer Science** and a strong background in mathemati
 </blockquote>
 </div>
 
-If you're looking for freelance services in software development, let's connect:
-
+<div class="cta-section">
+<p>If you're looking for freelance services in software development, let's connect:</p>
 <div class="cta-block">
 <a href="mailto:mail@mlesniak.com">Email me</a>
 <a href="https://www.linkedin.com/in/dr-michael-lesniak-1577a315/">LinkedIn</a>
 <a href="https://calendly.com/m-lesniak/quick-chat">Book a free call</a>
+</div>
 </div>
 
 Outside of work I play chess, climb indoors (bouldering and lead climbing up to 16m walls), read science fiction, and explore the German countryside with my dog Suki.

@@ -267,13 +267,10 @@ body > footer {
     }
 
     .hero {
-        display: block;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
         margin: 1rem 0 0.5rem;
-    }
-
-    .hero-photo {
-        float: left;
-        margin: 0 1rem 0.5rem 0;
     }
 
     .hero-photo img {
@@ -281,8 +278,8 @@ body > footer {
         height: 80px;
     }
 
-    .hero-text {
-        overflow: hidden;
+    .opening-line {
+        font-size: 1rem;
     }
 
     .service-cards {

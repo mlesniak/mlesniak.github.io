@@ -1,7 +1,3 @@
 <nav>{{- partial "nav.html" . -}}</nav>
 
-{{ if .IsHome }}
 <p class="header-tagline"><span>Engineering depth.</span> <span class="tagline-accent">Business impact.</span></p>
-{{ else }}
-<p class="header-tagline"><span>Engineering depth.</span> <span class="tagline-accent">{{ .Title }}.</span></p>
-{{ end }}

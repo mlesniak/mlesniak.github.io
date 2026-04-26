@@ -329,6 +329,10 @@ body > footer {
     margin-top: 0;
 }
 
+.hero-text p:last-child {
+    margin-bottom: 0;
+}
+
 .opening-line {
     font-size: 1.15rem;
     font-weight: 600;

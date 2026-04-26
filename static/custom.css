@@ -210,118 +210,6 @@ body > footer {
     border: 1px solid #EEEEEE;
 }
 
-/* Mobile styles */
-@media only screen and (max-width: 720px) {
-    main {
-        width: 100%;
-        padding: 0 1rem;
-    }
-
-    header h1 {
-        font-size: 1.1rem;
-        padding: 0.3rem;
-    }
-
-    nav {
-        flex-direction: row;
-        justify-content: flex-start;
-        flex-wrap: nowrap;
-        gap: 0.15rem;
-        padding: 0.15rem;
-        overflow-x: auto;
-    }
-
-    nav a,
-    nav a:link,
-    nav a:visited,
-    nav a:hover,
-    nav a:active {
-        font-size: 0.7rem;
-        white-space: nowrap;
-        padding: 0.25rem 0.35rem;
-    }
-
-    .center > img {
-        width: 50%;
-    }
-
-    body > footer {
-        width: 90%;
-    }
-
-    .cta-block {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .header-tagline {
-        font-size: 1rem;
-    }
-
-    .header-tagline span {
-        display: block;
-    }
-
-    .opening-line br {
-        display: none;
-    }
-
-    .hero {
-        flex-direction: column;
-        align-items: center;
-        gap: 0.75rem;
-        margin: 1rem 0 0.5rem;
-    }
-
-    .hero-photo {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-    }
-
-    .hero-photo img {
-        width: 80px;
-        height: 80px;
-    }
-
-    .opening-line {
-        font-size: 1rem;
-    }
-
-    .service-cards {
-        grid-template-columns: 1fr;
-    }
-
-    .cta-section {
-        padding: 1.25rem;
-    }
-
-    .cta-section .cta-block {
-        align-items: center;
-    }
-}
-
-/* Small screen adjustments */
-@media only screen and (max-width: 480px) {
-    header h1 {
-        font-size: 1rem;
-    }
-
-    nav a,
-    nav a:link,
-    nav a:visited,
-    nav a:hover,
-    nav a:active {
-        font-size: 0.65rem;
-        padding: 0.2rem 0.3rem;
-    }
-
-    .center > img {
-        width: 70%;
-    }
-}
-
-
 /* Page claim */
 .page-claim {
     font-size: 1.2rem;
@@ -344,8 +232,8 @@ body > footer {
 }
 
 .hero-photo img {
-    width: 110px;
-    height: 110px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
     box-shadow: 0 4px 24px rgba(10, 52, 110, 0.15);
     display: block;
@@ -426,6 +314,127 @@ body > footer {
 
 .highlight {
     font-size: 12px;
+}
+
+/* Mobile styles */
+@media only screen and (max-width: 720px) {
+    main {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    header h1 {
+        font-size: 1.1rem;
+        padding: 0.3rem;
+    }
+
+    nav {
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        gap: 0.15rem;
+        padding: 0.15rem;
+        overflow-x: auto;
+    }
+
+    nav a,
+    nav a:link,
+    nav a:visited,
+    nav a:hover,
+    nav a:active {
+        font-size: 0.7rem;
+        white-space: nowrap;
+        padding: 0.25rem 0.35rem;
+    }
+
+    .center > img {
+        width: 50%;
+    }
+
+    body > footer {
+        width: 90%;
+    }
+
+    .cta-block {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .header-tagline {
+        font-size: 1rem;
+    }
+
+    .header-tagline span {
+        display: block;
+    }
+
+    .opening-line br {
+        display: none;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+        margin: 0.5rem 0 0.5rem;
+    }
+
+    .hero-photo {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 0.4rem;
+    }
+
+    .hero-photo img {
+        width: 110px;
+        height: 110px;
+    }
+
+    .hero-text {
+        width: 100%;
+    }
+
+    .hero-text p:first-child {
+        margin-top: 0;
+    }
+
+    .opening-line {
+        font-size: 1rem;
+        margin-top: 0;
+    }
+
+    .service-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-section {
+        padding: 1.25rem;
+    }
+
+    .cta-section .cta-block {
+        align-items: center;
+    }
+}
+
+/* Small screen adjustments */
+@media only screen and (max-width: 480px) {
+    header h1 {
+        font-size: 1rem;
+    }
+
+    nav a,
+    nav a:link,
+    nav a:visited,
+    nav a:hover,
+    nav a:active {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.3rem;
+    }
+
+    .center > img {
+        width: 70%;
+    }
 }
 
 .nav-icon {

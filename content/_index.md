@@ -18,7 +18,7 @@ I care about the craft: readable code, honest architecture decisions, and system
 
 As a former **CTO** and **Principal Engineer**, I've driven large-scale migrations, shaped company-wide standards, and shipped critical features under real constraints.
 
-Grounded in a **Ph.D. in Computer Science** and a strong background in mathematics, my work combines theoretical depth with hands-on engineering at scale.
+Grounded in a **Ph.D. in Computer Science** and a strong background in mathematics, my work combines theoretical depth with **hands-on engineering** at scale.
 
 <div class="testimonials">
 <blockquote>

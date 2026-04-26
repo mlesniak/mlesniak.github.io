@@ -31,7 +31,7 @@ Grounded in a **Ph.D. in Computer Science** and a strong background in mathemati
 </div>
 <div class="service-card">
 <h5>Feature Delivery</h5>
-<p>End-to-end ownership of complex features from design through deployment, in Java, Kotlin, or Go.</p>
+<p>End-to-end ownership of complex features from design through deployment, in Java, Spring Boot, and AWS.</p>
 </div>
 <div class="service-card">
 <h5>AI Integration</h5>

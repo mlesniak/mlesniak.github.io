@@ -262,6 +262,10 @@ body > footer {
         display: block;
     }
 
+    .opening-line br {
+        display: none;
+    }
+
     .hero {
         flex-direction: column;
         align-items: flex-start;

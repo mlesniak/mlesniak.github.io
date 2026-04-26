@@ -2,8 +2,8 @@
 title: Recommendations
 ---
 
-#### Micromerce GmbH
-<span class="rec-date">Jonas Danker, CTO — September 2024</span>
+#### Jonas Danker
+<span class="rec-date">CTO, Micromerce GmbH — September 2024</span>
 
 <div class="testimonials">
 <blockquote>
@@ -14,8 +14,8 @@ title: Recommendations
 
 ---
 
-#### milia.io
-<span class="rec-date">Vincent Sommer, Head of Engineering — October 2025</span>
+#### Vincent Sommer
+<span class="rec-date">Head of Engineering, milia.io — October 2025</span>
 
 <div class="testimonials">
 <blockquote>
@@ -26,8 +26,8 @@ title: Recommendations
 
 ---
 
-#### MACH
-<span class="rec-date">Christian Dymek, Founder — April 2026</span>
+#### Christian Dymek
+<span class="rec-date">Founder, MACH — April 2026</span>
 
 <div class="testimonials">
 <blockquote>

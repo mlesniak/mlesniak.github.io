@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Dr. Michael Lesniak -- Engineering Depth. Business Impact.</title>
-    <link>https://example.com/</link>
-    <description>Recent content on Dr. Michael Lesniak -- Engineering Depth. Business Impact.</description>
+    <title>Dr. Michael Lesniak | Freelance Java Software Engineer</title>
+    <link>https://mlesniak.com/</link>
+    <description>Recent content on Dr. Michael Lesniak | Freelance Java Software Engineer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>mail@mlesniak.com (Dr. Michael Lesniak)</managingEditor>
     <webMaster>mail@mlesniak.com (Dr. Michael Lesniak)</webMaster>
     <lastBuildDate>Fri, 03 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://mlesniak.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>You could have invented it yourself: Dependency Injection</title>
-      <link>https://example.com/articles/di/</link>
+      <link>https://mlesniak.com/articles/di/</link>
       <pubDate>Fri, 03 Jan 2025 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/articles/di/</guid>
+      <guid>https://mlesniak.com/articles/di/</guid>
       <description>&lt;h2 id=&#34;why-do-we-need-dependency-injection&#34;&gt;Why do we need Dependency Injection?&lt;/h2&gt;
 &lt;p&gt;Dependency Injection (DI) addresses a simple but critical problem: keeping your
 code manageable. Without it, you’re stuck with tightly coupled components, like
@@ -411,9 +411,9 @@ on <a href="https://github.com/mlesniak/dependency-injection">GitHub</a>.</p>
     </item>
     <item>
       <title>You could have invented it yourself: Server-Sent Events</title>
-      <link>https://example.com/articles/sse/</link>
+      <link>https://mlesniak.com/articles/sse/</link>
       <pubDate>Sat, 21 Dec 2024 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/articles/sse/</guid>
+      <guid>https://mlesniak.com/articles/sse/</guid>
       <description>&lt;h2 id=&#34;why-do-we-need-server-sent-events&#34;&gt;Why do we need Server-Sent Events?&lt;/h2&gt;
 &lt;p&gt;In modern web applications, real-time communication is more
 important than ever. Features like live updates, collaborative
@@ -759,9 +759,9 @@ would hide the relevant part, the implementation of SSE itself.</p>
     </item>
     <item>
       <title>Contact options and legal notice</title>
-      <link>https://example.com/contact/</link>
+      <link>https://mlesniak.com/contact/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/contact/</guid>
+      <guid>https://mlesniak.com/contact/</guid>
       <description>&lt;h4 id=&#34;provider&#34;&gt;Provider&lt;/h4&gt;
 &lt;p&gt;Dr. Michael Lesniak&lt;br&gt;
 Joseph-König-Str. 8&lt;br&gt;
@@ -797,9 +797,9 @@ Phone: +49 151 551 69 221<br/></p>
     </item>
     <item>
       <title>My Journey</title>
-      <link>https://example.com/journey/</link>
+      <link>https://mlesniak.com/journey/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/journey/</guid>
+      <guid>https://mlesniak.com/journey/</guid>
       <description>&lt;p&gt;I’ve let my younger self down.&lt;/p&gt;
 &lt;p&gt;I started coding on a C64 and achieved a lot since then.&lt;/p&gt;
 &lt;p&gt;Leading teams. Designing systems. Solving tough bugs. Earning promotions.&lt;/p&gt;
@@ -846,9 +846,9 @@ Phone: +49 151 551 69 221<br/></p>
     </item>
     <item>
       <title>Qualifications, Past Projects and Education</title>
-      <link>https://example.com/resume/</link>
+      <link>https://mlesniak.com/resume/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/resume/</guid>
+      <guid>https://mlesniak.com/resume/</guid>
       <description>&lt;h4 id=&#34;qualifications&#34;&gt;Qualifications&lt;/h4&gt;
 &lt;h5 id=&#34;expert&#34;&gt;Expert&lt;/h5&gt;
 &lt;p&gt;Java, Kotlin, Spring Boot, Analytical thinking, Mentoring and coaching, Leadership, Software architecture,
@@ -1111,9 +1111,9 @@ Implementation and analysis of algorithms, Atlassian products (JIRA, Confluence)
     </item>
     <item>
       <title>Recommendations</title>
-      <link>https://example.com/recommendations/</link>
+      <link>https://mlesniak.com/recommendations/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/recommendations/</guid>
+      <guid>https://mlesniak.com/recommendations/</guid>
       <description>&lt;h4 id=&#34;jonas-danker-cto&#34;&gt;Jonas Danker, CTO&lt;/h4&gt;
 &lt;p&gt;&lt;span class=&#34;rec-date&#34;&gt;Micromerce GmbH — September 2024&lt;/span&gt;&lt;/p&gt;
 &lt;div class=&#34;testimonials&#34;&gt;

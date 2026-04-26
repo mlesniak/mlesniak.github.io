@@ -1,8 +1,8 @@
 # Basic config
-baseURL = "https://example.com"
+baseURL = "https://mlesniak.com"
 theme = "hugo-simple"
 languageCode = "en"
-title = "Dr. Michael Lesniak -- Engineering Depth. Business Impact."
+title = "Dr. Michael Lesniak | Freelance Java Software Engineer"
 #copyright = "© 2024 Dr. Michael Lesniak"
 
 # Generate a nice robots.txt for SEO
@@ -36,7 +36,7 @@ noClasses = true
 style = "native"
 
 [params]
-description = "Homepage of Dr. Michael Lesniak (Freelancer, Software Engineer, Software Architect)"
+description = "Freelance Java software engineer based in Germany. 14 years building distributed systems, Spring Boot applications, and AWS infrastructure. Available for remote engagements."
 favicon = "images/favicon.png"
 dateFormat = "2006-01-02"
 hideMadeWithLine = true

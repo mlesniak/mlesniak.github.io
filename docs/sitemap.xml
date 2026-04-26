@@ -2,24 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.com/articles/</loc>
+    <loc>https://mlesniak.com/articles/</loc>
     <lastmod>2025-01-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/</loc>
+    <loc>https://mlesniak.com/</loc>
     <lastmod>2025-01-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/articles/di/</loc>
+    <loc>https://mlesniak.com/articles/di/</loc>
     <lastmod>2025-01-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/articles/sse/</loc>
+    <loc>https://mlesniak.com/articles/sse/</loc>
     <lastmod>2024-12-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/contact/</loc>
+    <loc>https://mlesniak.com/contact/</loc>
   </url><url>
-    <loc>https://example.com/journey/</loc>
+    <loc>https://mlesniak.com/journey/</loc>
   </url><url>
-    <loc>https://example.com/resume/</loc>
+    <loc>https://mlesniak.com/resume/</loc>
   </url><url>
-    <loc>https://example.com/recommendations/</loc>
+    <loc>https://mlesniak.com/recommendations/</loc>
   </url>
 </urlset>

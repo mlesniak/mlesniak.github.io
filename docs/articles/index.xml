@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Dr. Michael Lesniak -- Engineering Depth. Business Impact.</title>
-    <link>https://example.com/articles/</link>
-    <description>Recent content on Dr. Michael Lesniak -- Engineering Depth. Business Impact.</description>
+    <title>Dr. Michael Lesniak | Freelance Java Software Engineer</title>
+    <link>https://mlesniak.com/articles/</link>
+    <description>Recent content on Dr. Michael Lesniak | Freelance Java Software Engineer</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>mail@mlesniak.com (Dr. Michael Lesniak)</managingEditor>
     <webMaster>mail@mlesniak.com (Dr. Michael Lesniak)</webMaster>
     <lastBuildDate>Fri, 03 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://example.com/articles/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://mlesniak.com/articles/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>You could have invented it yourself: Dependency Injection</title>
-      <link>https://example.com/articles/di/</link>
+      <link>https://mlesniak.com/articles/di/</link>
       <pubDate>Fri, 03 Jan 2025 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/articles/di/</guid>
+      <guid>https://mlesniak.com/articles/di/</guid>
       <description>&lt;h2 id=&#34;why-do-we-need-dependency-injection&#34;&gt;Why do we need Dependency Injection?&lt;/h2&gt;
 &lt;p&gt;Dependency Injection (DI) addresses a simple but critical problem: keeping your
 code manageable. Without it, you’re stuck with tightly coupled components, like
@@ -411,9 +411,9 @@ on <a href="https://github.com/mlesniak/dependency-injection">GitHub</a>.</p>
     </item>
     <item>
       <title>You could have invented it yourself: Server-Sent Events</title>
-      <link>https://example.com/articles/sse/</link>
+      <link>https://mlesniak.com/articles/sse/</link>
       <pubDate>Sat, 21 Dec 2024 00:00:00 +0000</pubDate><author>mail@mlesniak.com (Dr. Michael Lesniak)</author>
-      <guid>https://example.com/articles/sse/</guid>
+      <guid>https://mlesniak.com/articles/sse/</guid>
       <description>&lt;h2 id=&#34;why-do-we-need-server-sent-events&#34;&gt;Why do we need Server-Sent Events?&lt;/h2&gt;
 &lt;p&gt;In modern web applications, real-time communication is more
 important than ever. Features like live updates, collaborative

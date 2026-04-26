@@ -8,7 +8,7 @@ title: Engineering depth. Business impact.
 </div>
 <div class="hero-text">
 <p class="opening-line">I've been breaking software since my C64 days. Fixing it professionally for 14 years.</p>
-<p>A <strong>freelance software engineer</strong> who takes ownership of features end-to-end, ramps up fast, and writes the code himself.</p>
+<p>A <strong>freelance software engineer</strong> based in Germany, working remotely. Takes ownership of features end-to-end, ramps up fast, and writes the code himself.</p>
 </div>
 </div>
 

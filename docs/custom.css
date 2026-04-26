@@ -218,7 +218,7 @@ body > footer {
 
     nav {
         flex-direction: row;
-        justify-content: center;
+        justify-content: flex-start;
         flex-wrap: nowrap;
         gap: 0.15rem;
         padding: 0.15rem;

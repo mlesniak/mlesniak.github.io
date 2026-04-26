@@ -16,7 +16,7 @@ and AI engineering (LLM integrations, RAG pipelines, agent-based tooling).
 
 I care about the craft: readable code, honest architecture decisions, and systems that don't surprise you at 2am. Having mentored 30+ engineers, I push for teams that get better at their work, not just their velocity.
 
-As a former **CTO** and **Principal Engineer**, I've driven large-scale migrations, shaped company-wide standards, and shipped critical features under real constraints.
+As a former **CTO** and **Principal Engineer**, I've driven large-scale migrations, shaped company-wide standards, and **shipped** critical features under real constraints.
 
 Grounded in a **Ph.D. in Computer Science** and a strong background in mathematics, my work combines theoretical depth with **hands-on engineering** at scale.
 

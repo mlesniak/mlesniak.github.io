@@ -443,3 +443,29 @@ body > footer {
     fill: currentColor;
     vertical-align: -0.125em;
 }
+
+#admin-dropdown {
+    display: none;
+    position: absolute;
+    background: #0a346e;
+    border-radius: 4px;
+    padding: 0.4rem 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#admin-dropdown.visible {
+    display: block;
+}
+
+#admin-dropdown a {
+    display: block;
+    color: white !important;
+    text-decoration: none !important;
+    padding: 0.3rem 0.8rem;
+    white-space: nowrap;
+    font-size: 0.85rem;
+}
+
+#admin-dropdown a:hover {
+    color: orange !important;
+}
